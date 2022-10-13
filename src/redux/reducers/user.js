@@ -1,6 +1,6 @@
 import constants from '../constants/user';
 
-export const userListReducer = (state = { users: [] }, action) => {
+export const UserListReducer = (state = { users: [] }, action) => {
     switch (action.type) {
         case constants.USER_LIST_REQUEST:
             return { loading: true };
@@ -15,7 +15,7 @@ export const userListReducer = (state = { users: [] }, action) => {
     }
 };
 
-export const userDetailReducer = (state = { user: {} }, action) => {
+export const UserDetailReducer = (state = { user: {} }, action) => {
     switch (action.type) {
         case constants.USER_DETAIL_REQUEST:
             return { ...state, loading: true };
@@ -30,7 +30,7 @@ export const userDetailReducer = (state = { user: {} }, action) => {
     }
 };
 
-export const userDeleteReducer = (state = {}, action) => {
+export const UserDeleteReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.USER_DELETE_REQUEST:
             return { loading: true };
@@ -45,7 +45,7 @@ export const userDeleteReducer = (state = {}, action) => {
     }
 };
 
-export const userUpdateReducer = (state = { user: {} }, action) => {
+export const UserUpdateReducer = (state = { user: {} }, action) => {
     switch (action.type) {
         case constants.USER_UPDATE_REQUEST:
             return { loading: true };

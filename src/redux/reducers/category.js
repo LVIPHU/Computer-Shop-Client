@@ -1,6 +1,6 @@
 import constants from "../constants/category";
 
-export const categoryAllReducer = (state = { categories: [] }, action) => {
+export const CategoryAllReducer = (state = { categories: [] }, action) => {
     switch (action.type) {
       case constants.CATEGORY_ALL_REQUEST:
         return { loading: true, categories: [] };
@@ -13,7 +13,7 @@ export const categoryAllReducer = (state = { categories: [] }, action) => {
     }
   };
 
-  export const categoryDetailReducer = (
+  export const CategoryDetailReducer = (
     state = { category: { products: [] } },
     action
   ) => {
@@ -29,7 +29,7 @@ export const categoryAllReducer = (state = { categories: [] }, action) => {
     }
   };
 
-  export const categoryCreateReducer = (state = { category: {} }, action) => {
+  export const CategoryCreateReducer = (state = { category: {} }, action) => {
     switch (action.type) {
       case constants.CATEGORY_CREATE_REQUEST:
         return { loading: true };
@@ -43,7 +43,7 @@ export const categoryAllReducer = (state = { categories: [] }, action) => {
         return state;
     }};
 
-  export const categoryUpdateReducer = (state = { category: {} }, action) => {
+  export const CategoryUpdateReducer = (state = { category: {} }, action) => {
     switch (action.type) {
       case constants.CATEGORY_UPDATE_REQUEST:
         return { loading: true };
@@ -58,7 +58,7 @@ export const categoryAllReducer = (state = { categories: [] }, action) => {
     }
   };
 
-  export const categoryDeleteReducer = (state = {}, action) => {
+  export const CategoryDeleteReducer = (state = {}, action) => {
     switch (action.type) {
       case constants.CATEGORY_DELETE_REQUEST:
         return { loading: true };

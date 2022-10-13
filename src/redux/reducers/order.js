@@ -1,6 +1,6 @@
 import constants from '../constants/order';
 
-export const orderCreateReducer = (state = {}, action) => {
+export const OrderCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.ORDER_CREATE_REQUEST:
             return {
@@ -29,7 +29,7 @@ export const orderCreateReducer = (state = {}, action) => {
     }
 };
 
-export const orderDetailsReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
+export const OrderDetailsReducer = (state = { loading: true, orderItems: [], shippingAddress: {} }, action) => {
     switch (action.type) {
         case constants.ORDER_DETAILS_REQUEST:
             return {
@@ -52,7 +52,7 @@ export const orderDetailsReducer = (state = { loading: true, orderItems: [], shi
     }
 };
 
-export const orderPayReducer = (state = {}, action) => {
+export const OrderPayReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.ORDER_PAY_REQUEST:
             return {
@@ -77,7 +77,7 @@ export const orderPayReducer = (state = {}, action) => {
     }
 };
 
-export const orderMyListReducer = (state = { orders: [] }, action) => {
+export const OrderMyListReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case constants.ORDER_MY_LIST_REQUEST:
             return {
@@ -102,7 +102,7 @@ export const orderMyListReducer = (state = { orders: [] }, action) => {
     }
 };
 
-export const orderListsReducer = (state = { orders: [] }, action) => {
+export const OrderListsReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case constants.ORDER_LISTS_REQUEST:
             return {
@@ -127,7 +127,7 @@ export const orderListsReducer = (state = { orders: [] }, action) => {
     }
 };
 
-export const orderDeliverReducer = (state = { orders: [] }, action) => {
+export const OrderDeliverReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case constants.ORDER_UPDATE_DELIVER_REQUEST:
             return {
@@ -150,7 +150,7 @@ export const orderDeliverReducer = (state = { orders: [] }, action) => {
     }
 };
 
-export const orderDeliveringReducer = (state = { orders: [] }, action) => {
+export const OrderDeliveringReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case constants.ORDER_UPDATE_DELIVERING_REQUEST:
             return {
@@ -173,7 +173,7 @@ export const orderDeliveringReducer = (state = { orders: [] }, action) => {
     }
 };
 
-export const orderCancelReducer = (state = { orders: [] }, action) => {
+export const OrderCancelReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
         case constants.ORDER_CANCEL_REQUEST:
             return {

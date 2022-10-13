@@ -1,4 +1,4 @@
-import { Home, SignIn, SignUp, Page_404 } from '../views';
+import { Home, Login, Register, Page_404 } from '../views';
 
 // Public routes
 const privateRoutes = [
@@ -20,8 +20,8 @@ const privateRoutes = [
 
 const publicRoutes = [
     { path: '/', component: Home },
-    { path: '/signin', component: SignIn },
-    { path: '/signup', component: SignUp },
+    { path: '/login', component: Login },
+    { path: '/register', component: Register },
     { path: '*', component: Page_404 },
 ];
 

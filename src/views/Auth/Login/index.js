@@ -1,7 +1,7 @@
 import { Button, Result } from 'antd';
 import React from 'react';
 
-const SignUp = () => (
+const Login = () => (
     <Result
         status="404"
         title="404"
@@ -10,4 +10,4 @@ const SignUp = () => (
     />
 );
 
-export default SignUp;
+export default Login;

@@ -1,6 +1,6 @@
 import constants from '../constants/product';
 
-export const productTrendingReducer = (state = { products: [] }, action) => {
+export const ProductTrendingReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case constants.PRODUCT_TRENDING_REQUEST:
             return { loading: true, products: [] };
@@ -13,7 +13,7 @@ export const productTrendingReducer = (state = { products: [] }, action) => {
     }
 };
 
-export const productTopReducer = (state = { products: [] }, action) => {
+export const ProductTopReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case constants.PRODUCT_TOP_REQUEST:
             return { loading: true, products: [] };
@@ -26,7 +26,7 @@ export const productTopReducer = (state = { products: [] }, action) => {
     }
 };
 
-export const productDetailReducer = (state = { product: { reviews: [] } }, action) => {
+export const ProductDetailReducer = (state = { product: { reviews: [] } }, action) => {
     switch (action.type) {
         case constants.PRODUCT_DETAIL_REQUEST:
             return { loading: true, product: { reviews: [] } };
@@ -39,7 +39,7 @@ export const productDetailReducer = (state = { product: { reviews: [] } }, actio
     }
 };
 
-export const productAllReducer = (state = { products: [] }, action) => {
+export const ProductAllReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case constants.PRODUCT_ALL_REQUEST:
             return { loading: true, products: [] };
@@ -55,7 +55,7 @@ export const productAllReducer = (state = { products: [] }, action) => {
     }
 };
 
-export const reviewCreateReducer = (state = {}, action) => {
+export const PeviewCreateReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.PRODUCT_CREATE_REVIEW_REQUEST:
             return { loading: true };
@@ -70,7 +70,7 @@ export const reviewCreateReducer = (state = {}, action) => {
     }
 };
 
-export const productDeleteReducer = (state = {}, action) => {
+export const ProductDeleteReducer = (state = {}, action) => {
     switch (action.type) {
         case constants.PRODUCT_DELETE_REQUEST:
             return { loading: true };
@@ -85,7 +85,7 @@ export const productDeleteReducer = (state = {}, action) => {
     }
 };
 
-export const productUpdateReducer = (state = { product: {} }, action) => {
+export const ProductUpdateReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case constants.PRODUCT_UPDATE_REQUEST:
             return { loading: true };
@@ -100,7 +100,7 @@ export const productUpdateReducer = (state = { product: {} }, action) => {
     }
 };
 
-export const productCreateReducer = (state = { product: {} }, action) => {
+export const ProductCreateReducer = (state = { product: {} }, action) => {
     switch (action.type) {
         case constants.PRODUCT_CREATE_REQUEST:
             return { loading: true };
