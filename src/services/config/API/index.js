@@ -1,5 +1,5 @@
 import axios from "axios";
-import helpers from "../../../utils/helpers";
+import helpers from "@/utils/helpers";
 
 const api = axios.create({
   baseURL: process.env.API_BASE_URL,

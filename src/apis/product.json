@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Laptop Dell Inspiron 15 3593-70205743",
+        "price": "6.857.900",
+        "avtUrl": "PropTypes.string",
+        "discount": "PropTypes.number",
+        "stock": "PropTypes.number"
+    }
+]

@@ -1,8 +1,8 @@
-import { Home, Login, Register, Page_404 } from '../views';
-
+import pages from '@/views';
+import constans from '@/utils/constants';
 // Public routes
 const privateRoutes = [
-    { path: '/', component: Home },
+    { path: constans.ROUTES.HOME, component: pages.Home },
     // { path: '/dashboard', component: Blank },
     // { path: '/menu', component: Blank },
     // { path: '/category', component: Category },
@@ -15,14 +15,16 @@ const privateRoutes = [
     // { path: '/customer', component: Customer },
     // { path: '/invoice', component: Invoice },
     // { path: '/promotion', component: Promotion },
-    { path: '*', component: Page_404 },
+    { path: '*', component: pages.Home },
 ];
 
 const publicRoutes = [
-    { path: '/', component: Home },
-    { path: '/login', component: Login },
-    { path: '/register', component: Register },
-    { path: '*', component: Page_404 },
+    { path: constans.ROUTES.HOME, component: pages.Home },
+    { path: constans.ROUTES.LOGIN, component: pages.Login },
+    { path: constans.ROUTES.REGISTER, component: pages.Register },
+    { path: constans.ROUTES.FILTER, component: pages.Page_404 },
+    { path: constans.ROUTES.CART, component: pages.Page_404 },
+    { path: '*', component: pages.Home },
 ];
 
 export { publicRoutes, privateRoutes };

@@ -1,12 +1,9 @@
-// Public
-export { default as Home } from './Home';
-export { default as Login } from './Auth/Login';
-export { default as Register } from './Auth/Register';
+import React from 'react';
 
+const pages = {
+    Home: React.lazy(() => import('./Home')),
+    Login: React.lazy(() => import('./Login')),
+    Register: React.lazy(() => import('./Register')),
+};
 
-// Private
-
-// Admin
-
-// Error
-export { default as Page_404 } from './Result/404';
+export default pages;
