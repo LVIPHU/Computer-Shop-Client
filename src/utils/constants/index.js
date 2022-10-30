@@ -51,6 +51,12 @@ const ROLES = {
     ADMIN: 'ROLE_ADMIN',
 };
 
+const FLAG = {
+    CUSTOMER: 'ROLE_CUSTOMER',
+    SELLER: 'ROLE_SELLER',
+    ADMIN: 'ROLE_ADMIN',
+};
+
 // FILTERS
 // laptop
 const FILTER_BRAND_LAPTOP = [

@@ -1,6 +1,6 @@
 import { Col, Row } from 'antd';
-import Countdown from 'components/Countdown';
-import RelatedProduct from 'containers/ProductDetailPage/RelatedProduct';
+import Countdown from '@/components/Countdown';
+import RelatedProduct from '@/views/Product/RelatedProduct';
 import React, { useState } from 'react';
 import './index.scss';
 

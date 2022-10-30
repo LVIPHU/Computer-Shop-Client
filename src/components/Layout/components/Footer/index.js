@@ -5,8 +5,8 @@ import {
     PhoneOutlined,
     TwitterSquareFilled,
 } from '@ant-design/icons';
-import iconPhoneFooter from 'assets/imgs/icon-phone-footer.png';
-import registeredImg from 'assets/imgs/registered.png';
+import iconPhoneFooter from '@/assets/imgs/icon-phone-footer.png';
+import registeredImg from '@/assets/imgs/registered.png';
 import React from 'react';
 import './index.scss';
 function Footer() {

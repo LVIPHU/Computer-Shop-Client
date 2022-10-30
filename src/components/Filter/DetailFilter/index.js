@@ -1,4 +1,4 @@
-import constants from 'constants/index';
+import constants from '@/utils/constants';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';

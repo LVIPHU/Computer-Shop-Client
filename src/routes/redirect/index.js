@@ -8,7 +8,7 @@ function RequireRole({ children }) {
     const { userInfo } = userLogin;
     let location = useLocation();
 
-    if (userInfo.roles[0] === constants.ROLES.ADMIN) {
+    if (userInfo.roles[0] !== constants.ROLES.ADMIN) {
         return <Navigate to="/" state={{ from: location }} replace />;
     } else {
         return children;

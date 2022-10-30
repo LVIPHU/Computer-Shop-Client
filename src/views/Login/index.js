@@ -1,16 +1,16 @@
 //=== Sign Up Page
 import { EyeInvisibleOutlined, EyeTwoTone, InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Col, message, Row, Tooltip } from 'antd';
-import loginApi from 'apis/loginApi';
-import CheckboxField from 'components/Custom/Field/CheckboxField';
-import InputField from 'components/Custom/Field/InputField';
-import LoginGoogle from 'components/LoginGoogle';
-import constants from 'constants/index';
+// import loginApi from 'apis/loginApi';
+import CheckboxField from '@/components/Custom/Field/CheckboxField';
+import InputField from '@/components/Custom/Field/InputField';
+import LoginGoogle from '@/components/LoginGoogle';
+import constants from '@/utils/constants';
 import { FastField, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import authReducers from 'reducers/auth';
+// import authReducers from 'reducers/auth';
 import * as Yup from 'yup';
 import './index.scss';
 
@@ -23,45 +23,45 @@ function Login() {
 
     // fn: xử lý khi đăng nhập thành công
     const onLoginSuccess = async (data) => {
-        try {
-            setIsSubmitting(false);
-            message.success('Đăng nhập thành công');
-            // lưu refresh token vào local storage
-            localStorage.setItem(constants.REFRESH_TOKEN, data.refreshToken);
-            // Note: Lưu jwt vào localStorage nếu deploy heroku
-            if (process.env.NODE_ENV === 'production') localStorage.setItem(constants.ACCESS_TOKEN_KEY, data.token);
-            dispatch(authReducers.setIsAuth(true));
-            setTimeout(() => {
-                navigate(-1);
-            }, constants.DELAY_TIME);
-        } catch (error) {
-            message.error('Lỗi đăng nhập.');
-        }
+        // try {
+        //     setIsSubmitting(false);
+        //     message.success('Đăng nhập thành công');
+        //     // lưu refresh token vào local storage
+        //     localStorage.setItem(constants.REFRESH_TOKEN, data.refreshToken);
+        //     // Note: Lưu jwt vào localStorage nếu deploy heroku
+        //     if (process.env.NODE_ENV === 'production') localStorage.setItem(constants.ACCESS_TOKEN_KEY, data.token);
+        //     dispatch(authReducers.setIsAuth(true));
+        //     setTimeout(() => {
+        //         navigate(-1);
+        //     }, constants.DELAY_TIME);
+        // } catch (error) {
+        //     message.error('Lỗi đăng nhập.');
+        // }
     };
 
     // fn: đăng nhập
     const onLogin = async (account) => {
-        try {
-            setIsSubmitting(true);
-            const result = await loginApi.postLogin({ account });
-            if (result.status === 200) {
-                onLoginSuccess(result.data);
-            }
-        } catch (error) {
-            setIsSubmitting(false);
-            if (error.response) {
-                const { failedLoginTimes } = error.response.data;
-                const messageError = error.response.data.message;
-                if (failedLoginTimes >= constants.MAX_FAILED_LOGIN_TIMES) {
-                    message.error('Vượt quá số lần đăng nhập.\nKiểm tra email hoặc nhấn "Quên mật khẩu"', 4);
-                    setIsDisableLogin(true);
-                } else {
-                    message.error(messageError);
-                }
-            } else {
-                message.error('Đăng nhập thất bại');
-            }
-        }
+        // try {
+        //     setIsSubmitting(true);
+        //     const result = await loginApi.postLogin({ account });
+        //     if (result.status === 200) {
+        //         onLoginSuccess(result.data);
+        //     }
+        // } catch (error) {
+        //     setIsSubmitting(false);
+        //     if (error.response) {
+        //         const { failedLoginTimes } = error.response.data;
+        //         const messageError = error.response.data.message;
+        //         if (failedLoginTimes >= constants.MAX_FAILED_LOGIN_TIMES) {
+        //             message.error('Vượt quá số lần đăng nhập.\nKiểm tra email hoặc nhấn "Quên mật khẩu"', 4);
+        //             setIsDisableLogin(true);
+        //         } else {
+        //             message.error(messageError);
+        //         }
+        //     } else {
+        //         message.error('Đăng nhập thất bại');
+        //     }
+        // }
     };
 
     // giá trọ khởi tạo cho formik

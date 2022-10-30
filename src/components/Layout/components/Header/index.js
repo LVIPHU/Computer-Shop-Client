@@ -5,12 +5,12 @@ import {
     ShoppingCartOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { AutoComplete, Badge, Button, Drawer, Dropdown, Input, Menu, message } from 'antd';
+import { AutoComplete, Badge, Button, Drawer, Dropdown, Input, Menu } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import defaultAvt from 'assets/imgs/default-avt.png';
-import logoUrl from 'assets/imgs/logo.png';
+import defaultAvt from '@/assets/imgs/default-avt.png';
+import logoUrl from '@/assets/imgs/logo.png';
 import Avatar from 'antd/lib/avatar/avatar';
 import actions from '@/redux/actions/auth';
 import constants from '@/utils/constants';
@@ -24,15 +24,14 @@ function totalItemCarts(cartItems) {
     }
 }
 
-function HeaderView() {
+function Header() {
     const dispatch = useDispatch();
-    const { isAuth } = useSelector((state) => state.authenticate);
 
     const cart = useSelector((state) => state.cart);
     const { cartItems } = cart;
 
-    const userLogin = useSelector((state) => state.userLogin);
-    const { userInfo } = userLogin;
+    const authLogin = useSelector((state) => state.authLogin);
+    const { userInfo } = authLogin;
 
     const [linkSearch, setLinkSearch] = useState('');
     const [isMdDevice, setIsMdDevice] = useState(false);
@@ -47,13 +46,13 @@ function HeaderView() {
     const onLogout = async () => {
         dispatch(actions.logout());
     };
-
     // event: get event change window width
     useEffect(() => {
         const w = window.innerWidth;
         if (w <= 992) setIsMdDevice(true);
         if (w <= 480) setIsSmDevice(true);
-        window.addEventListener('resize', function () {
+
+        function handleResize() {
             const width = window.innerWidth;
             if (width <= 992) {
                 setIsMdDevice(true);
@@ -62,10 +61,12 @@ function HeaderView() {
             }
             if (width <= 480) setIsSmDevice(true);
             else setIsSmDevice(false);
-        });
+        }
+
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize');
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
@@ -85,7 +86,7 @@ function HeaderView() {
                         </Button>
                     </Menu.Item>
                     <Menu.Item>
-                        <Link to={constants.ROUTES.SIGNUP}>
+                        <Link to={constants.ROUTES.REGISTER}>
                             <Button size="large" className="w-100 btn-secondary" type="default">
                                 Đăng ký
                             </Button>
@@ -136,7 +137,7 @@ function HeaderView() {
                             }
                         >
                             <Input
-                                maxLength={200}
+                                // maxLength={200}
                                 size={isSmDevice ? 'middle' : 'large'}
                                 placeholder={!isSmDevice ? 'Nhập từ khoá cần tìm' : 'Tìm kiếm'}
                             />
@@ -274,4 +275,4 @@ function HeaderView() {
     );
 }
 
-export default HeaderView;
+export default Header;

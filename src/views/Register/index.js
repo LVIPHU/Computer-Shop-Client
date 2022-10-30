@@ -1,13 +1,13 @@
 //=== Sign Up Page
 import { EyeInvisibleOutlined, EyeTwoTone, InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Col, message, Row, Tooltip } from 'antd';
-import accountApi from 'apis/accountApi';
-import DatePickerField from 'components/Custom/Field/DatePickerField';
-import InputField from 'components/Custom/Field/InputField';
-import SelectField from 'components/Custom/Field/SelectField';
-import Delay from 'components/Delay';
-import LoginGoogle from 'components/LoginGoogle';
-import constants from 'constants/index';
+// import accountApi from 'apis/accountApi';
+import DatePickerField from '@/components/Custom/Field/DatePickerField';
+import InputField from '@/components/Custom/Field/InputField';
+import SelectField from '@/components/Custom/Field/SelectField';
+import Delay from '@/components/Delay';
+import LoginGoogle from '@/components/LoginGoogle';
+import constants from '@/utils/constants';
 import { FastField, Form, Formik } from 'formik';
 import React, { useRef, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
@@ -27,52 +27,50 @@ function SignUp() {
 
     // fn: gửi mã xác nhận
     const onSendCode = async () => {
-        try {
-            // kiểm tra email
-            const email = emailRef.current;
-            const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-            if (!regex.test(email)) {
-                message.error('Email không hợp lệ !');
-                return;
-            }
-            // set loading, tránh việc gửi liên tục
-            setIsSending(true);
-
-            // tiến hành gửi mã
-            const result = await accountApi.postSendVerifyCode({ email });
-            if (result.status === 200) {
-                message.success('Gửi thành công, kiểm tra email');
-                setIsSending(false);
-            }
-        } catch (error) {
-            setIsSending(false);
-            if (error.response) {
-                message.error(error.response.data.message);
-            } else {
-                message.error('Gửi thất bại, thử lại');
-            }
-        }
+        // try {
+        //     // kiểm tra email
+        //     const email = emailRef.current;
+        //     const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        //     if (!regex.test(email)) {
+        //         message.error('Email không hợp lệ !');
+        //         return;
+        //     }
+        //     // set loading, tránh việc gửi liên tục
+        //     setIsSending(true);
+        //     // tiến hành gửi mã
+        //     const result = await accountApi.postSendVerifyCode({ email });
+        //     if (result.status === 200) {
+        //         message.success('Gửi thành công, kiểm tra email');
+        //         setIsSending(false);
+        //     }
+        // } catch (error) {
+        //     setIsSending(false);
+        //     if (error.response) {
+        //         message.error(error.response.data.message);
+        //     } else {
+        //         message.error('Gửi thất bại, thử lại');
+        //     }
+        // }
     };
 
     // fn: xứ lý đăng ký
     const onSignUp = async (account) => {
-        try {
-            setIsSubmitting(true);
-            const result = await accountApi.postSignUp({ account });
-            if (result.status === 200) {
-                message.success('Đăng ký thành công.', 1);
-                setIsSubmitting(false);
-                setIsRedirectLogin(true);
-            }
-        } catch (error) {
-            setIsSubmitting(false);
-            if (error.response) {
-                message.error(error.response.data.message);
-            } else {
-                message.error('Đăng ký thất bại, thử lại');
-            }
-        }
+        // try {
+        //     setIsSubmitting(true);
+        //     const result = await accountApi.postSignUp({ account });
+        //     if (result.status === 200) {
+        //         message.success('Đăng ký thành công.', 1);
+        //         setIsSubmitting(false);
+        //         setIsRedirectLogin(true);
+        //     }
+        // } catch (error) {
+        //     setIsSubmitting(false);
+        //     if (error.response) {
+        //         message.error(error.response.data.message);
+        //     } else {
+        //         message.error('Đăng ký thất bại, thử lại');
+        //     }
+        // }
     };
 
     // giá trọ khởi tạo cho formik

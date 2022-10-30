@@ -8,7 +8,7 @@ function showBrandList(list) {
     <Col span={12} md={6} key={index}>
       <div className="brand-item t-center">
         <a href={item.link} target="blank">
-          <img className="bor-rad-8" width="100%" src={item.src} alt="Photo" />
+          <img className="bor-rad-8" width="100%" src={item.src} alt="Photo_thuong_hieu" />
         </a>
         <h4 className="font-size-18px">{item.title}</h4>
         <span className="font-size-16px">{item.desc}</span>

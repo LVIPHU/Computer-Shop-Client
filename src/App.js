@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from './routes';
 import { LayoutDefault } from './components/Layout';
-// import RequireRole from './routes/redirect';
 // import { useSelector } from 'react-redux';
 import React, { Suspense } from 'react';
 
@@ -53,11 +52,9 @@ function App() {
                             //               key={index}
                             //               path={route.path}
                             //               element={
-                            //                   <RequireRole>
                             //                       <Layout>
                             //                           <Page />
                             //                       </Layout>
-                            //                   </RequireRole>
                             //               }
                             //           ></Route>
                             //       );

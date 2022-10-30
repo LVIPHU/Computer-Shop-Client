@@ -24,7 +24,7 @@ function SaleOff() {
   return (
     <Carousel className="Sale-Off" autoplay>
       {list.map((item, index) => (
-        <img className="Sale-Off-img" src={item} key={index} />
+        <img className="Sale-Off-img" src={item} key={index} alt='sale_off'/>
       ))}
     </Carousel>
   );

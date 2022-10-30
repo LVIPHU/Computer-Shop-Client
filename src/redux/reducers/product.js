@@ -1,12 +1,12 @@
 import constants from '../constants/product';
 
-export const ProductTrendingReducer = (state = { products: [] }, action) => {
+export const ProductFilterReducer = (state = { products: [] }, action) => {
     switch (action.type) {
-        case constants.PRODUCT_TRENDING_REQUEST:
+        case constants.PRODUCT_FILTER_REQUEST:
             return { loading: true, products: [] };
-        case constants.PRODUCT_TRENDING_SUCCESS:
+        case constants.PRODUCT_FILTER_SUCCESS:
             return { loading: false, products: action.payload };
-        case constants.PRODUCT_TRENDING_FAIL:
+        case constants.PRODUCT_FILTER_FAIL:
             return { loading: false, error: action.payload };
         default:
             return state;
