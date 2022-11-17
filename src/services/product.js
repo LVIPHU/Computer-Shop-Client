@@ -9,6 +9,10 @@ const fetch = {
         let response = await api.get(`product/all`);
         return response;
     },
+    getListProduct: async (page) => {
+        let response = await api.get(`product?page=${page}`);
+        return response;
+    },
     getDetailProduct: async (id) => {
         let response = await api.get(`product/${id}`);
         return response;

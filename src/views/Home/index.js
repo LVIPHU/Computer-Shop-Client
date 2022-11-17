@@ -1,20 +1,29 @@
 import { BackTop, Col, Row } from 'antd';
 import Filter from '@/components/Filter';
+import actions from '@/redux/actions/product';
 import RelatedProduct from '@/views/Product/RelatedProduct';
 import React from 'react';
+import * as Redux from 'react-redux';
 import AllProduct from './AllProduct';
 import DiscountList from './DiscountList';
 import FamousBrand from './FamousBrand';
 import './index.scss';
 import SaleOff from './SaleOff';
 
-function HomePage() {
+const HomePage = () => {
+    const dispatch = Redux.useDispatch();
+
     // kéo về đầu trang
     document.querySelector('body').scroll({
         top: 0,
         left: 0,
         behavior: 'smooth',
     });
+
+    // lấy sản phẩm
+    React.useMemo(() => {
+        dispatch(actions.getListProducts(1));
+    }, []);
 
     return (
         <div className="Home">
@@ -69,6 +78,6 @@ function HomePage() {
             </Row>
         </div>
     );
-}
+};
 
 export default HomePage;

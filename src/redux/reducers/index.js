@@ -24,7 +24,7 @@ import {
     ProductCreateReducer,
     ProductDeleteReducer,
     ProductDetailReducer,
-    ProductTopReducer,
+    ProductListReducer,
     ProductFilterReducer,
     ProductUpdateReducer,
 } from './product';
@@ -58,7 +58,7 @@ export default combineReducers({
     productCreate: ProductCreateReducer,
     productDelete: ProductDeleteReducer,
     productDetail: ProductDetailReducer,
-    productTop: ProductTopReducer,
+    productList: ProductListReducer,
     productFilter: ProductFilterReducer,
     productUpdate: ProductUpdateReducer,
 

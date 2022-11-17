@@ -8,6 +8,7 @@ const actions = {
             });
 
             const { data } = await fetch.getFilterProducts(page, size, categoryId);
+            console.log(data);
 
             dispatch({
                 type: constants.PRODUCT_FILTER_SUCCESS,
@@ -21,26 +22,21 @@ const actions = {
         }
     },
 
-    register: (email, password, role) => async (dispatch) => {
+    getListProducts: (page) => async (dispatch) => {
         try {
             dispatch({
-                type: constants.AUTH_REGISTER_REQUEST,
+                type: constants.PRODUCT_LIST_REQUEST,
             });
 
-            const { data } = await fetch.register(email, password, role);
+            const { data } = await fetch.getListProduct(page);
 
             dispatch({
-                type: constants.AUTH_REGISTER_SUCCESS,
+                type: constants.PRODUCT_LIST_SUCCESS,
                 payload: data,
             });
-            dispatch({
-                type: constants.AUTH_LOGIN_SUCCESS,
-                payload: data,
-            });
-            localStorage.setItem('userInfo', JSON.stringify(data));
         } catch (error) {
             dispatch({
-                type: constants.AUTH_REGISTER_FAIL,
+                type: constants.PRODUCT_LIST_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
         }

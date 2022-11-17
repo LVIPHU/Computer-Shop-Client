@@ -2,7 +2,7 @@ import axios from "axios";
 import helpers from "@/utils/helpers";
 
 const api = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL: "http://localhost:8081/api/",
 });
 
 api.interceptors.request.use(

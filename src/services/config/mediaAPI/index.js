@@ -2,7 +2,7 @@ import axios from 'axios';
 import helpers from '@/utils/helpers';
 
 const mediaAPI = axios.create({
-    baseURL: `${process.env.REACT_APP_API_URI}`,
+    baseURL: `http://localhost:8081/api/`,
 });
 
 mediaAPI.interceptors.request.use(
