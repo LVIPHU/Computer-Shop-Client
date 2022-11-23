@@ -1,8 +1,8 @@
 import { Button, Pagination, Spin, Tag } from 'antd';
-import productApi from 'apis/productApi';
-import ResultSearch from 'components/ResultSearch';
+// import productApi from 'apis/productApi';
+import ResultSearch from '@/components/ResultSearch';
 import constants from '@/utils/constants';
-import helpers from 'helpers';
+import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProductCarousel from '../ProductCarousel';
@@ -118,20 +118,20 @@ function FilterResult() {
 
     // fn: filter function
     async function getFilterProducts(currentPage, isSubscribe) {
-        try {
-            setIsLoading(true);
-            const productList = await productApi.getFilterProducts(type, pOption, dOption, currentPage, perPage);
-            if (productList && isSubscribe) {
-                const { count, list } = productList.data;
-                setTotal(count);
-                setList(list);
-                setIsLoading(false);
-            }
-        } catch (error) {
-            setTotal(0);
-            setIsLoading(false);
-            setList([]);
-        }
+        // try {
+        //     setIsLoading(true);
+        //     const productList = await productApi.getFilterProducts(type, pOption, dOption, currentPage, perPage);
+        //     if (productList && isSubscribe) {
+        //         const { count, list } = productList.data;
+        //         setTotal(count);
+        //         setList(list);
+        //         setIsLoading(false);
+        //     }
+        // } catch (error) {
+        //     setTotal(0);
+        //     setIsLoading(false);
+        //     setList([]);
+        // }
     }
 
     // event: Lấy dữ liệu tìm kiếm

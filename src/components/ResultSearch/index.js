@@ -1,5 +1,5 @@
 import { Button, Col, InputNumber, Row, Spin } from 'antd';
-import productNotFoundUrl from 'assets/imgs/no-products-found.png';
+import productNotFoundUrl from '@/assets/imgs/no-products-found.png';
 import ProductView from '@/components/Card';
 import helpers from '@/utils/helpers';
 import PropTypes from 'prop-types';

@@ -1,5 +1,5 @@
 import { Button, message, Popconfirm, Spin, Table } from 'antd';
-import adminApi from 'apis/adminApi';
+// import adminApi from 'apis/adminApi';
 import React, { useEffect, useState } from 'react';
 
 function CustomerList() {
@@ -8,15 +8,15 @@ function CustomerList() {
 
   // event: xoá tài khoản
   const onDelCustomer = async (id) => {
-    try {
-      const response = await adminApi.delCustomer(id);
-      if (response && response.status === 200) {
-        message.success('Xoá tài khoản thành công');
-        setData(data.filter((item) => item.id !== id));
-      }
-    } catch (error) {
-      message.error('Xoá tài khoản thất bại');
-    }
+    // try {
+    //   const response = await adminApi.delCustomer(id);
+    //   if (response && response.status === 200) {
+    //     message.success('Xoá tài khoản thành công');
+    //     setData(data.filter((item) => item.id !== id));
+    //   }
+    // } catch (error) {
+    //   message.error('Xoá tài khoản thất bại');
+    // }
   };
 
   const columns = [

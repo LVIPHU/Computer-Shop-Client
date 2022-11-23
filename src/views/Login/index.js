@@ -7,67 +7,28 @@ import InputField from '@/components/Custom/Field/InputField';
 import LoginGoogle from '@/components/LoginGoogle';
 import constants from '@/utils/constants';
 import { FastField, Form, Formik } from 'formik';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-// import authReducers from 'reducers/auth';
+import React from 'react';
+import * as Redux from 'react-redux';
+import { Link } from 'react-router-dom';
+import actions from '@/redux/actions/auth';
 import * as Yup from 'yup';
 import './index.scss';
 
 function Login() {
-    const navigate = useNavigate();
+    const dispatch = Redux.useDispatch();
     const windowWidth = window.screen.width;
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [isDisableLogin, setIsDisableLogin] = useState(false);
-    const dispatch = useDispatch();
-
-    // fn: xử lý khi đăng nhập thành công
-    const onLoginSuccess = async (data) => {
-        // try {
-        //     setIsSubmitting(false);
-        //     message.success('Đăng nhập thành công');
-        //     // lưu refresh token vào local storage
-        //     localStorage.setItem(constants.REFRESH_TOKEN, data.refreshToken);
-        //     // Note: Lưu jwt vào localStorage nếu deploy heroku
-        //     if (process.env.NODE_ENV === 'production') localStorage.setItem(constants.ACCESS_TOKEN_KEY, data.token);
-        //     dispatch(authReducers.setIsAuth(true));
-        //     setTimeout(() => {
-        //         navigate(-1);
-        //     }, constants.DELAY_TIME);
-        // } catch (error) {
-        //     message.error('Lỗi đăng nhập.');
-        // }
-    };
+    const authLogin = Redux.useSelector((state) => state.authLogin);
+    const { loading, userInfo } = authLogin;
 
     // fn: đăng nhập
     const onLogin = async (account) => {
-        // try {
-        //     setIsSubmitting(true);
-        //     const result = await loginApi.postLogin({ account });
-        //     if (result.status === 200) {
-        //         onLoginSuccess(result.data);
-        //     }
-        // } catch (error) {
-        //     setIsSubmitting(false);
-        //     if (error.response) {
-        //         const { failedLoginTimes } = error.response.data;
-        //         const messageError = error.response.data.message;
-        //         if (failedLoginTimes >= constants.MAX_FAILED_LOGIN_TIMES) {
-        //             message.error('Vượt quá số lần đăng nhập.\nKiểm tra email hoặc nhấn "Quên mật khẩu"', 4);
-        //             setIsDisableLogin(true);
-        //         } else {
-        //             message.error(messageError);
-        //         }
-        //     } else {
-        //         message.error('Đăng nhập thất bại');
-        //     }
-        // }
+        dispatch(actions.login(account));
     };
 
     // giá trọ khởi tạo cho formik
     const initialValue = {
-        email: '',
-        password: '',
+        email: 'dinhkhang1511@gmail.com',
+        password: '123456789',
         keepLogin: false,
     };
 
@@ -138,8 +99,8 @@ function Login() {
                                         size="large"
                                         type="primary"
                                         htmlType="submit"
-                                        disabled={isDisableLogin}
-                                        loading={isSubmitting}
+                                        // disabled={isDisableLogin}
+                                        loading={loading}
                                     >
                                         Đăng nhập
                                     </Button>

@@ -2,25 +2,47 @@ import constants from './../constants/auth';
 import constantsCart from './../constants/cart';
 import constantsUser from './../constants/user';
 import fetch from '../../services/auth';
+import { notification } from 'antd';
+
+const openNotificationError = (message) => {
+    notification.error({
+        message: `Faild`,
+        description: `${message}`,
+        placement: 'topRight',
+    });
+};
+
+const openNotificationSucces = (message) => {
+    notification.success({
+        message: `Success`,
+        description: `${message}`,
+        placement: 'topRight',
+    });
+};
+
 const actions = {
-    login: (email, password) => async (dispatch) => {
+    login: (account) => async (dispatch) => {
         try {
             dispatch({
                 type: constants.AUTH_LOGIN_REQUEST,
             });
 
-            const { data } = await fetch.login(email, password);
+            const { data } = await fetch.login(account);
 
             dispatch({
                 type: constants.AUTH_LOGIN_SUCCESS,
                 payload: data,
             });
             localStorage.setItem('userInfo', JSON.stringify(data));
+            openNotificationSucces('Login success.');
         } catch (error) {
             dispatch({
                 type: constants.AUTH_LOGIN_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? openNotificationError(error.response.data.message)
+                : openNotificationError(error.message);
         }
     },
 
@@ -41,11 +63,15 @@ const actions = {
                 payload: data,
             });
             localStorage.setItem('userInfo', JSON.stringify(data));
+            openNotificationSucces('Register success.');
         } catch (error) {
             dispatch({
                 type: constants.AUTH_REGISTER_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? openNotificationError(error.response.data.message)
+                : openNotificationError(error.message);
         }
     },
 

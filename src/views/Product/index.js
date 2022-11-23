@@ -1,6 +1,6 @@
-import productApi from 'apis/productApi';
-import GlobalLoading from 'components/Loading/Global';
-import ProductDetail from 'components/ProductDetail';
+// import productApi from 'apis/productApi';
+import GlobalLoading from '@/components/Loading/Global';
+import ProductDetail from '@/components/ProductDetail';
 import React, { useEffect, useRef, useState } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 
@@ -11,22 +11,22 @@ function ProductDetailPage() {
 
   // lấy sản phẩm
   useEffect(() => {
-    let isSubscribe = true;
-    const getProduct = async (id) => {
-      try {
-        const result = await productApi.getProduct(id);
-        if (result && isSubscribe) {
-          const { data } = result;
-          setProduct(data);
-        }
-      } catch (error) {
-        if (isSubscribe) setIsNotFoundProduct(true);
-      }
-    };
-    getProduct(productId);
-    if (isSubscribe) setProduct(null);
+    // let isSubscribe = true;
+    // const getProduct = async (id) => {
+    //   try {
+    //     const result = await productApi.getProduct(id);
+    //     if (result && isSubscribe) {
+    //       const { data } = result;
+    //       setProduct(data);
+    //     }
+    //   } catch (error) {
+    //     if (isSubscribe) setIsNotFoundProduct(true);
+    //   }
+    // };
+    // getProduct(productId);
+    // if (isSubscribe) setProduct(null);
 
-    return () => (isSubscribe = false);
+    // return () => (isSubscribe = false);
   }, [productId]);
 
   return (
@@ -36,7 +36,7 @@ function ProductDetailPage() {
       ) : (
         <GlobalLoading content="Đang tải sản phẩm ..." />
       )}
-      {isNotFoundProduct && <Redirect to="/not-found" />}
+      {isNotFoundProduct && <Redirect to="/" />}
     </>
   );
 }

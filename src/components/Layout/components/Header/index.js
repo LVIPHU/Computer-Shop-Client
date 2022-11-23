@@ -78,7 +78,7 @@ function Header() {
     // Menu for user action
     const userActionMenu = (
         <Menu className="m-t-24" style={{ width: 244 }}>
-            {userInfo != null ? (
+            {userInfo === null ? (
                 <>
                     <Menu.Item>
                         <Button size="large" className="w-100" type="primary">

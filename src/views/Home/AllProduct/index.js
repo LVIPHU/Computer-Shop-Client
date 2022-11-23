@@ -38,8 +38,10 @@ const AllProduct = () => {
 
     return (
         <Row className="p-16" style={{ minHeight: 400 }} gutter={[16, 16]}>
-            <Col span={24}>
-                <h2 className="font-weight-700">Tất cả sản phẩm</h2>
+            <Col span={24} >
+                <Row><h2 className="font-weight-700">Tất cả sản phẩm</h2>
+                <h2 className="font-weight-700">Thêm</h2></Row>
+                
                 <div className="underline-title"></div>
             </Col>
             {loading ? (

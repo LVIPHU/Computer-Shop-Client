@@ -31,18 +31,23 @@ const PRODUCT_TYPES = [
 ];
 
 const ROUTES = {
-    HOME: '/',
-    REGISTER: '/register',
     LOGIN: '/login',
-    FORGOT_PASSWORD: '/login/forgot-pw',
-    PRODUCT: '/product/:productId',
-    NOT_FOUND: '/not-found',
-    ADMIN: '/admin',
     ACCOUNT: '/account',
+    REGISTER: '/register',
+    FORGOT_PASSWORD: '/login/forgot-pw',
+
+    HOME: '/',
     CART: '/cart',
     SEARCH: '/search',
     FILTER: '/filter',
     PAYMENT: '/payment',
+    PRODUCT: '/product/:productId',
+
+    DASHBOARD: '/manager',
+    USERS: '/manager/Users',
+    ORDERS: '/manager/Orders',
+    PRODUCTS: '/manager/products',
+    CUSTOMERS: '/manager/Customers',
 };
 
 const ROLES = {
@@ -1697,9 +1702,12 @@ const constants = {
     DELAY_TIME: 750,
     // số lần đăng nhập sai tối đa
     MAX_FAILED_LOGIN_TIMES: 5,
+    //
     ROUTES,
     // phân quyền người dùng.
     ROLES,
+    FLAG,
+    // 
     PRODUCT_TYPES,
     // tỉ lệ nén ảnh, và nén png 2MB
     COMPRESSION_RADIO: 0.6,

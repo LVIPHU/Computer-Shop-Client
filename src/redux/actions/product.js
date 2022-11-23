@@ -1,5 +1,23 @@
 import constants from './../constants/product';
 import fetch from '../../services/product';
+import { notification } from 'antd';
+
+const openNotificationError = (message) => {
+    notification.error({
+        message: `Faild`,
+        description: `${message}`,
+        placement: 'topRight',
+    });
+};
+
+const openNotificationSucces = (message) => {
+    notification.success({
+        message: `Success`,
+        description: `${message}`,
+        placement: 'topRight',
+    });
+};
+
 const actions = {
     getFilterProducts: (page, size, categoryId) => async (dispatch) => {
         try {
