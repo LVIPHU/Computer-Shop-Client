@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import cartActions from '';
+// import cartActions from '';
 import './index.scss';
 
 // Hàm đếm số sản phẩm đó trong giỏ hàng
@@ -81,7 +81,7 @@ function ProductOverview(props) {
             _id,
         };
         setNumberOfProduct(1);
-        dispatch(cartActions.addToCart(product));
+        // dispatch(cartActions.addToCart(product));
         message.success('Thêm vào giỏ hàng thành công');
     };
 

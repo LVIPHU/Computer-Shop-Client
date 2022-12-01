@@ -16,7 +16,7 @@ import {
   Tooltip,
   Upload,
 } from 'antd';
-import constants from 'constants';
+import constants from '@/utils/constants';
 import React, { useRef, useState } from 'react';
 import Compressor from 'compressorjs';
 

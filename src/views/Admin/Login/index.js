@@ -1,22 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Form, Input, Button, Checkbox, message, Row, Col } from 'antd';
-import adminApi from 'apis/adminApi';
+// import adminApi from 'apis/adminApi';
 
 function Login(props) {
   const { onLogin } = props;
 
   const onFinish = async (account) => {
-    try {
-      const response = await adminApi.postLogin(account);
-      if (response) {
-        message.success('Đăng nhập thành công', 2);
-        onLogin(true, response.data.name);
-      }
-    } catch (error) {
-      message.error('Tài khoản không tồn tại hoặc sai mật khẩu', 2);
-      onLogin(false);
-    }
+    // try {
+    //   const response = await adminApi.postLogin(account);
+    //   if (response) {
+    //     message.success('Đăng nhập thành công', 2);
+    //     onLogin(true, response.data.name);
+    //   }
+    // } catch (error) {
+    //   message.error('Tài khoản không tồn tại hoặc sai mật khẩu', 2);
+    //   onLogin(false);
+    // }
   };
 
   return (

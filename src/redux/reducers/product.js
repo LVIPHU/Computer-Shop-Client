@@ -85,7 +85,7 @@ export const ProductDeleteReducer = (state = {}, action) => {
     }
 };
 
-export const ProductUpdateReducer = (state = { product: {} }, action) => {
+export const ProductUpdateReducer = (state = { }, action) => {
     switch (action.type) {
         case constants.PRODUCT_UPDATE_REQUEST:
             return { loading: true };

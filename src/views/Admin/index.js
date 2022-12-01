@@ -13,17 +13,16 @@ import {
 import { Button, Menu } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import SubMenu from 'antd/lib/menu/SubMenu';
-import defaultAvt from 'assets/imgs/default-avt.png';
-import logoUrl from 'assets/imgs/sec_logo.png';
+import defaultAvt from '@/assets/imgs/default-avt.png';
+import logoUrl from '@/assets/imgs/sec_logo.png';
 import React, { useState } from 'react';
 import Dashboard from './Dashboard';
 import './index.scss';
 import Login from './Login';
-const AddProduct = React.lazy(() => import('./Products/ProductAddForm'));
-const SeeProduct = React.lazy(() => import('./Products/SeeProduct'));
-const AdminUser = React.lazy(() => import('./Users'));
-const CustomerList = React.lazy(() => import('./Customers'));
-const OrderList = React.lazy(() => import('./Orders'));
+import pages from '@/views';
+import * as Redux from 'react-redux';
+import actionsProduct from '@/redux/actions/product';
+import actionsCategory from '@/redux/actions/category';
 
 const mainColor = '#141428';
 const menuList = [
@@ -69,15 +68,18 @@ const menuList = [
 ];
 
 function AdminPage() {
+    const dispatch = Redux.useDispatch();
     const [keyMenu, setKeyMenu] = useState('d');
-    const [isLogin, setIsLogin] = useState(() => {
-        const isLogin = localStorage.getItem('admin');
-        return isLogin ? true : false;
-    });
-    const [adminName, setAdminName] = useState(() => {
-        const admin = localStorage.getItem('admin');
-        return admin ? admin : 'Admin';
-    });
+    // const [isLogin, setIsLogin] = useState(() => {
+    //     const isLogin = localStorage.getItem('admin');
+    //     return isLogin ? true : false;
+    // });
+    const [isLogin, setIsLogin] = useState(true);
+    // const [adminName, setAdminName] = useState(() => {
+    //     const admin = localStorage.getItem('admin');
+    //     return admin ? admin : 'Admin';
+    // });
+    const [adminName, setAdminName] = useState('Chó Khang');
     // fn: Xử lý khi chọn item
     const handleSelected = (e) => {
         const { key } = e;
@@ -124,17 +126,19 @@ function AdminPage() {
     const renderMenuComponent = (key) => {
         switch (key) {
             case 'd':
-                return <Dashboard />;
+                return <pages.Dashboard />;
             case 'p0':
-                return <SeeProduct />;
+                dispatch(actionsProduct.getAllProducts());
+                dispatch(actionsCategory.getAllCategory());
+                return <pages.Products />;
             case 'p1':
-                return <AddProduct />;
+                return <pages.AddProduct />;
             case 'a':
-                return <AdminUser />;
+                return <pages.Users />;
             case 'c':
-                return <CustomerList />;
+                return <pages.Customers />;
             case 'o':
-                return <OrderList />;
+                return <pages.Orders />;
             default:
                 break;
         }
@@ -167,7 +171,7 @@ function AdminPage() {
                     {/* header */}
                     <div className="d-flex align-i-center" style={{ height: '72px', backgroundColor: mainColor }}>
                         <div className="logo t-center" style={{ flexBasis: '200px' }}>
-                            <img width={100} height={48} src={logoUrl} />
+                            <img width={100} height={48} src={logoUrl} alt={'logo'} />
                         </div>
                         <div className="flex-grow-1 d-flex align-i-center">
                             <h2 className="t-color-primary flex-grow-1 p-l-44 main-title">

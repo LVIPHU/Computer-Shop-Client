@@ -3,23 +3,32 @@ import { message, Pagination, Spin, Table, Tooltip } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 // import adminApi from 'apis/adminApi';
 // import productApi from 'apis/productApi';
-import helpers from 'helpers';
+import actionsProduct from '@/redux/actions/product';
+import actionsCategory from '@/redux/actions/category';
+import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import EditProductModal from './EditProductModal';
+import * as Redux from 'react-redux';
 
-function generateFilterType() {
+function generateFilterCategory(categories) {
     let result = [];
-    for (let i = 0; i < 15; ++i) {
-        result.push({ value: i, text: helpers.convertProductType(i) });
-    }
+    categories.map((category) => result.push({ value: category.id, text: category.name }));
     return result;
 }
 
 function SeeProduct() {
+    const dispatch = Redux.useDispatch();
     const [editModal, setEditModal] = useState({ visible: false, product: null });
     const [modalDel, setModalDel] = useState({ visible: false, _id: '' });
-    const [isLoading, setIsLoading] = useState(false);
     const [list, setList] = useState([]);
+
+    const productAll = Redux.useSelector((state) => state.productAll);
+    const { loading, products } = productAll;
+
+    const categoryAll = Redux.useSelector((state) => state.categoryAll);
+    const { categories } = categoryAll;
+
+    console.log(products);
 
     // event: xoá sản phẩm
     const onDelete = async (_id) => {
@@ -45,6 +54,8 @@ function SeeProduct() {
 
     // event: Lấy toàn bộ danh sách sản phẩm
     useEffect(() => {
+        dispatch(actionsProduct.getAllProducts());
+        dispatch(actionsCategory.getAllCategory());
         // let isSubscribe = true;
         // setIsLoading(true);
         // async function getProductList() {
@@ -73,8 +84,8 @@ function SeeProduct() {
     const columns = [
         {
             title: 'Mã',
-            key: 'code',
-            dataIndex: 'code',
+            key: 'id',
+            dataIndex: 'id',
             render: (code, data) => (
                 <a target="blank" href={`/product/${data._id}`}>
                     {code}
@@ -85,7 +96,7 @@ function SeeProduct() {
             title: 'Tên',
             key: 'name',
             dataIndex: 'name',
-            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 40)}</Tooltip>,
+            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 100)}</Tooltip>,
         },
         {
             title: 'Giá',
@@ -99,44 +110,46 @@ function SeeProduct() {
         },
         {
             title: 'Loại',
-            key: 'type',
-            dataIndex: 'type',
-            filters: generateFilterType(),
-            onFilter: (value, record) => record.type === value,
-            render: (type) => helpers.convertProductType(type),
-        },
-        {
-            title: 'Thương hiệu',
-            key: 'brand',
-            dataIndex: 'brand',
-            sorter: (a, b) => {
-                if (a.brand < b.brand) return -1;
-                if (a.brand > b.brand) return 1;
-                return 0;
-            },
-            render: (brand) => <Tooltip title={brand}>{helpers.reduceProductName(brand, 40)}</Tooltip>,
+            key: 'categoryName',
+            dataIndex: 'categoryName',
+            filters: generateFilterCategory(categories),
+            onFilter: (value, record) => record.categoryId === value,
+            render: (categoryName) => (
+                <Tooltip title={categoryName}>{helpers.reduceProductName(categoryName, 40)}</Tooltip>
+            ),
         },
         {
             title: 'Tồn kho',
-            key: 'stock',
-            dataIndex: 'stock',
+            key: 'quantity',
+            dataIndex: 'quantity',
             defaultSortOrder: 'ascend',
-            sorter: (a, b) => a.stock - b.stock,
+            sorter: (a, b) => a.quantity - b.quantity,
         },
-        {
-            title: 'Mức giảm giá',
-            key: 'discount',
-            dataIndex: 'discount',
-            defaultSortOrder: 'ascend',
-            sorter: (a, b) => a.discount - b.discount,
-            render: (discount) => `${discount} %`,
-        },
-        {
-            title: 'Đánh giá',
-            key: 'rate',
-            dataIndex: 'rate',
-            render: (rate) => helpers.calStar(rate).toFixed(1),
-        },
+        // {
+        //     title: 'Thương hiệu',
+        //     key: 'brand',
+        //     dataIndex: 'brand',
+        //     sorter: (a, b) => {
+        //         if (a.brand < b.brand) return -1;
+        //         if (a.brand > b.brand) return 1;
+        //         return 0;
+        //     },
+        //     render: (brand) => <Tooltip title={brand}>{helpers.reduceProductName(brand, 40)}</Tooltip>,
+        // },
+        // {
+        //     title: 'Mức giảm giá',
+        //     key: 'discount',
+        //     dataIndex: 'discount',
+        //     defaultSortOrder: 'ascend',
+        //     sorter: (a, b) => a.discount - b.discount,
+        //     render: (discount) => `${discount} %`,
+        // },
+        // {
+        //     title: 'Đánh giá',
+        //     key: 'rate',
+        //     dataIndex: 'rate',
+        //     render: (rate) => helpers.calStar(rate).toFixed(1),
+        // },
         {
             title: 'Hành động',
             key: 'actions',
@@ -145,7 +158,7 @@ function SeeProduct() {
             render: (text) => (
                 <>
                     <DeleteOutlined
-                        onClick={() => setModalDel({ visible: true, _id: text._id })}
+                        onClick={() => setModalDel({ visible: true, _id: text.id })}
                         className="m-r-8 action-btn-product"
                         style={{ color: 'red' }}
                     />
@@ -160,7 +173,7 @@ function SeeProduct() {
                     </Tooltip>
 
                     <Tooltip title="Xem chi tiết" placement="left">
-                        <a target="blank" href={`/product/${text._id}`}>
+                        <a target="blank" href={`/product/${text.id}`}>
                             <EyeOutlined className="action-btn-product" style={{ color: '#444' }} />
                         </a>
                     </Tooltip>
@@ -172,7 +185,7 @@ function SeeProduct() {
     // rendering ...
     return (
         <div className="pos-relative p-8">
-            {isLoading ? (
+            {loading ? (
                 <Spin tip="Đang tải danh sách sản phẩm ..." size="large" className="trans-center" />
             ) : (
                 <>
@@ -202,7 +215,7 @@ function SeeProduct() {
                         }}
                         className="admin-see-product"
                         columns={columns}
-                        dataSource={list}
+                        dataSource={products}
                     />
                     {/* edit product modal */}
                     <EditProductModal

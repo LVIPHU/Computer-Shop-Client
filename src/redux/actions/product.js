@@ -26,7 +26,6 @@ const actions = {
             });
 
             const { data } = await fetch.getFilterProducts(page, size, categoryId);
-            console.log(data);
 
             dispatch({
                 type: constants.PRODUCT_FILTER_SUCCESS,
@@ -55,6 +54,25 @@ const actions = {
         } catch (error) {
             dispatch({
                 type: constants.PRODUCT_LIST_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+        }
+    },
+
+    getAllProducts: () => async (dispatch) => {
+        try {
+            dispatch({
+                type: constants.PRODUCT_ALL_REQUEST,
+            });
+
+            const { data } = await fetch.getAllProduct();
+            dispatch({
+                type: constants.PRODUCT_ALL_SUCCESS,
+                payload: data,
+            });
+        } catch (error) {
+            dispatch({
+                type: constants.PRODUCT_ALL_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
         }

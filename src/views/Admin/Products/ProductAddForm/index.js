@@ -6,7 +6,7 @@ import {
     UploadOutlined,
 } from '@ant-design/icons';
 import { Button, Col, Form, Input, InputNumber, message, Modal, Row, Select, Space, Tooltip, Upload } from 'antd';
-import adminApi from 'apis/adminApi';
+// import adminApi from 'apis/adminApi';
 import Compressor from 'compressorjs';
 import constants from '@/utils/constants';
 import React, { useRef, useState } from 'react';
@@ -167,43 +167,43 @@ function AddProduct() {
 
     // fn: Xử lý submit form
     const onSubmit = async (data) => {
-        try {
-            setIsSubmitting(true);
-            const { code, name, price, discount, stock, brand, otherInfo, ...rest } = data;
-            // các thuộc tính chung của sản phẩm
-            const product = {
-                type: typeSelected,
-                discount,
-                code,
-                name,
-                price,
-                brand,
-                stock,
-                otherInfo,
-                avatar,
-            };
-            // thuộc tính chi tiết của từng loại sp
-            const catalogs = fileCompressedList.current.map((item) => item.data);
-            const details = {
-                ...rest,
-                catalogs,
-            };
+        // try {
+        //     setIsSubmitting(true);
+        //     const { code, name, price, discount, stock, brand, otherInfo, ...rest } = data;
+        //     // các thuộc tính chung của sản phẩm
+        //     const product = {
+        //         type: typeSelected,
+        //         discount,
+        //         code,
+        //         name,
+        //         price,
+        //         brand,
+        //         stock,
+        //         otherInfo,
+        //         avatar,
+        //     };
+        //     // thuộc tính chi tiết của từng loại sp
+        //     const catalogs = fileCompressedList.current.map((item) => item.data);
+        //     const details = {
+        //         ...rest,
+        //         catalogs,
+        //     };
 
-            // data được gửi đi
-            const dataSend = { product, details, desc: productDecs.current };
-            const response = await adminApi.postAddProduct(dataSend);
-            if (response.status === 200) {
-                setIsSubmitting(false);
-                message.success('Thêm sản phẩm thành công');
-            }
-        } catch (error) {
-            setIsSubmitting(false);
-            if (error.response) {
-                message.error(error.response.data.message);
-            } else {
-                message.error('Thêm sản phẩm thất bại. Thử lại');
-            }
-        }
+        //     // data được gửi đi
+        //     const dataSend = { product, details, desc: productDecs.current };
+        //     const response = await adminApi.postAddProduct(dataSend);
+        //     if (response.status === 200) {
+        //         setIsSubmitting(false);
+        //         message.success('Thêm sản phẩm thành công');
+        //     }
+        // } catch (error) {
+        //     setIsSubmitting(false);
+        //     if (error.response) {
+        //         message.error(error.response.data.message);
+        //     } else {
+        //         message.error('Thêm sản phẩm thất bại. Thử lại');
+        //     }
+        // }
     };
 
     // returning...

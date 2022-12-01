@@ -44,8 +44,8 @@ const ROUTES = {
     PRODUCT: '/product/:productId',
 
     DASHBOARD: '/manager',
-    USERS: '/manager/Users',
-    ORDERS: '/manager/Orders',
+    USERS: '/manager/users',
+    ORDERS: '/manager/urders',
     PRODUCTS: '/manager/products',
     CUSTOMERS: '/manager/Customers',
 };

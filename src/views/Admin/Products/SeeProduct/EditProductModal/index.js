@@ -1,5 +1,5 @@
 import { Col, Form, Input, InputNumber, message, Modal, Row, Select } from 'antd';
-import adminApi from 'apis/adminApi';
+// import adminApi from 'apis/adminApi';
 import constants from '@/utils/constants';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -12,17 +12,17 @@ function EditProductModal(props) {
 
     // event: Sửa chữa sản phẩm
     const onEdit = async (value) => {
-        try {
-            setIsUpdating(true);
-            const response = await adminApi.updateProduct(value);
-            if (response && response.status === 200) {
-                message.success('Cập nhật thành công');
-                onClose(value);
-            }
-        } catch (error) {
-            message.error('Cập nhật thất bại');
-        }
-        setIsUpdating(false);
+        // try {
+        //     setIsUpdating(true);
+        //     const response = await adminApi.updateProduct(value);
+        //     if (response && response.status === 200) {
+        //         message.success('Cập nhật thành công');
+        //         onClose(value);
+        //     }
+        // } catch (error) {
+        //     message.error('Cập nhật thất bại');
+        // }
+        // setIsUpdating(false);
     };
 
     return (

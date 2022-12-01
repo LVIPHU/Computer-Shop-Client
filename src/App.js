@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { publicRoutes, privateRoutes } from './routes';
+import { publicRoutes, privateRoutes, adminRoutes } from './routes';
 import { LayoutDefault } from './components/Layout';
 import { useSelector } from 'react-redux';
 import React, { Suspense } from 'react';
@@ -10,8 +10,6 @@ import GlobalLoading from './components/Loading/Global';
 
 function App() {
     const authLogin = useSelector((state) => state.authLogin);
-    // const { userInfo } = authLogin;
-
     return (
         <Router>
             <Suspense fallback={<GlobalLoading />}>
@@ -59,8 +57,9 @@ function App() {
                                       ></Route>
                                   );
                               })}
-                        {authLogin.userInfo.token[0] === 'ADMIN' &&
-                            privateRoutes.map((route, index) => {
+                        {authLogin.userInfo &&
+                            authLogin.userInfo.roles[0] === 'ROLE_ADMIN' &&
+                            adminRoutes.map((route, index) => {
                                 let Layout = LayoutDefault;
                                 if (route.layout) {
                                     Layout = route.layout;

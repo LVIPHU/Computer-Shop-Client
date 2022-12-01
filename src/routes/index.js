@@ -18,11 +18,7 @@ const privateRoutes = [
 ];
 
 const adminRoutes = [
-    { path: constans.ROUTES.DASHBOARD, component: pages.Dashboard },
-    { path: constans.ROUTES.CUSTOMERS, component: pages.Customers },
-    { path: constans.ROUTES.USERS, component: pages.Users },
-    { path: constans.ROUTES.PRODUCTS, component: pages.Products },
-    { path: constans.ROUTES.ORDERS, component: pages.Orders },
+    { path: constans.ROUTES.DASHBOARD, component: pages.Admin, layout:null },
     { path: '*', component: pages.Result_404 },
 ];
-export { publicRoutes, privateRoutes };
+export { publicRoutes, privateRoutes, adminRoutes };
