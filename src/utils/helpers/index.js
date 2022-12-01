@@ -1,4 +1,5 @@
 import constants from '../constants';
+import { notification } from 'antd';
 
 // fn: chuyển đổi 1 số keyword sang mongo key, ex: "lonhon-" => "$gte:"
 const replaceMongoKeyword = (value = '') => {
@@ -796,6 +797,22 @@ const isAuthenticated = () => {
     }
 };
 
+const openNotificationError = (message, description) => {
+    notification.error({
+        message: `${message}`,
+        description: `${description}`,
+        placement: 'topRight',
+    });
+};
+
+const openNotificationSucces = (message, description) => {
+    notification.success({
+        message: `${message}`,
+        description: `${description}`,
+        placement: 'topRight',
+    });
+};
+
 /* export const isAuthenticated = () => {
     if (typeof window === "undefined") return true;
     let data = window.localStorage.getItem("asauth");
@@ -830,6 +847,8 @@ const helpers = {
     calTotalOrderFee,
     checkToken,
     isAuthenticated,
+    openNotificationError,
+    openNotificationSucces,
 };
 
 export default helpers;

@@ -18,7 +18,7 @@ function Login() {
     const dispatch = Redux.useDispatch();
     const windowWidth = window.screen.width;
     const authLogin = Redux.useSelector((state) => state.authLogin);
-    const { loading, userInfo } = authLogin;
+    const { loading } = authLogin;
 
     // fn: đăng nhập
     const onLogin = async (account) => {

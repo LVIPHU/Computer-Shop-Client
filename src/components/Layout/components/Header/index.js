@@ -95,6 +95,13 @@ function Header() {
                 </>
             ) : (
                 <>
+                    {userInfo && userInfo.roles[0] !== constants.ROLES.CUSTOMER && (
+                        <Menu.Item>
+                            <Button size="large" className="w-100 btn-warning" type="default">
+                                <Link to={constants.ROUTES.MANAGER}>Quản lý trang Web</Link>
+                            </Button>
+                        </Menu.Item>
+                    )}
                     <Menu.Item>
                         <Button size="large" className="w-100 btn-secondary" type="default">
                             <Link to={constants.ROUTES.ACCOUNT + '/'}>Quản lý Tài khoản</Link>
@@ -180,7 +187,7 @@ function Header() {
                                                 <div className="d-flex navbar-tool-item p-l-0">
                                                     <Avatar src={defaultAvt} className="m-r-12" />
                                                     <span className="title">
-                                                        {helpers.reduceProductName(userInfo.fullName, 12)}
+                                                        {helpers.reduceProductName(userInfo.email, 12)}
                                                     </span>
                                                 </div>
                                             )}
@@ -230,7 +237,7 @@ function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Dropdown overlay={userActionMenu} placement="bottomRight">
+                            <Dropdown overlay={userActionMenu} placement="bottomCenter">
                                 <Link to={userInfo != null ? `${constants.ROUTES.ACCOUNT}/` : constants.ROUTES.LOGIN}>
                                     {userInfo == null ? (
                                         <div className="d-flex flex-direction-column navbar-tool-item">
@@ -241,7 +248,7 @@ function Header() {
                                         <div className="d-flex flex-direction-column navbar-tool-item">
                                             <Avatar src={defaultAvt} className="m-auto" />
                                             <span className="title">
-                                                {helpers.reduceProductName(userInfo.fullName, 12)}
+                                                {helpers.reduceProductName(userInfo.email, 12)}
                                             </span>
                                         </div>
                                     )}
@@ -249,7 +256,7 @@ function Header() {
                             </Dropdown>
                         </li>
                         <li>
-                            <Dropdown overlay={<Cart list={cartItems} />} placement="bottomRight" arrow>
+                            <Dropdown overlay={<Cart list={cartItems} />} placement="bottomCenter" arrow>
                                 <Link
                                     className="d-flex flex-direction-column navbar-tool-item"
                                     to={constants.ROUTES.CART}

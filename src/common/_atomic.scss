@@ -2,6 +2,7 @@
 .or-option {
   position: relative;
   margin: 5px auto;
+
   &::before {
     position: absolute;
     content: "";
@@ -11,6 +12,7 @@
     height: 1px;
     background-color: #bcbcbc;
   }
+
   &::after {
     position: absolute;
     content: "";
@@ -25,6 +27,7 @@
 // underline title sign up - login
 .underline-title {
   position: relative;
+
   &::after {
     content: "";
     width: 12%;
@@ -48,9 +51,22 @@
   border-radius: 0;
   border: none;
   background-color: #5ab45f !important;
+
   &:hover {
     -webkit-filter: brightness(1.2);
     filter: brightness(1.2);
+  }
+}
+
+.btn-warning {
+  background-color: #F78B2D !important;
+  color: #fff !important;
+  border: none !important;
+
+  &:hover,
+  &:active {
+    -webkit-filter: brightness(1.1);
+    filter: brightness(1.1);
   }
 }
 
@@ -58,6 +74,7 @@
   background-color: #3fc5ec !important;
   color: #fff !important;
   border: none !important;
+
   &:hover,
   &:active {
     -webkit-filter: brightness(1.1);
@@ -70,6 +87,7 @@
   &-white {
     background-color: #fff;
   }
+
   &-gray {
     background-color: #f1f1f1;
   }
@@ -96,6 +114,7 @@
 .bor-rad-8 {
   border-radius: 8px;
 }
+
 .bor-rad-4 {
   border-radius: 4px;
 }

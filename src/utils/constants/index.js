@@ -43,11 +43,7 @@ const ROUTES = {
     PAYMENT: '/payment',
     PRODUCT: '/product/:productId',
 
-    DASHBOARD: '/manager',
-    USERS: '/manager/users',
-    ORDERS: '/manager/urders',
-    PRODUCTS: '/manager/products',
-    CUSTOMERS: '/manager/Customers',
+    MANAGER: '/manager',
 };
 
 const ROLES = {
@@ -1707,7 +1703,7 @@ const constants = {
     // phân quyền người dùng.
     ROLES,
     FLAG,
-    // 
+    //
     PRODUCT_TYPES,
     // tỉ lệ nén ảnh, và nén png 2MB
     COMPRESSION_RADIO: 0.6,
