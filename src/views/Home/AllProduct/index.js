@@ -21,7 +21,12 @@ const AllProduct = () => {
     const showProducts = (list) => {
         return list.map((product) => (
             <Col key={product.id} span={24} sm={12} lg={8} xl={6}>
-                <Link to={`/product/${product.id}`}>
+                <Link
+                    to={`/product/${product.id}`}
+                    onClick={() => {
+                        dispatch(actions.getDetailProduct(product.id));
+                    }}
+                >
                     <ProductView
                         className="m-auto"
                         name={product.name}
@@ -38,10 +43,12 @@ const AllProduct = () => {
 
     return (
         <Row className="p-16" style={{ minHeight: 400 }} gutter={[16, 16]}>
-            <Col span={24} >
-                <Row><h2 className="font-weight-700">Tất cả sản phẩm</h2>
-                <h2 className="font-weight-700">Thêm</h2></Row>
-                
+            <Col span={24}>
+                <Row>
+                    <h2 className="font-weight-700">Tất cả sản phẩm</h2>
+                    <h2 className="font-weight-700">Thêm</h2>
+                </Row>
+
                 <div className="underline-title"></div>
             </Col>
             {loading ? (

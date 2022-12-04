@@ -1,4 +1,5 @@
 $color-secondary: #41a62a;
+$main-color: #F78B2D;
 
 .wrap-header,
 .Scroll-To,
@@ -8,46 +9,66 @@ $color-secondary: #41a62a;
 }
 
 .Admin-Page {
+
   .option-title,
   a:hover,
   a:active,
   .menu-item:hover {
-    color: $color-secondary;
+    color: white;
   }
+
   .menu {
+
     .ant-menu-item-selected,
     .ant-menu-item-active,
     .ant-menu-submenu-active,
     .ant-menu-submenu-selected {
       background: none !important;
-      & > * {
-        color: $color-secondary !important;
+
+      &>* {
+        color: white !important;
       }
     }
   }
+
+  .ant-menu-sub.ant-menu-inline {
+    background-color: $main-color;
+  }
+
   .nav-menu {
+
     .ant-menu-item-selected,
     .ant-menu-item-active {
-      background-color: $color-secondary !important;
+      background-color: white !important;
     }
   }
+
   .ant-menu-submenu-selected {
     .ant-menu-submenu-arrow {
+
       &::before,
       &::after {
-        background-color: $color-secondary !important;
+        background-color: white !important;
       }
     }
   }
+
   .action-btn-product:hover {
     transform: scale(1.2);
     transition: 0.5s;
   }
+
   .open-web:hover {
-    & > * {
-      color: $color-secondary;
+    &>* {
+      color: white;
+      border: none;
     }
   }
+
+  .ant-layout-sider-trigger {
+    background-color: $main-color;
+  }
+
 }
 
 .edit-product-modal {
@@ -56,9 +77,12 @@ $color-secondary: #41a62a;
   }
 }
 
+
+
 @media screen and (max-width: 576px) {
   .Admin-Page {
-    .main-title > span,
+
+    .main-title>span,
     .menu-item-title,
     .user-admin-title,
     .open-web-title {
@@ -67,6 +91,7 @@ $color-secondary: #41a62a;
 
     .logo {
       flex-basis: 84px !important;
+
       img {
         margin-left: 16px !important;
         width: 36px;
@@ -83,9 +108,10 @@ $color-secondary: #41a62a;
     }
 
     .menu {
-      li > span {
+      li>span {
         font-size: 150%;
       }
+
       flex-basis: 30px !important;
     }
   }

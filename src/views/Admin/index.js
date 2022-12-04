@@ -1,5 +1,6 @@
 import {
-    BarChartOutlined,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
     DashboardOutlined,
     EyeOutlined,
     HomeOutlined,
@@ -10,7 +11,7 @@ import {
     ShoppingCartOutlined,
     UserOutlined,
 } from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+import { Button, Menu, Layout } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
 import SubMenu from 'antd/lib/menu/SubMenu';
 import defaultAvt from '@/assets/imgs/default-avt.png';
@@ -23,8 +24,9 @@ import * as Redux from 'react-redux';
 import actionsAuth from '@/redux/actions/auth';
 import actionsProduct from '@/redux/actions/product';
 import actionsCategory from '@/redux/actions/category';
+const { Sider } = Layout;
 
-const mainColor = '#141428';
+const mainColor = '#F78B2D';
 const menuList = [
     {
         key: 'd',
@@ -72,6 +74,7 @@ function AdminPage() {
     const authLogin = Redux.useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
     const [keyMenu, setKeyMenu] = useState('d');
+    const [collapsed, setCollapsed] = useState(false);
     // fn: Xử lý khi chọn item
     const handleSelected = (e) => {
         const { key } = e;
@@ -148,11 +151,12 @@ function AdminPage() {
                 <div className="logo t-center" style={{ flexBasis: '200px' }}>
                     <img width={100} height={48} src={logoUrl} alt={'logo'} />
                 </div>
-                <div className="flex-grow-1 d-flex align-i-center">
-                    <h2 className="t-color-primary flex-grow-1 p-l-44 main-title">
+                <div className="flex-grow-1 d-flex align-i-end">
+                    {/* <h2 className="t-color-primary flex-grow-1 p-l-44 main-title">
                         <span>Admin Page &gt; </span>
                         <span className="option-title">{showTitleSelected(keyMenu)}</span>
-                    </h2>
+                    </h2> */}
+                    <div className="flex-grow-1 p-l-44"></div>
                     <a href="/" className="open-web p-r-24 t-color-primary font-weight-500 p-b-10">
                         <HomeOutlined
                             className="icon font-size-28px t-color-primary m-r-10"
@@ -171,25 +175,25 @@ function AdminPage() {
             </div>
             {/* main content */}
             <div className="d-flex">
-                {/* menu dashboard */}
-                <Menu
-                    className="menu p-t-24"
-                    theme="dark"
-                    onClick={handleSelected}
-                    style={{
-                        height: 'inherit',
-                        minHeight: '100vh',
-                        backgroundColor: mainColor,
-                        flexBasis: '200px',
-                    }}
-                    defaultSelectedKeys={keyMenu}
-                    mode="inline"
-                >
-                    {renderMenuItem()}
-                </Menu>
-
+                <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+                    {/* menu dashboard */}
+                    <Menu
+                        className="menu p-t-24"
+                        onClick={handleSelected}
+                        style={{
+                            height: 'inherit',
+                            minHeight: '100vh',
+                            backgroundColor: mainColor,
+                            flexBasis: '200px',
+                        }}
+                        defaultSelectedKeys={keyMenu}
+                        mode="inline"
+                    >
+                        {renderMenuItem()}
+                    </Menu>
+                </Sider>
                 {/* main contents */}
-                <div className="flex-grow-1">{renderMenuComponent(keyMenu)}</div>
+                <div className="">{renderMenuComponent(keyMenu)}</div>
             </div>
         </div>
     );

@@ -69,7 +69,7 @@ function AdminUser() {
         // };
     }, []);
 
-    return <Table pagination={false} columns={columns} dataSource={data} />;
+    return <Table className="p-32" pagination={false} columns={columns} dataSource={data} />;
 }
 
 export default AdminUser;

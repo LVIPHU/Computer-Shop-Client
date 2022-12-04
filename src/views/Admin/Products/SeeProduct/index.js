@@ -9,6 +9,7 @@ import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import EditProductModal from './EditProductModal';
 import * as Redux from 'react-redux';
+import GlobalLoading from '@/components/Loading/Global';
 
 function generateFilterCategory(categories) {
     let result = [];
@@ -27,8 +28,6 @@ function SeeProduct() {
 
     const categoryAll = Redux.useSelector((state) => state.categoryAll);
     const { categories } = categoryAll;
-
-    console.log(products);
 
     // event: xoá sản phẩm
     const onDelete = async (_id) => {
@@ -96,7 +95,7 @@ function SeeProduct() {
             title: 'Tên',
             key: 'name',
             dataIndex: 'name',
-            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 100)}</Tooltip>,
+            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 160)}</Tooltip>,
         },
         {
             title: 'Giá',
@@ -154,7 +153,7 @@ function SeeProduct() {
             title: 'Hành động',
             key: 'actions',
             fixed: 'right',
-            width: 100,
+            width: 120,
             render: (text) => (
                 <>
                     <DeleteOutlined
@@ -184,11 +183,11 @@ function SeeProduct() {
 
     // rendering ...
     return (
-        <div className="pos-relative p-8">
+        <>
             {loading ? (
-                <Spin tip="Đang tải danh sách sản phẩm ..." size="large" className="trans-center" />
+                <GlobalLoading content="Đang tải danh sách sản phẩm ..." />
             ) : (
-                <>
+                <div className="p-32 max-w-100">
                     {' '}
                     {/* modal confirm delete product */}
                     <Modal
@@ -223,9 +222,9 @@ function SeeProduct() {
                         onClose={(value) => onCloseEditModal(value)}
                         product={editModal.product}
                     />
-                </>
+                </div>
             )}
-        </div>
+        </>
     );
 }
 

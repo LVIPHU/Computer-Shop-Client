@@ -22,19 +22,20 @@ function countItemInCart(productCode, carts) {
 }
 
 function ProductOverview(props) {
-    const { products } = props;
-    const { _id, avt, name, brand, code, price, rate, discount, stock } = products.product;
+    const { product } = props;
+    const { id, image, name, price, quantity, categoryName } = product;
 
-    const { catalogs, ...productRest } = products.productDetail;
-    const imgList = [avt, ...catalogs];
-    const rateTotal = rate.reduce((a, b) => a + b, 0);
-    const priceBefore = price + (price * discount) / 100;
-    const rateAvg = helpers.calStar(rate);
+    // const { catalogs, ...productRest } = product.productDetail;
+    // const imgList = [avt, ...catalogs];
+    // const rateTotal = rate.reduce((a, b) => a + b, 0);
+    // const priceBefore = price + (price * discount) / 100;
+    // const rateAvg = helpers.calStar(rate);
 
     const [numOfProduct, setNumberOfProduct] = useState(1);
     const [avtIndex, setAvtIndex] = useState(0);
-    const carts = useSelector((state) => state.carts);
-    const currentStock = stock - countItemInCart(code, carts);
+
+    // const carts = useSelector((state) => state.carts);
+    // const currentStock = stock - countItemInCart(code, carts);
 
     const dispatch = useDispatch();
 
@@ -71,14 +72,13 @@ function ProductOverview(props) {
     // fn: Thêm vào giỏ hàng
     const addCart = () => {
         let product = {
-            code,
+            id,
+            image,
             name,
             price,
+            quantity,
+            categoryName,
             amount: numOfProduct,
-            avt,
-            discount,
-            stock,
-            _id,
         };
         setNumberOfProduct(1);
         // dispatch(cartActions.addToCart(product));
@@ -91,10 +91,15 @@ function ProductOverview(props) {
             {/* Hình ảnh và thông số cơ bản sản phẩm */}
             <Col span={24} md={8}>
                 <div style={{ height: 268 }} className="d-flex align-i-center justify-content-center ">
-                    <Image style={{ maxHeight: '100%' }} fallback={ImgLoadFailed} src={imgList[avtIndex]} />
+                    {/* <Image style={{ maxHeight: '100%' }} fallback={ImgLoadFailed} src={imgList[avtIndex]} /> */}
+                    <Image
+                        style={{ maxHeight: '100%' }}
+                        fallback={ImgLoadFailed}
+                        src={`data:image/jpeg;base64,${image}`}
+                    />
                 </div>
-                <div className="d-flex w-100 bg-white p-b-16 p-t-8">{showCatalogs(imgList)}</div>
-                <div className="p-l-16 p-t-16 product-info">{showOverviewInfo(productRest)}</div>
+                {/* <div className="d-flex w-100 bg-white p-b-16 p-t-8">{showCatalogs(imgList)}</div> */}
+                {/* <div className="p-l-16 p-t-16 product-info">{showOverviewInfo(productRest)}</div> */}
             </Col>
 
             {/* Tên và thông tin cơ bản */}
@@ -104,24 +109,24 @@ function ProductOverview(props) {
 
                 {/* Đánh giá sản phẩm */}
                 <div className="p-tb-8">
-                    <Rate disabled defaultValue={rateAvg} allowHalf />
+                    <Rate disabled defaultValue={4} allowHalf />
                     <a href="#evaluation" className="m-l-8">
-                        (Có {rateTotal} đánh giá)
+                        (Có {4} đánh giá)
                     </a>
                 </div>
 
                 {/* Mã, thương hiệu */}
                 <div className="font-size-16px font-weight-400" style={{ color: '#aaa' }}>
                     Thương hiệu:
-                    <span className="product-brand font-weight-500">&nbsp;{brand}</span>
-                    &nbsp; | &nbsp;<span>{code}</span>
+                    <span className="product-brand font-weight-500">&nbsp;{product.categoryName}</span>
+                    {/* &nbsp; | &nbsp;<span>{code}</span> */}
                 </div>
 
                 {/* Giá */}
                 <h1 className="product-price font-weight-700 p-tb-8">
-                    {price === 0 ? 'Liên hệ' : helpers.formatProductPrice(priceBefore)}
+                    {price === 0 ? 'Liên hệ' : helpers.formatProductPrice(product.price)}
                 </h1>
-                {discount > 0 && price > 0 && (
+                {/* {discount > 0 && price > 0 && (
                     <>
                         <h3 className="font-weight-700" style={{ color: '#333' }}>
                             Bạn có 1 mã giảm giá {discount}% cho sản phẩm này
@@ -139,11 +144,11 @@ function ProductOverview(props) {
                             <CheckOutlined className="discount-mark-icon" />
                         </div>
                     </>
-                )}
+                )} */}
 
                 {/* Chọn số lượng */}
                 <div className="p-t-12 option">
-                    {currentStock === 0 ? (
+                    {product.quantity === 0 ? (
                         <h3 className="m-r-8 m-t-8 font-size-18px" style={{ color: 'red' }}>
                             <i>Sản phẩm hiện đang hết hàng !</i>
                         </h3>
@@ -155,7 +160,7 @@ function ProductOverview(props) {
                                 size="middle"
                                 value={numOfProduct}
                                 min={1}
-                                max={currentStock}
+                                max={product.quantity}
                                 onChange={(value) => setNumberOfProduct(value)}
                             />
                         </>
@@ -163,11 +168,11 @@ function ProductOverview(props) {
                 </div>
 
                 {/* Button*/}
-                {price > 0 && currentStock > 0 ? (
+                {product.price > 0 && product.quantity > 0 ? (
                     <div className="btn-group p-tb-16 d-flex justify-content-around">
                         <Button
                             onClick={addCart}
-                            disabled={stock ? false : true}
+                            disabled={product.quantity ? false : true}
                             size="large"
                             className="m-r-16 w-100 btn-group-item"
                             style={{ backgroundColor: '#3555c5' }}
@@ -177,7 +182,7 @@ function ProductOverview(props) {
 
                         <Button
                             onClick={addCart}
-                            disabled={stock ? false : true}
+                            disabled={product.quantity ? false : true}
                             size="large"
                             className="w-100 btn-group-item"
                             style={{ backgroundColor: '#39B3D7' }}

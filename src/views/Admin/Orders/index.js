@@ -172,6 +172,7 @@ function OrderList() {
                 <Spin className="trans-center" tip="Đang lấy danh sách đơn hàng ..." />
             ) : (
                 <Table
+                    className="p-32"
                     columns={columns}
                     dataSource={data}
                     pagination={{ showLessItems: true, position: ['bottomCenter'] }}

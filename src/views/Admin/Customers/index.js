@@ -72,38 +72,38 @@ function CustomerList() {
     },
   ];
 
-  useEffect(() => {
-    let isSubscribe = true;
-    async function getCustomerList() {
-      try {
-        setIsLoading(true);
-        const response = await adminApi.getCustomerList();
-        if (isSubscribe && response) {
-          const { list } = response.data;
-          const newList = list.map((item, index) => {
-            return {
-              key: index,
-              id: item._id,
-              email: item.accountId.email,
-              birthday: item.birthday,
-              fullName: item.fullName,
-              address: item.address,
-              gender: item.gender,
-              authType: item.accountId.authType,
-            };
-          });
-          setData([...newList]);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        if (isSubscribe) setIsLoading(false);
-      }
-    }
-    getCustomerList();
-    return () => {
-      isSubscribe = false;
-    };
-  }, []);
+  // useEffect(() => {
+  //   let isSubscribe = true;
+  //   async function getCustomerList() {
+  //     try {
+  //       setIsLoading(true);
+  //       const response = await adminApi.getCustomerList();
+  //       if (isSubscribe && response) {
+  //         const { list } = response.data;
+  //         const newList = list.map((item, index) => {
+  //           return {
+  //             key: index,
+  //             id: item._id,
+  //             email: item.accountId.email,
+  //             birthday: item.birthday,
+  //             fullName: item.fullName,
+  //             address: item.address,
+  //             gender: item.gender,
+  //             authType: item.accountId.authType,
+  //           };
+  //         });
+  //         setData([...newList]);
+  //         setIsLoading(false);
+  //       }
+  //     } catch (error) {
+  //       if (isSubscribe) setIsLoading(false);
+  //     }
+  //   }
+  //   getCustomerList();
+  //   return () => {
+  //     isSubscribe = false;
+  //   };
+  // }, []);
 
   return (
     <>

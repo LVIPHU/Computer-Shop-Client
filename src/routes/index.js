@@ -7,11 +7,13 @@ export const publicRoutes = [
     { path: constans.ROUTES.REGISTER, component: pages.Register },
     { path: constans.ROUTES.FILTER, component: pages.Home },
     { path: constans.ROUTES.CART, component: pages.Home },
+    { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: '*', component: pages.Login },
 ];
 
 export const privateRoutes = [
     { path: constans.ROUTES.HOME, component: pages.Home },
+    { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: constans.ROUTES.FILTER, component: pages.Home },
     { path: constans.ROUTES.CART, component: pages.Home },
     { path: '*', component: pages.Result_404 },

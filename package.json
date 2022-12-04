@@ -10,6 +10,7 @@
         "antd": "^4.23.4",
         "axios": "^1.1.2",
         "chart.js": "^3.9.1",
+        "ckeditor5": "^35.3.2",
         "compressorjs": "^1.1.1",
         "formik": "^2.2.9",
         "react": "^18.2.0",

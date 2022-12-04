@@ -188,7 +188,6 @@ function AddProduct() {
         //         ...rest,
         //         catalogs,
         //     };
-
         //     // data được gửi đi
         //     const dataSend = { product, details, desc: productDecs.current };
         //     const response = await adminApi.postAddProduct(dataSend);
@@ -208,8 +207,8 @@ function AddProduct() {
 
     // returning...
     return (
-        <div className="Admin-Product-Page">
-            <h1 className="t-center p-t-20">
+        <div className="Admin-Product-Page p-16">
+            <h1 className="t-center ">
                 <b>Thêm sản phẩm</b>
             </h1>
             {/* chọn loại sản phẩm */}
