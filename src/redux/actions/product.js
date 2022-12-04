@@ -1,22 +1,6 @@
 import constants from './../constants/product';
 import fetch from '../../services/product';
-import { notification } from 'antd';
-
-const openNotificationError = (message) => {
-    notification.error({
-        message: `Faild`,
-        description: `${message}`,
-        placement: 'topRight',
-    });
-};
-
-const openNotificationSucces = (message) => {
-    notification.success({
-        message: `Success`,
-        description: `${message}`,
-        placement: 'topRight',
-    });
-};
+import helpers from '@/utils/helpers';
 
 const actions = {
     getFilterProducts: (page, size, categoryId) => async (dispatch) => {
@@ -36,6 +20,9 @@ const actions = {
                 type: constants.PRODUCT_FILTER_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.message);
         }
     },
 
@@ -56,6 +43,9 @@ const actions = {
                 type: constants.PRODUCT_LIST_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.message);
         }
     },
 
@@ -75,6 +65,9 @@ const actions = {
                 type: constants.PRODUCT_ALL_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.message);
         }
     },
 
@@ -95,6 +88,9 @@ const actions = {
                 type: constants.PRODUCT_DETAIL_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.message);
         }
     },
 };

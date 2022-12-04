@@ -6,14 +6,22 @@ import thunk from 'redux-thunk';
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
-const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [];
+const cartItemsFromStorage =
+    userInfoFromStorage && localStorage.getItem(userInfoFromStorage.id)
+        ? JSON.parse(localStorage.getItem(userInfoFromStorage.id))
+        : [];
+
+const shippingInfoFromStorage = localStorage.getItem('shippingInfo')
+    ? JSON.parse(localStorage.getItem('shippingInfo'))
+    : {};
 
 const initialState = {
-    cart: {
-        cartItems: cartItemsFromStorage,
-    },
     authLogin: {
         userInfo: userInfoFromStorage,
+    },
+    cart: {
+        cartItems: cartItemsFromStorage,
+        shippingInfo: shippingInfoFromStorage,
     },
 };
 

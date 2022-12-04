@@ -18,6 +18,7 @@ const actions = {
                 payload: data,
             });
             localStorage.setItem('userInfo', JSON.stringify(data));
+            localStorage.setItem('accessToken', JSON.stringify(data.token));
             helpers.openNotificationSucces('Đăng nhập thành công', 'Chào mừng bạn dến với TTB Store');
         } catch (error) {
             dispatch({
@@ -61,6 +62,7 @@ const actions = {
 
     logout: () => async (dispatch) => {
         localStorage.removeItem('userInfo');
+        localStorage.removeItem('accessToken');
         dispatch({ type: constantsAuth.AUTH_PROFILE_RESET });
         dispatch({ type: constantsCart.CART_RESET });
         dispatch({ type: constantsUser.USER_LIST_RESET });

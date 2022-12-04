@@ -193,7 +193,13 @@ function AdminPage() {
                     </Menu>
                 </Sider>
                 {/* main contents */}
-                <div className="">{renderMenuComponent(keyMenu)}</div>
+                <div
+                    style={{
+                        width: '100%',
+                    }}
+                >
+                    {renderMenuComponent(keyMenu)}
+                </div>
             </div>
         </div>
     );
