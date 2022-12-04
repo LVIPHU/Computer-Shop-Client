@@ -63,6 +63,8 @@ const actions = {
     logout: () => async (dispatch) => {
         localStorage.removeItem('userInfo');
         localStorage.removeItem('accessToken');
+        localStorage.removeItem('cartItems');
+        localStorage.removeItem('shippingInfo');
         dispatch({ type: constantsAuth.AUTH_PROFILE_RESET });
         dispatch({ type: constantsCart.CART_RESET });
         dispatch({ type: constantsUser.USER_LIST_RESET });

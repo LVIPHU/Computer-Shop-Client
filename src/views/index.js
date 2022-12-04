@@ -26,6 +26,7 @@ const pages = {
 
     Admin: React.lazy(() => import('./Admin')),
     Users: React.lazy(() => import('./Admin/Users')),
+    Cart: React.lazy(() => import('@/components/Cart')),
     Orders: React.lazy(() => import('./Admin/Orders')),
     Products: React.lazy(() => import('./Admin/Products/SeeProduct')),
     AddProduct: React.lazy(() => import('./Admin/Products/ProductAddForm')),

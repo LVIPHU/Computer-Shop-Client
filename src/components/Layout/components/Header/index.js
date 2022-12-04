@@ -20,7 +20,7 @@ import './index.scss';
 
 function totalItemCarts(cartItems) {
     if (cartItems) {
-        return cartItems.reduce((total, item) => total + item.amount, 0);
+        return cartItems.reduce((total, item) => total + item.qty, 0);
     }
 }
 

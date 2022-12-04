@@ -1,9 +1,8 @@
 import constants from './../constants/cart';
 import fetch from '../../services/product';
-import helpers from '@/utils/helpers';
 
 const actions = {
-    addItemToCart: (id, qty, uid) => async (dispatch, getState) => {
+    addItemToCart: (id, qty) => async (dispatch, getState) => {
         const { data } = await fetch.getDetailProduct(id);
         dispatch({
             type: constants.CART_ADD_ITEM,
@@ -17,10 +16,10 @@ const actions = {
             },
         });
 
-        localStorage.setItem(uid, JSON.stringify(getState().cart.cartItems));
+        localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
     },
 
-    updateItemToCart: (id, qty, uid) => async (dispatch, getState) => {
+    updateItemToCart: (id, qty) => async (dispatch, getState) => {
         const { data } = await fetch.getDetailProduct(id);
         dispatch({
             type: constants.CART_UPDATE_ITEM,
@@ -34,17 +33,22 @@ const actions = {
             },
         });
 
-        localStorage.setItem(uid, JSON.stringify(getState().cart.cartItems));
+        localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
     },
 
-    removeItemFromCart: (id, uid) => async (dispatch, getState) => {
+    removeItemFromCart: (id) => async (dispatch, getState) => {
         dispatch({
             type: constants.CART_REMOVE_ITEM,
             payload: {
                 id,
             },
         });
-        localStorage.setItem(uid, JSON.stringify(getState().cart.cartItems));
+        localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+    },
+
+    resetCart: () => async (dispatch) => {
+        dispatch({ type: constants.CART_RESET });
+        localStorage.removeItem('cartItems');
     },
 
     saveShippingInfo: (data) => async (dispatch) => {

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import cartActions from '';
+import actionsCart from '@/redux/actions/cart';
 import './index.scss';
 
 // Hàm đếm số sản phẩm đó trong giỏ hàng
@@ -22,6 +22,7 @@ function countItemInCart(productCode, carts) {
 }
 
 function ProductOverview(props) {
+    const dispatch = useDispatch();
     const { product } = props;
     const { id, image, name, price, quantity, categoryName } = product;
 
@@ -34,10 +35,8 @@ function ProductOverview(props) {
     const [numOfProduct, setNumberOfProduct] = useState(1);
     const [avtIndex, setAvtIndex] = useState(0);
 
-    // const carts = useSelector((state) => state.carts);
+    const cart = useSelector((state) => state.cart);
     // const currentStock = stock - countItemInCart(code, carts);
-
-    const dispatch = useDispatch();
 
     // fn: hiên thị danh sách hình ảnh sp
     const showCatalogs = (catalog) => {
@@ -71,18 +70,8 @@ function ProductOverview(props) {
 
     // fn: Thêm vào giỏ hàng
     const addCart = () => {
-        let product = {
-            id,
-            image,
-            name,
-            price,
-            quantity,
-            categoryName,
-            amount: numOfProduct,
-        };
+        dispatch(actionsCart.addItemToCart(id, numOfProduct));
         setNumberOfProduct(1);
-        // dispatch(cartActions.addToCart(product));
-        message.success('Thêm vào giỏ hàng thành công');
     };
 
     // rendering ...

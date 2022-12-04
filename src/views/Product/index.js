@@ -21,21 +21,6 @@ function ProductDetailPage() {
         if (error) {
             setIsNotFoundProduct(true);
         }
-        // let isSubscribe = true;
-        // const getProduct = async (id) => {
-        //   try {
-        //     const result = await productApi.getProduct(id);
-        //     if (result && isSubscribe) {
-        //       const { data } = result;
-        //       setProduct(data);
-        //     }
-        //   } catch (error) {
-        //     if (isSubscribe) setIsNotFoundProduct(true);
-        //   }
-        // };
-        // getProduct(productId);
-        // if (isSubscribe) setProduct(null);
-        // return () => (isSubscribe = false);
     }, [productId]);
 
     return (

@@ -6,30 +6,30 @@ import helpers from '@/utils/helpers';
 import React from 'react';
 
 function CartItem(props) {
-    const { _id, name, code, avt, stock, discount, price, amount, index, onDelCartItem, onUpdateNumOfProd } = props;
+    const { id, name, image, stock, price, qty, onDelCartItem, onUpdateNumOfProd } = props;
     return (
         <div className="d-flex bg-white p-12 bor-rad-4 justify-content-between">
             {/* sản phẩm */}
             <div className="d-flex flex-grow-1">
-                <Avatar src={avt} alt="Photo" shape="square" size={64} />
+                <Avatar src={`data:image/jpeg;base64,${image}`} alt="Photo" shape="square" size={64} />
                 <div className="d-flex flex-direction-column p-10 ">
-                    <Link to={`/product/${_id}`} className="font-size-16px">
+                    <Link to={`/product/${id}`} className="font-size-16px">
                         <Tooltip title={name}>{helpers.reduceProductName(name, 20)}</Tooltip>
                     </Link>
-                    <span style={{ color: '#aaa' }}>{code}</span>
+                    {/* <span style={{ color: '#aaa' }}>{code}</span> */}
                 </div>
             </div>
 
             {/*  Thêm giảm sản phẩm */}
             <div className="d-flex align-i-center" style={{ flexBasis: 128 }}>
-                <DeleteOutlined className="m-r-18 icon-del-item" onClick={() => onDelCartItem(index)} />
+                <DeleteOutlined className="m-r-18 icon-del-item" onClick={() => onDelCartItem(id)} />
                 <div>
                     <InputNumber
                         height={20}
                         min={1}
                         max={stock}
-                        value={amount}
-                        onChange={(value) => onUpdateNumOfProd(index, value)}
+                        value={qty}
+                        onChange={(value) => onUpdateNumOfProd(id, value)}
                         size="large"
                         style={{ borderColor: '#3555C5' }}
                     />
@@ -42,7 +42,7 @@ function CartItem(props) {
                     {helpers.formatProductPrice(price)}
                 </b>
                 <span style={{ textDecoration: 'line-through', color: '#aaa' }}>
-                    {helpers.formatProductPrice(price + (price * discount) / 100)}
+                    {helpers.formatProductPrice(price)}
                 </span>
             </div>
         </div>
