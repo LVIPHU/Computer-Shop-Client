@@ -1,43 +1,47 @@
 import { HomeOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card, Col, Input, message, Radio, Result, Row } from 'antd';
-import addressApi from 'apis/addressApi';
-import orderApi from 'apis/orderApi';
-import CartPayment from 'components/Cart/Payment';
+// import addressApi from 'apis/addressApi';
+// import orderApi from 'apis/orderApi';
+import CartPayment from '@/components/Cart//Payment';
 import constants from '@/utils/constants';
-import AddressUserList from 'views/AccountPage/UserAddressList';
-import helpers from 'helpers';
+import AddressUserList from '@/views/Profile/UserAddressList';
+import helpers from '@/utils/helpers';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import cartReducers from 'reducers/carts';
+import { Link, Navigate } from 'react-router-dom';
+// import cartReducers from 'reducers/carts';
 
 // fn: Lấy địa chỉ giao hàng của user theo index
 const getUserDeliveryAdd = async (userId, index = 0) => {
-    try {
-        const response = await addressApi.getDeliveryAddressList(userId, 1);
-        if (response) {
-            return response.data.list[index];
-        }
-        return null;
-    } catch (err) {
-        return null;
-    }
+    // try {
+    //     const response = await addressApi.getDeliveryAddressList(userId, 1);
+    //     if (response) {
+    //         return response.data.list[index];
+    //     }
+    //     return null;
+    // } catch (err) {
+    //     return null;
+    // }
 };
 
 function PaymentPage() {
     const dispatch = useDispatch();
-    const isAuth = useSelector((state) => state.authenticate.isAuth);
 
     // ghi chú đơn hàng
     const note = useRef('');
     const addressIndex = useRef(-1);
     const [transport, setTransport] = useState(0);
-    const carts = useSelector((state) => state.carts);
-    const user = useSelector((state) => state.user);
+    const cart = useSelector((state) => state.cart);
+    const { cartItems } = cart;
+
+    const authLogin = useSelector((state) => state.authLogin);
+    const { userInfo } = authLogin;
+
     const [isLoading, setIsLoading] = useState(false);
     const [isOrderSuccess, setIsOrderSuccess] = useState(false);
     // giá tạm tính
-    const tempPrice = carts.reduce((a, b) => a + (b.price + (b.price * b.discount) / 100) * b.amount, 0);
+    // const tempPrice = carts.reduce((a, b) => a + (b.price + (b.price * b.discount) / 100) * b.amount, 0);
+    const tempPrice = cartItems.reduce((a, b) => a + b.price * b.qty, 0);
     const transportFee =
         tempPrice >= 1000000 ? 0 : constants.TRANSPORT_METHOD_OPTIONS.find((item) => item.value === transport).price;
     // fn: hiển thị danh sách đơn hàng
@@ -46,7 +50,7 @@ function PaymentPage() {
         return carts.map((item, index) => (
             <Card key={index}>
                 <Card.Meta
-                    avatar={<Avatar size={48} shape="square" src={item.avt} alt="Photo" />}
+                    avatar={<Avatar size={48} shape="square" src={item.image} alt="Photo" />}
                     title={helpers.reduceProductName(item.name, 40)}
                     description={
                         <>
@@ -61,56 +65,56 @@ function PaymentPage() {
 
     // event: đặt hàng
     const onCheckout = async () => {
-        try {
-            setIsLoading(true);
-            const owner = user._id;
-            if (addressIndex.current === -1) {
-                message.warn('Vui lòng chọn địa chỉ giao hàng');
-                setIsLoading(false);
-                return;
-            }
-            const deliveryAdd = await getUserDeliveryAdd(owner, addressIndex.current);
-            const paymentMethod = 0,
-                orderStatus = 0,
-                transportMethod = transport;
-            const orderDate = new Date();
-            const productList = carts.map((item, index) => {
-                const { amount, name, price, discount, _id } = item;
-                return {
-                    numOfProd: amount,
-                    orderProd: { name, price, discount, id: _id },
-                };
-            });
-            const response = await orderApi.postCreateOrder({
-                owner,
-                deliveryAdd,
-                paymentMethod,
-                orderStatus,
-                transportMethod,
-                transportFee,
-                orderDate,
-                productList,
-                note: note.current,
-            });
-            if (response && response.status === 200) {
-                setTimeout(() => {
-                    message.success('Đặt hàng thành công', 2);
-                    setIsLoading(false);
-                    setIsOrderSuccess(true);
-                    dispatch(cartReducers.resetCart());
-                }, 1000);
-            }
-        } catch (error) {
-            message.error('Đặt hàng thất bại, thử lại', 3);
-            setIsLoading(false);
-        }
+        // try {
+        //     setIsLoading(true);
+        //     const owner = user._id;
+        //     if (addressIndex.current === -1) {
+        //         message.warn('Vui lòng chọn địa chỉ giao hàng');
+        //         setIsLoading(false);
+        //         return;
+        //     }
+        //     const deliveryAdd = await getUserDeliveryAdd(owner, addressIndex.current);
+        //     const paymentMethod = 0,
+        //         orderStatus = 0,
+        //         transportMethod = transport;
+        //     const orderDate = new Date();
+        //     const productList = carts.map((item, index) => {
+        //         const { amount, name, price, discount, _id } = item;
+        //         return {
+        //             numOfProd: amount,
+        //             orderProd: { name, price, discount, id: _id },
+        //         };
+        //     });
+        //     const response = await orderApi.postCreateOrder({
+        //         owner,
+        //         deliveryAdd,
+        //         paymentMethod,
+        //         orderStatus,
+        //         transportMethod,
+        //         transportFee,
+        //         orderDate,
+        //         productList,
+        //         note: note.current,
+        //     });
+        //     if (response && response.status === 200) {
+        //         setTimeout(() => {
+        //             message.success('Đặt hàng thành công', 2);
+        //             setIsLoading(false);
+        //             setIsOrderSuccess(true);
+        //             dispatch(cartReducers.resetCart());
+        //         }, 1000);
+        //     }
+        // } catch (error) {
+        //     message.error('Đặt hàng thất bại, thử lại', 3);
+        //     setIsLoading(false);
+        // }
     };
 
     // rendering ...
     return (
         <>
-            {carts.length <= 0 && !isOrderSuccess && <Redirect to={constants.ROUTES.CART} />}
-            {isAuth ? (
+            {cartItems.length <= 0 && !isOrderSuccess && <Navigate to={constants.ROUTES.CART} replace />}
+            {userInfo ? (
                 <div className="m-tb-32 container">
                     {isOrderSuccess ? (
                         <Result
@@ -165,7 +169,7 @@ function PaymentPage() {
                                 </div>
 
                                 {/* ghi chú */}
-                                <div className="p-12 bg-white bor-rad-8">
+                                <div className="p-16 p-b-32 bg-white bor-rad-8">
                                     <h2 className="m-b-8">Ghi chú cho đơn hàng</h2>
                                     <Input.TextArea
                                         placeholder="Nhập thông tin ghi chú nhà bán"
@@ -216,16 +220,15 @@ function PaymentPage() {
                                             <Link to={constants.ROUTES.CART}>Chỉnh sửa</Link>
                                         </Button>
                                     </div>
-                                    <div>{showOrderInfo(carts)}</div>
+                                    <div>{showOrderInfo(cartItems)}</div>
                                 </div>
 
                                 {/* tiến hành đặt hàng */}
                                 <div className="bg-white">
                                     <CartPayment
                                         isLoading={isLoading}
-                                        carts={carts}
+                                        cartItems={cartItems}
                                         isCheckout={true}
-                                        transportFee={transportFee}
                                         onCheckout={onCheckout}
                                     />
                                     <div className="t-center p-b-16">
@@ -241,7 +244,7 @@ function PaymentPage() {
                     )}
                 </div>
             ) : (
-                <Redirect to={constants.ROUTES.LOGIN} />
+                <Navigate to={constants.ROUTES.LOGIN} replace />
             )}
         </>
     );

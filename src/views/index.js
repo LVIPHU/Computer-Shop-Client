@@ -23,10 +23,11 @@ const pages = {
     Product: React.lazy(() => import('./Product')),
     Register: React.lazy(() => import('./Register')),
     Filter: React.lazy(() => import('./SearchFilter/Filter')),
+    Cart: React.lazy(() => import('@/components/Cart')),
+    Payment: React.lazy(() => import('./Payment')),
 
     Admin: React.lazy(() => import('./Admin')),
     Users: React.lazy(() => import('./Admin/Users')),
-    Cart: React.lazy(() => import('@/components/Cart')),
     Orders: React.lazy(() => import('./Admin/Orders')),
     Products: React.lazy(() => import('./Admin/Products/SeeProduct')),
     AddProduct: React.lazy(() => import('./Admin/Products/ProductAddForm')),

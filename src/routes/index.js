@@ -16,6 +16,7 @@ export const privateRoutes = [
     { path: constans.ROUTES.FILTER, component: pages.Home },
     { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: constans.ROUTES.CART, component: pages.Cart },
+    { path: constans.ROUTES.PAYMENT, component: pages.Payment },
     { path: '*', component: pages.Result_404 },
 ];
 

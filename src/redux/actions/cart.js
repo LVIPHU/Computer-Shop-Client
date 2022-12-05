@@ -1,5 +1,6 @@
 import constants from './../constants/cart';
 import fetch from '../../services/product';
+import helpers from '@/utils/helpers';
 
 const actions = {
     addItemToCart: (id, qty) => async (dispatch, getState) => {
@@ -15,8 +16,8 @@ const actions = {
                 qty: qty > data.quantity ? data.quantity : qty,
             },
         });
-
         localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+        helpers.openNotificationSucces('Thêm sản phẩm vào giỏ hàng thành công');
     },
 
     updateItemToCart: (id, qty) => async (dispatch, getState) => {
@@ -32,8 +33,8 @@ const actions = {
                 qty,
             },
         });
-
         localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+        helpers.openNotificationSucces('Cập nhật sản phẩm vào giỏ hàng thành công');
     },
 
     removeItemFromCart: (id) => async (dispatch, getState) => {
@@ -44,6 +45,7 @@ const actions = {
             },
         });
         localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+        helpers.openNotificationSucces('Xóa sản phẩm khỏi giỏ hàng thành công');
     },
 
     resetCart: () => async (dispatch) => {
@@ -58,6 +60,7 @@ const actions = {
         });
 
         localStorage.setItem('shippingInfo', JSON.stringify(data));
+        helpers.openNotificationSucces('Thêm th6ng tin cá nhân thành công');
     },
 };
 

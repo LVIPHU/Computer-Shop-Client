@@ -23,7 +23,7 @@ function SignUp() {
     const [isRedirectLogin, setIsRedirectLogin] = useState(false);
 
     // ref kiểm tra đã nhập email hay chưa, hỗ trợ việc gửi mã xác nhận
-    const emailRef = useRef('');
+    const emailRef = useRef('/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/');
 
     // fn: gửi mã xác nhận
     const onSendCode = async () => {
@@ -123,7 +123,7 @@ function SignUp() {
             {/*// Note: chuyển đến trang login khi đăng ký thành công */}
             {isRedirectLogin && (
                 <Delay wait={constants.DELAY_TIME}>
-                    <Navigate to={constants.ROUTES.LOGIN} />
+                    <Navigate to={constants.ROUTES.LOGIN} replace />
                 </Delay>
             )}
 
