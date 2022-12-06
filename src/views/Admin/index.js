@@ -1,15 +1,13 @@
 import {
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
     DashboardOutlined,
-    EyeOutlined,
     HomeOutlined,
     IdcardOutlined,
     NotificationOutlined,
     PlusCircleOutlined,
     ReconciliationOutlined,
-    ShoppingCartOutlined,
-    UserOutlined,
+    LaptopOutlined,
+    UnorderedListOutlined,
+    TeamOutlined,
 } from '@ant-design/icons';
 import { Button, Menu, Layout } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
@@ -38,21 +36,21 @@ const menuList = [
     {
         key: 'p',
         title: 'Products',
-        icon: <ShoppingCartOutlined />,
+        icon: <LaptopOutlined />,
         children: [
-            { key: 'p0', title: 'See', icon: <EyeOutlined /> },
-            { key: 'p1', title: 'Add', icon: <PlusCircleOutlined /> },
+            { key: 'p0', title: 'List of Product', icon: <UnorderedListOutlined /> },
+            { key: 'p1', title: 'Create Product', icon: <PlusCircleOutlined /> },
         ],
     },
     {
         key: 'c',
         title: 'Customers',
-        icon: <UserOutlined />,
+        icon: <TeamOutlined />,
         children: [],
     },
     {
         key: 'a',
-        title: 'Amin Users',
+        title: 'Admin Users',
         icon: <IdcardOutlined />,
         children: [],
     },
@@ -83,21 +81,21 @@ function AdminPage() {
     };
 
     // fn: Show Title Selected
-    const showTitleSelected = (key) => {
-        let result = 'Dashboard';
-        menuList.forEach((item) => {
-            if (item.key === key) result = item.title;
-            item.children.forEach((child) => {
-                if (child.key === key) result = `${item.title} > ${child.title}`;
-            });
-        });
-        return result;
-    };
+    // const showTitleSelected = (key) => {
+    //     let result = 'Dashboard';
+    //     menuList.forEach((item) => {
+    //         if (item.key === key) result = item.title;
+    //         item.children.forEach((child) => {
+    //             if (child.key === key) result = `${item.title} > ${child.title}`;
+    //         });
+    //     });
+    //     return result;
+    // };
 
     // fn: render menu
     const renderMenuItem = () => {
         // return MenuItem if children = null
-        return menuList.map((item, index) => {
+        return menuList.map((item) => {
             const { key, title, icon, children } = item;
             if (children.length === 0)
                 return (
@@ -108,7 +106,7 @@ function AdminPage() {
             // else render SubMenu
             return (
                 <SubMenu className="menu-item" key={key} icon={icon} title={title}>
-                    {children.map((child, index) => (
+                    {children.map((child) => (
                         <Menu.Item className="menu-item" key={child.key} icon={child.icon}>
                             <span className="menu-item-title">{child.title}</span>
                         </Menu.Item>
@@ -180,13 +178,11 @@ function AdminPage() {
                 <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
                     {/* menu dashboard */}
                     <Menu
-                        className="menu p-t-24"
+                        className="menu pt-6 min-h-screen basis-[200px]"
                         onClick={handleSelected}
                         style={{
                             height: 'inherit',
-                            minHeight: '100vh',
                             backgroundColor: mainColor,
-                            flexBasis: '200px',
                         }}
                         defaultSelectedKeys={keyMenu}
                         mode="inline"
@@ -195,13 +191,7 @@ function AdminPage() {
                     </Menu>
                 </Sider>
                 {/* main contents */}
-                <div
-                    style={{
-                        width: '100%',
-                    }}
-                >
-                    {renderMenuComponent(keyMenu)}
-                </div>
+                <div className="w-full bg-white">{renderMenuComponent(keyMenu)}</div>
             </div>
         </div>
     );

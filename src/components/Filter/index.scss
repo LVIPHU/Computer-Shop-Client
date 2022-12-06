@@ -1,4 +1,5 @@
 .Filter {
+
   &-menu,
   &-detail {
     background-color: rgba($color: #fff, $alpha: 0.9);
@@ -6,15 +7,18 @@
 
   &-menu {
     &-item {
+
       &:hover,
       &:active {
         background-color: #f1f1f1;
         transition: all 0.25s;
       }
+
       .title {
         color: #444;
         font-weight: 500;
       }
+
       .icon {
         color: #aaa;
         width: 28px;
@@ -27,17 +31,21 @@
     &-item {
       word-wrap: break-word;
     }
+
     .title {
       color: #0f2895;
       font-size: 16px;
       font-weight: 500;
     }
+
     a {
       color: #333;
     }
+
     .sub-filter {
       font-size: 15px;
       font-weight: 500;
+
       &:hover,
       &:active {
         font-weight: 700;
@@ -53,6 +61,7 @@
         a {
           justify-content: center;
         }
+
         .title {
           display: none;
         }

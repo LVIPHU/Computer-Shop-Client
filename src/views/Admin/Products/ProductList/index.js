@@ -7,7 +7,7 @@ import actionsProduct from '@/redux/actions/product';
 import actionsCategory from '@/redux/actions/category';
 import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
-import EditProductModal from './EditProductModal';
+import EditProductModal from './ProductEditModal';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
 
@@ -123,6 +123,7 @@ function SeeProduct() {
             dataIndex: 'quantity',
             defaultSortOrder: 'ascend',
             sorter: (a, b) => a.quantity - b.quantity,
+            render: (quantity) => <div className="flex justify-center items-center">{quantity}</div>,
         },
         // {
         //     title: 'Thương hiệu',
@@ -155,28 +156,29 @@ function SeeProduct() {
             fixed: 'right',
             width: 120,
             render: (text) => (
-                <>
-                    <DeleteOutlined
-                        onClick={() => setModalDel({ visible: true, _id: text.id })}
-                        className="m-r-8 action-btn-product"
-                        style={{ color: 'red' }}
-                    />
+                <div className="flex justify-between items-center">
                     <Tooltip title="Chỉnh sửa" placement="left">
                         <EditOutlined
                             onClick={() => {
                                 setEditModal({ visible: true, product: { ...text } });
                             }}
-                            className="m-r-8 action-btn-product"
-                            style={{ color: '#444' }}
+                            className="m-r-8 action-btn-product text-blue-500"
                         />
                     </Tooltip>
 
                     <Tooltip title="Xem chi tiết" placement="left">
                         <a target="blank" href={`/product/${text.id}`}>
-                            <EyeOutlined className="action-btn-product" style={{ color: '#444' }} />
+                            <EyeOutlined className="action-btn-product text-green-500" />
                         </a>
                     </Tooltip>
-                </>
+
+                    <Tooltip title="Xóa" placement="left">
+                        <DeleteOutlined
+                            onClick={() => setModalDel({ visible: true, _id: text.id })}
+                            className="m-r-8 action-btn-product text-red-500"
+                        />
+                    </Tooltip>
+                </div>
             ),
         },
     ];
