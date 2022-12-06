@@ -3,6 +3,7 @@ import constantsCart from './../constants/cart';
 import constantsUser from './../constants/user';
 import fetch from '../../services/auth';
 import helpers from '@/utils/helpers';
+import constants from '@/utils/constants';
 
 const actions = {
     login: (account) => async (dispatch) => {
@@ -69,7 +70,7 @@ const actions = {
         dispatch({ type: constantsCart.CART_RESET });
         dispatch({ type: constantsUser.USER_LIST_RESET });
         dispatch({ type: constantsAuth.AUTH_LOGOUT });
-        window.location.href = '/login';
+        window.location.href = constants.ROUTES.LOGIN;
     },
 };
 

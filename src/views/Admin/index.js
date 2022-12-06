@@ -24,6 +24,7 @@ import * as Redux from 'react-redux';
 import actionsAuth from '@/redux/actions/auth';
 import actionsProduct from '@/redux/actions/product';
 import actionsCategory from '@/redux/actions/category';
+import actionsOrder from '@/redux/actions/order';
 const { Sider } = Layout;
 
 const mainColor = '#F78B2D';
@@ -133,6 +134,7 @@ function AdminPage() {
             case 'c':
                 return <pages.Customers />;
             case 'o':
+                dispatch(actionsOrder.getAllOrder());
                 return <pages.Orders />;
             default:
                 break;

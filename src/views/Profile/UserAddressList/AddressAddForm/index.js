@@ -25,6 +25,7 @@ function AddressAddForm(props) {
 
     const [streetList, setStreetList] = useState([]);
     const formRef = useRef(null);
+    
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
 
@@ -95,8 +96,13 @@ function AddressAddForm(props) {
 
     // event: thêm địa chỉ
     const onAddAddress = async (newAddress) => {
-        const { name, phone, ...rest } = newAddress;
-        const sentData = { name, phone, address: { ...rest } };
+        const { name, phone, email, details, ...rest } = newAddress;
+        const sentData = {
+            name,
+            phone,
+            email,
+            address: `${details} ${ward} ${district} ${province}`,
+        };
         const userId = userInfo.id;
         dispatch(actionsCart.saveShippingInfo({ userId, sentData }));
         setIsVisible(false);
@@ -172,7 +178,7 @@ function AddressAddForm(props) {
                             <Input size="middle" placeholder="Số điện thoại *" maxLength={12} />
                         </Form.Item>
                         <Form.Item
-                            name="emai"
+                            name="email"
                             rules={[
                                 { required: true, message: '* Bắt buộc nhập' },
                                 {

@@ -9,6 +9,7 @@ import helpers from '@/utils/helpers';
 import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
+import actionsOrder from '@/redux/actions/order';
 // import cartReducers from 'reducers/carts';
 
 // fn: Lấy địa chỉ giao hàng của user theo index
@@ -31,12 +32,12 @@ function PaymentPage() {
     const note = useRef('');
     const addressIndex = useRef(-1);
     const [transport, setTransport] = useState(0);
+    const [address, setAddress] = useState('');
     const cart = useSelector((state) => state.cart);
-    const { cartItems } = cart;
+    const { cartItems, shippingInfo } = cart;
 
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
-
     const [isLoading, setIsLoading] = useState(false);
     const [isOrderSuccess, setIsOrderSuccess] = useState(false);
     // giá tạm tính
@@ -63,8 +64,17 @@ function PaymentPage() {
         ));
     }
 
+    const order = {
+        status: 'pending',
+        total_price: tempPrice + transportFee,
+        id_user: userInfo.id,
+        address: shippingInfo?.sentData?.address,
+        phone: shippingInfo?.sentData?.phone,
+    };
+
     // event: đặt hàng
     const onCheckout = async () => {
+        dispatch(actionsOrder.createOrder(order, cartItems));
         // try {
         //     setIsLoading(true);
         //     const owner = user._id;
@@ -226,6 +236,7 @@ function PaymentPage() {
                                 {/* tiến hành đặt hàng */}
                                 <div className="bg-white">
                                     <CartPayment
+                                        transportFee={transportFee}
                                         isLoading={isLoading}
                                         cartItems={cartItems}
                                         isCheckout={true}

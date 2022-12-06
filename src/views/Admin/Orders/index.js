@@ -2,6 +2,7 @@ import { Button, message, Modal, Radio, Spin, Table, Tooltip } from 'antd';
 // import adminApi from 'apis/adminApi';
 import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
+import * as Redux from 'react-redux';
 import { Link } from 'react-router-dom';
 
 function generateFilterOrder() {
@@ -13,8 +14,8 @@ function generateFilterOrder() {
 }
 
 function OrderList() {
-    const [data, setData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const orderLists = Redux.useSelector((state) => state.orderLists);
+    const { loading, orders } = orderLists;
 
     // event: Cập nhật trạng thái đơn hàng
     const updateOrderStatus = async (id, orderStatus) => {
@@ -65,55 +66,51 @@ function OrderList() {
     const columns = [
         {
             title: 'khách hàng',
-            key: 'owner',
-            dataIndex: 'owner',
+            key: 'id_user',
+            dataIndex: 'id_user',
         },
         {
             title: 'Mã đơn hàng',
-            key: 'orderCode',
-            dataIndex: 'orderCode',
+            key: 'id',
+            dataIndex: 'id',
             render: (v) => <a>{v}</a>,
         },
         {
             title: 'Ngày đặt',
-            key: 'orderDate',
-            dataIndex: 'orderDate',
+            key: 'ngaydat',
+            dataIndex: 'ngaydat',
             sorter: (a, b) => {
-                if (a.orderDate > b.orderDate) return 1;
-                if (a.orderDate < b.orderDate) return -1;
+                if (a.ngaydat > b.ngaydat) return 1;
+                if (a.ngaydat < b.ngaydat) return -1;
                 return 0;
             },
         },
         {
-            title: 'Sản phẩm',
-            key: 'prodName',
-            dataIndex: 'prodName',
-            render: (prodName, record) => (
-                <Tooltip title={prodName}>
-                    <Link to={`/product/${record.idProduct}`}>{helpers.reduceProductName(prodName, 30)}</Link>
-                </Tooltip>
-            ),
+            title: 'Địa chỉ',
+            key: 'address',
+            dataIndex: 'address',
+            render: (address, record) => <Tooltip title={address}>{helpers.reduceProductName(address, 60)}</Tooltip>,
         },
         {
             title: 'Tổng tiền',
-            key: 'totalMoney',
-            dataIndex: 'totalMoney',
+            key: 'total_price',
+            dataIndex: 'total_price',
             render: (value) => <b style={{ color: '#333' }}>{helpers.formatProductPrice(value)}</b>,
-            sorter: (a, b) => a.totalMoney - b.totalMoney,
+            sorter: (a, b) => a.total_price - b.total_price,
         },
-        {
-            title: 'HT thanh toán',
-            key: 'paymentMethod',
-            dataIndex: 'paymentMethod',
-            render: (value) => (value === 0 ? 'Tiền mặt' : 'VNPay'),
-        },
+        // {
+        //     title: 'HT thanh toán',
+        //     key: 'paymentMethod',
+        //     dataIndex: 'paymentMethod',
+        //     render: (value) => (value === 0 ? 'Tiền mặt' : 'VNPay'),
+        // },
         {
             title: 'Trạng thái đơn hàng',
-            key: 'orderStatus',
-            dataIndex: 'orderStatus',
-            filters: generateFilterOrder(),
-            onFilter: (value, record) => record.orderStatus === value,
-            render: (value) => helpers.convertOrderStatus(value),
+            key: 'status',
+            dataIndex: 'status',
+            // filters: generateFilterOrder(),
+            // onFilter: (value, record) => record.status === value,
+            // render: (value) => helpers.convertOrderStatus(value),
         },
         {
             title: '',
@@ -168,13 +165,13 @@ function OrderList() {
 
     return (
         <>
-            {isLoading ? (
+            {loading ? (
                 <Spin className="trans-center" tip="Đang lấy danh sách đơn hàng ..." />
             ) : (
                 <Table
                     className="p-32"
                     columns={columns}
-                    dataSource={data}
+                    dataSource={orders}
                     pagination={{ showLessItems: true, position: ['bottomCenter'] }}
                 />
             )}
