@@ -45,9 +45,9 @@ function AnnualRevenue() {
     }, []);
 
     return (
-        <>
+        <div className="flex justify-center items-center">
             {isLoading ? (
-                <Spin tip="Đang thống kê ..." size="large" indicator={<BarChartOutlined spin />} />
+                <Spin tip="Đang thống kê ..." />
             ) : (
                 <Bar
                     data={{
@@ -84,7 +84,7 @@ function AnnualRevenue() {
                     }}
                 />
             )}
-        </>
+        </div>
     );
 }
 

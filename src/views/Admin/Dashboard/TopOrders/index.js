@@ -33,9 +33,9 @@ function TopOrders() {
     }, []);
 
     return (
-        <>
+        <div className="flex justify-center items-center">
             {isLoading ? (
-                <Spin tip="Đang thống kê ..." size="large" indicator={<PieChartOutlined spin />} />
+                <Spin tip="Đang thống kê ..." />
             ) : (
                 <Doughnut
                     data={{
@@ -57,7 +57,7 @@ function TopOrders() {
                     }}
                 />
             )}
-        </>
+        </div>
     );
 }
 

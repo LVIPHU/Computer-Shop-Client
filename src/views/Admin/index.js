@@ -8,6 +8,8 @@ import {
     LaptopOutlined,
     UnorderedListOutlined,
     TeamOutlined,
+    AppstoreOutlined,
+    AppleOutlined,
 } from '@ant-design/icons';
 import { Button, Menu, Layout } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
@@ -31,6 +33,18 @@ const menuList = [
         key: 'd',
         title: 'Dashboard',
         icon: <DashboardOutlined />,
+        children: [],
+    },
+    {
+        key: 'ca',
+        title: 'Categories',
+        icon: <AppstoreOutlined />,
+        children: [],
+    },
+    {
+        key: 'b',
+        title: 'Brands',
+        icon: <AppleOutlined />,
         children: [],
     },
     {
@@ -121,6 +135,9 @@ function AdminPage() {
         switch (key) {
             case 'd':
                 return <pages.Dashboard />;
+            case 'ca':
+                dispatch(actionsCategory.getAllCategory());
+                return <pages.Categories />;
             case 'p0':
                 dispatch(actionsProduct.getAllProducts());
                 dispatch(actionsCategory.getAllCategory());

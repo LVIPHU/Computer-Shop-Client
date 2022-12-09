@@ -4,6 +4,7 @@ import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import * as Redux from 'react-redux';
 import { Link } from 'react-router-dom';
+import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
 
 function generateFilterOrder() {
     let result = [];
@@ -111,16 +112,34 @@ function OrderList() {
             // filters: generateFilterOrder(),
             // onFilter: (value, record) => record.status === value,
             // render: (value) => helpers.convertOrderStatus(value),
+            render: (status) => <div className="flex justify-center items-center">{status}</div>,
         },
         {
-            title: '',
+            title: 'Hành động',
+            key: 'actions',
             render: (_v, records) => (
-                <Button
-                    type="dashed"
-                    onClick={() => UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)}
-                >
-                    Cập nhật
-                </Button>
+                // <Button
+                //     type="dashed"
+                //     onClick={() => UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)}
+                // >
+                //     Cập nhật
+                // </Button>
+                <div className="flex justify-center items-center space-x-4">
+                    <Tooltip title="Chỉnh sửa" placement="left">
+                        <EditOutlined
+                            onClick={() =>
+                                UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)
+                            }
+                            className="m-r-8 action-btn-product text-blue-500 text-xl"
+                        />
+                    </Tooltip>
+
+                    <Tooltip title="Xem chi tiết" placement="left">
+                        <a target="blank" href={`/product/`}>
+                            <EyeOutlined className="action-btn-product text-green-500" />
+                        </a>
+                    </Tooltip>
+                </div>
             ),
         },
     ];
