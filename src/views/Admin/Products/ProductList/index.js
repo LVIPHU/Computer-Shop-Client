@@ -174,7 +174,7 @@ function SeeProduct() {
 
                     <Tooltip title="Xóa" placement="left">
                         <DeleteOutlined
-                            onClick={() => setModalDel({ visible: true, _id: text.id })}
+                            onClick={() => setModalDel({ visible: true, id: text.id })}
                             className="m-r-8 action-btn-product text-red-500"
                         />
                     </Tooltip>

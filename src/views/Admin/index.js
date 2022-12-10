@@ -25,6 +25,7 @@ import actionsAuth from '@/redux/actions/auth';
 import actionsProduct from '@/redux/actions/product';
 import actionsCategory from '@/redux/actions/category';
 import actionsOrder from '@/redux/actions/order';
+import actionsBrand from '@/redux/actions/brand';
 const { Sider } = Layout;
 
 const mainColor = '#F78B2D';
@@ -144,6 +145,9 @@ function AdminPage() {
             case 'ca':
                 dispatch(actionsCategory.getAllCategory());
                 return <pages.Categories />;
+            case 'b':
+                dispatch(actionsBrand.getAllBrand());
+                return <pages.Brands />;
             case 'p0':
                 dispatch(actionsProduct.getAllProducts());
                 dispatch(actionsCategory.getAllCategory());

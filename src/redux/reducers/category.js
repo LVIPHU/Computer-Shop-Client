@@ -14,12 +14,12 @@ export const CategoryAllReducer = (state = { categories: [] }, action) => {
   };
 
   export const CategoryDetailReducer = (
-    state = { category: { products: [] } },
+    state = { category: {} },
     action
   ) => {
     switch (action.type) {
       case constants.CATEGORY_DETAIL_REQUEST:
-        return { loading: true, category: { products: [] } };
+        return { loading: true, category: {} };
       case constants.CATEGORY_DETAIL_SUCCESS:
         return { loading: false, category: action.payload };
       case constants.CATEGORY_DETAIL_FAIL:

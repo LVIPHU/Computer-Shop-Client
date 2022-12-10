@@ -1,59 +1,38 @@
 import React from 'react';
-import { DeleteOutlined, EditOutlined, EyeOutlined, WarningOutlined } from '@ant-design/icons';
-import { message, Pagination, Spin, Table, Tooltip } from 'antd';
-import Modal from 'antd/lib/modal/Modal';
+import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Button, Table, Tooltip, Typography, Popconfirm } from 'antd';
 import actionsCategory from '@/redux/actions/category';
-import helpers from '@/utils/helpers';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
+import CategoryEditModal from '../CategoryEdit';
+import CategoryCreateModal from '../CategoryCreate';
+
+const { Title } = Typography;
 
 export default function CategoryList() {
     const dispatch = Redux.useDispatch();
-    const [editModal, setEditModal] = React.useState({ visible: false, product: null });
-    const [modalDel, setModalDel] = React.useState({ visible: false, _id: '' });
-    const [list, setList] = React.useState([]);
+    const [editModal, setEditModal] = React.useState(false);
+    const [createModal, setCreateModal] = React.useState(false);
 
+    // event: Lấy toàn bộ danh sách sản phẩm
     const categoryAll = Redux.useSelector((state) => state.categoryAll);
     const { loading, categories } = categoryAll;
 
-    // event: xoá sản phẩm
-    const onDelete = async (_id) => {
-     dispatch(actionsCategory)
-    };
-
     // event: cập nhật sản phẩm
-    const onCloseEditModal = (newProduct) => {
-        const newList = list.map((item) => (item._id !== newProduct._id ? item : { ...item, ...newProduct }));
-        setList(newList);
-        setEditModal({ visible: false });
+    const onCloseEditModal = () => {
+        setEditModal(false);
+        dispatch(actionsCategory.getAllCategory());
     };
 
-    // event: Lấy toàn bộ danh sách sản phẩm
-    React.useEffect(() => {
+    const onOpenEditModal = (id) => {
+        setEditModal(true);
+        dispatch(actionsCategory.getCategoryDetail(id));
+    };
+
+    const onCloseCreateModal = () => {
+        setCreateModal(false);
         dispatch(actionsCategory.getAllCategory());
-        // let isSubscribe = true;
-        // setIsLoading(true);
-        // async function getProductList() {
-        //   try {
-        //     const response = await productApi.getAllProducts(-1);
-        //     if (response && isSubscribe) {
-        //       const { data } = response.data;
-        //       const list = data.map((item, index) => {
-        //         return { ...item, key: index };
-        //       });
-        //       setList(list);
-        //       setIsLoading(false);
-        //     }
-        //   } catch (error) {
-        //     if (isSubscribe) setIsLoading(false);
-        //     message.error('Lấy danh sách sản phẩm thất bại.');
-        //   }
-        // }
-        // getProductList();
-        // return () => {
-        //   isSubscribe = false;
-        // };
-    }, []);
+    };
 
     // Cột của bảng
     const columns = [
@@ -61,11 +40,7 @@ export default function CategoryList() {
             title: 'Mã',
             key: 'id',
             dataIndex: 'id',
-            render: (id) => (
-                <p>
-                    {id}
-                </p>
-            ),
+            render: (id) => <p>{id}</p>,
         },
         {
             title: 'Tên',
@@ -83,23 +58,24 @@ export default function CategoryList() {
                     <Tooltip title="Chỉnh sửa" placement="left">
                         <EditOutlined
                             onClick={() => {
-                                setEditModal({ visible: true, product: { ...text } });
+                                onOpenEditModal(text.id);
                             }}
                             className="m-r-8 action-btn-product text-blue-500"
                         />
                     </Tooltip>
 
-                    <Tooltip title="Xem chi tiết" placement="left">
-                        <a target="blank" href={`/product/${text.id}`}>
-                            <EyeOutlined className="action-btn-product text-green-500" />
-                        </a>
-                    </Tooltip>
-
                     <Tooltip title="Xóa" placement="left">
-                        <DeleteOutlined
-                            onClick={() => setModalDel({ visible: true, _id: text.id })}
-                            className="m-r-8 action-btn-product text-red-500"
-                        />
+                        <Popconfirm
+                            title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
+                            placement="topRight"
+                            onConfirm={() => {
+                                dispatch(actionsCategory.deleteCategory(text.id));
+                            }}
+                            okText="xác nhận"
+                            cancelText="hủy"
+                        >
+                            <DeleteOutlined className="m-r-8 action-btn-product text-red-500" />
+                        </Popconfirm>
                     </Tooltip>
                 </div>
             ),
@@ -113,24 +89,18 @@ export default function CategoryList() {
                 <GlobalLoading content="Đang tải danh sách sản phẩm ..." />
             ) : (
                 <div className="p-32 max-w-100">
-                    {' '}
-                    {/* modal confirm delete product */}
-                    <Modal
-                        title="Xác nhận xoá sản phẩm"
-                        visible={modalDel.visible}
-                        onOk={() => {
-                            onDelete(modalDel._id);
-                            setModalDel({ visible: false, _id: false });
-                        }}
-                        onCancel={() => setModalDel({ visible: false, _id: false })}
-                        okButtonProps={{ danger: true }}
-                        okText="Xoá"
-                        cancelText="Huỷ bỏ"
-                    >
-                        <WarningOutlined style={{ fontSize: 28, color: '#F7B217' }} />
-                        <b> Không thể khôi phục được, bạn có chắc muốn xoá ?</b>
-                    </Modal>
-                    {/* table show product list */}
+                    <div className="mb-8 flex justify-between items-center">
+                        <Title level={3}>THỂ LOẠI</Title>
+                        <Button
+                            icon={<PlusCircleOutlined />}
+                            onClick={() => {
+                                setCreateModal(true);
+                            }}
+                        >
+                            Thêm thể loại
+                        </Button>
+                    </div>
+                    {/* table show category list */}
                     <Table
                         pagination={{
                             pageSize: 10,
@@ -141,8 +111,10 @@ export default function CategoryList() {
                         columns={columns}
                         dataSource={categories}
                     />
-                    {/* edit product modal */}
-                    
+                    {/* edit category modal */}
+                    <CategoryEditModal onClose={onCloseEditModal} visible={editModal} />
+
+                    <CategoryCreateModal onClose={onCloseCreateModal} visible={createModal} />
                 </div>
             )}
         </>

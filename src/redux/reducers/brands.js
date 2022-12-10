@@ -1,4 +1,4 @@
-import constants from '@/redux/constants/brands';
+import constants from '@/redux/constants/brand';
 
 export const brandAllReducer = (state = { brands: [] }, action) => {
     switch (action.type) {
@@ -13,10 +13,10 @@ export const brandAllReducer = (state = { brands: [] }, action) => {
     }
 };
 
-export const brandDetailReducer = (state = { brand: { products: [] } }, action) => {
+export const brandDetailReducer = (state = { brand: {} }, action) => {
     switch (action.type) {
         case constants.BRAND_DETAIL_REQUEST:
-            return { loading: true, brand: { products: [] } };
+            return { loading: true, brand: {} };
         case constants.BRAND_DETAIL_SUCCESS:
             return { loading: false, brand: action.payload };
         case constants.BRAND_DETAIL_FAIL:

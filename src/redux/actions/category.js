@@ -1,5 +1,6 @@
 import constantsCategory from './../constants/category';
 import fetch from '../../services/category';
+import helpers from '@/utils/helpers';
 
 const actions = {
     getAllCategory: () => async (dispatch) => {
@@ -19,6 +20,9 @@ const actions = {
                 type: constantsCategory.CATEGORY_ALL_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin thể loại thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin thể loại thất bại', error.message);
         }
     },
 
@@ -37,6 +41,9 @@ const actions = {
                 type: constantsCategory.CATEGORY_DETAIL_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin thể loại thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin thể loại thất bại', error.message);
         }
     },
 
@@ -51,11 +58,15 @@ const actions = {
             dispatch({
                 type: constantsCategory.CATEGORY_DELETE_SUCCESS,
             });
+            helpers.openNotificationSucces('Cập nhật thể loại', 'Xóa thể loại thành công');
         } catch (error) {
             dispatch({
                 type: constantsCategory.CATEGORY_DELETE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Xóa thể loại thất bại', error.response.data.message)
+                : helpers.openNotificationError('Xóa thể loại thất bại', error.message);
         }
     },
 
@@ -71,11 +82,15 @@ const actions = {
                 type: constantsCategory.CATEGORY_UPDATE_SUCCESS,
                 payload: data,
             });
+            helpers.openNotificationSucces('Cập nhật thể loại', 'Chỉnh sửa thể loại thành công');
         } catch (error) {
             dispatch({
                 type: constantsCategory.CATEGORY_UPDATE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Cập nhật thể loại thất bại', error.response.data.message)
+                : helpers.openNotificationError('Cập nhật thể loại thất bại', error.message);
         }
     },
 
@@ -91,11 +106,15 @@ const actions = {
                 type: constantsCategory.CATEGORY_CREATE_SUCCESS,
                 payload: data,
             });
+            helpers.openNotificationSucces('Cập nhật thể loại', 'Tạo thể loại thành công');
         } catch (error) {
             dispatch({
                 type: constantsCategory.CATEGORY_CREATE_FAIL,
                 payload: error.response && error.response.data.message ? error.response.data.message : error.message,
             });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Tạo thể loại thất bại', error.response.data.message)
+                : helpers.openNotificationError('Tạo thể loại thất bại', error.message);
         }
     },
 };
