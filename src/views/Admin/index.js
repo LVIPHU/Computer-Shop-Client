@@ -10,6 +10,7 @@ import {
     TeamOutlined,
     AppstoreOutlined,
     AppleOutlined,
+    InboxOutlined,
 } from '@ant-design/icons';
 import { Button, Menu, Layout } from 'antd';
 import Avatar from 'antd/lib/avatar/avatar';
@@ -17,7 +18,6 @@ import SubMenu from 'antd/lib/menu/SubMenu';
 import defaultAvt from '@/assets/imgs/default-avt.png';
 import logoUrl from '@/assets/imgs/sec_logo.png';
 import React, { useState } from 'react';
-import constants from '@/utils/constants';
 import './index.scss';
 import pages from '@/views';
 import * as Redux from 'react-redux';
@@ -55,6 +55,12 @@ const menuList = [
             { key: 'p0', title: 'List of Product', icon: <UnorderedListOutlined /> },
             { key: 'p1', title: 'Create Product', icon: <PlusCircleOutlined /> },
         ],
+    },
+    {
+        key: 'i',
+        title: 'Import Product',
+        icon: <InboxOutlined />,
+        children: [],
     },
     {
         key: 'c',

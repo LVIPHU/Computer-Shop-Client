@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
 import { AuthLoginReducer, AuthProfileReducer, AuthRegisterReducer, AuthUpdateProfileReducer } from './auth';
+import {
+    brandAllReducer,
+    brandCreateReducer,
+    brandDeleteReducer,
+    brandDetailReducer,
+    brandUpdateReducer,
+} from './brands';
 import { CartReducer } from './cart';
 import {
     CategoryAllReducer,
@@ -35,6 +42,12 @@ export default combineReducers({
     authRegister: AuthRegisterReducer,
     authProfile: AuthProfileReducer,
     authUpdateProfile: AuthUpdateProfileReducer,
+
+    brandAll: brandAllReducer,
+    brandCreate: brandCreateReducer,
+    brandDelete: brandDeleteReducer,
+    brandDetail: brandDetailReducer,
+    brandUpdate: brandUpdateReducer,
 
     cart: CartReducer,
 

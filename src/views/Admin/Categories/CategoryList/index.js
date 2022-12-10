@@ -18,17 +18,7 @@ export default function CategoryList() {
 
     // event: xoá sản phẩm
     const onDelete = async (_id) => {
-        // try {
-        //   const response = await adminApi.removeProduct(_id);
-        //   if (response && response.status === 200) {
-        //     message.success('Xoá thành công.');
-        //     const newList = list.filter((item) => item._id !== _id);
-        //     setList(newList);
-        //     // setTotal(total - 1);
-        //   }
-        // } catch (error) {
-        //   message.error('Xoá thất bại, thử lại !');
-        // }
+     dispatch(actionsCategory)
     };
 
     // event: cập nhật sản phẩm

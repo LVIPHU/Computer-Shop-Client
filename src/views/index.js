@@ -34,6 +34,8 @@ const pages = {
     Customers: React.lazy(() => import('./Admin/Customers')),
     Dashboard: React.lazy(() => import('./Admin/Dashboard')),
     Categories: React.lazy(() => import('./Admin/Categories/CategoryList')),
+    // Import: React.lazy(() => import('./Admin/Import/ImportList')),
+    // Brands: React.lazy(() => import('./Admin/Brands/BrandList')),
 
     Result_403: React.lazy(() => import('./Result/403')),
     Result_404: React.lazy(() => import('./Result/404')),

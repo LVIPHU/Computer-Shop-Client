@@ -9,7 +9,7 @@ const AllProduct = () => {
     const dispatch = Redux.useDispatch();
 
     const listProducts = Redux.useSelector((state) => state.productList);
-    const { loading, products } = listProducts;
+    const { loading, products, error } = listProducts;
 
     const [page, setPage] = React.useState(1);
     // lấy sản phẩm
@@ -57,13 +57,13 @@ const AllProduct = () => {
                 </>
             ) : (
                 <>
-                    {showProducts(products.content)}
+                    {showProducts(products?.content || [])}
                     <Col span={24}>
                         <Pagination
                             className="t-center"
                             current={page}
-                            pageSize={products.pageable.pageSize}
-                            total={products.totalElements}
+                            pageSize={products?.pageable?.pageSize || 0}
+                            total={products?.totalElements}
                             onChange={(p) => setPage(p)}
                             showSizeChanger={false}
                         />
