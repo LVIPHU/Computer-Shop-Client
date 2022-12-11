@@ -59,3 +59,18 @@ export const UserUpdateReducer = (state = { user: {} }, action) => {
             return state;
     }
 };
+
+export const UserCreateReducer = (state = { user: {} }, action) => {
+    switch (action.type) {
+        case constants.USER_CREATE_REQUEST:
+            return { loading: true };
+        case constants.USER_CREATE_SUCCESS:
+            return { loading: false, success: true };
+        case constants.USER_CREATE_FAIL:
+            return { loading: false, error: action.payload };
+        case constants.USER_CREATE_RESET:
+            return { user: {} };
+        default:
+            return state;
+    }
+};

@@ -14,7 +14,6 @@ export default function CategoryCreateModal(props) {
     // event: Sửa chữa sản phẩm
     const onCreate = async (value) => {
         dispatch(actionsCategory.createCategory(value));
-        onClose();
     };
 
     return (

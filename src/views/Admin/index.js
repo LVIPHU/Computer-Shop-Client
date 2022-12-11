@@ -1,7 +1,6 @@
 import {
     DashboardOutlined,
     HomeOutlined,
-    IdcardOutlined,
     NotificationOutlined,
     PlusCircleOutlined,
     ReconciliationOutlined,
@@ -22,6 +21,7 @@ import './index.scss';
 import pages from '@/views';
 import * as Redux from 'react-redux';
 import actionsAuth from '@/redux/actions/auth';
+import actionsUser from '@/redux/actions/user';
 import actionsProduct from '@/redux/actions/product';
 import actionsCategory from '@/redux/actions/category';
 import actionsOrder from '@/redux/actions/order';
@@ -37,7 +37,7 @@ const menuList = [
         children: [],
     },
     {
-        key: 'ca',
+        key: 'c',
         title: 'Categories',
         icon: <AppstoreOutlined />,
         children: [],
@@ -64,20 +64,14 @@ const menuList = [
         children: [],
     },
     {
-        key: 'c',
-        title: 'Customers',
+        key: 'u',
+        title: 'User',
         icon: <TeamOutlined />,
         children: [],
     },
     {
-        key: 'a',
-        title: 'Admin Users',
-        icon: <IdcardOutlined />,
-        children: [],
-    },
-    {
         key: 'o',
-        title: 'Order List',
+        title: 'Orders',
         icon: <ReconciliationOutlined />,
         children: [],
     },
@@ -142,7 +136,7 @@ function AdminPage() {
         switch (key) {
             case 'd':
                 return <pages.Dashboard />;
-            case 'ca':
+            case 'c':
                 dispatch(actionsCategory.getAllCategory());
                 return <pages.Categories />;
             case 'b':
@@ -151,13 +145,13 @@ function AdminPage() {
             case 'p0':
                 dispatch(actionsProduct.getAllProducts());
                 dispatch(actionsCategory.getAllCategory());
+                dispatch(actionsBrand.getAllBrand());
                 return <pages.Products />;
             case 'p1':
                 return <pages.AddProduct />;
-            case 'a':
+            case 'u':
+                dispatch(actionsUser.getAllUser());
                 return <pages.Users />;
-            case 'c':
-                return <pages.Customers />;
             case 'o':
                 dispatch(actionsOrder.getAllOrder());
                 return <pages.Orders />;

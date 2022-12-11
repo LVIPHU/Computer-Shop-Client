@@ -35,7 +35,7 @@ import {
     ProductFilterReducer,
     ProductUpdateReducer,
 } from './product';
-import { UserDeleteReducer, UserDetailReducer, UserListReducer, UserUpdateReducer } from './user';
+import { UserDeleteReducer, UserDetailReducer, UserListReducer, UserUpdateReducer, UserCreateReducer } from './user';
 
 export default combineReducers({
     authLogin: AuthLoginReducer,
@@ -79,4 +79,5 @@ export default combineReducers({
     userDetail: UserDetailReducer,
     userList: UserListReducer,
     userUpdate: UserUpdateReducer,
+    userCreate: UserCreateReducer,
 });

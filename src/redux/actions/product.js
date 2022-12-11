@@ -93,6 +93,77 @@ const actions = {
                 : helpers.openNotificationError('Lấy thông tin sản phẩm thất bại', error.message);
         }
     },
+
+    deleteProduct: (id) => async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: constants.PRODUCT_DELETE_REQUEST,
+            });
+
+            await fetch.deleteProduct(id);
+
+            dispatch({
+                type: constants.PRODUCT_DELETE_SUCCESS,
+            });
+            helpers.openNotificationSucces('Cập nhật sản phẩm', 'Xóa sản phẩm thành công');
+        } catch (error) {
+            dispatch({
+                type: constants.PRODUCT_DELETE_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Câp nhật sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Câp nhật sản phẩm thất bại', error.message);
+        }
+    },
+
+    updateProduct: (product) => async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: constants.PRODUCT_UPDATE_REQUEST,
+            });
+
+            const { data } = await fetch.updateProduct(product.id, product);
+
+            dispatch({
+                type: constants.PRODUCT_UPDATE_SUCCESS,
+                payload: data,
+            });
+            helpers.openNotificationSucces('Cập nhật sản phẩm', 'Chỉnh sửa sản phẩm thành công');
+        } catch (error) {
+            dispatch({
+                type: constants.PRODUCT_UPDATE_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Cập nhật sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Cập nhật sản phẩm thất bại', error.message);
+        }
+    },
+
+    createProduct: (product) => async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: constants.PRODUCT_CREATE_REQUEST,
+            });
+
+            const { data } = await fetch.createProduct(product);
+
+            dispatch({
+                type: constants.PRODUCT_CREATE_SUCCESS,
+                payload: data,
+            });
+            helpers.openNotificationSucces('Cập nhật sản phẩm', 'Tạo sản phẩm thành công');
+        } catch (error) {
+            dispatch({
+                type: constants.PRODUCT_CREATE_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Cập nhật sản phẩm thất bại', error.response.data.message)
+                : helpers.openNotificationError('Cập nhật sản phẩm thất bại', error.message);
+        }
+    },
 };
 
 export default actions;

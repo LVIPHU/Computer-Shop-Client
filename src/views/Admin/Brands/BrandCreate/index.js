@@ -14,7 +14,6 @@ export default function BrandCreateModal(props) {
     // event: Sửa chữa sản phẩm
     const onCreate = async (value) => {
         dispatch(actionsBrand.createBrand(value));
-        onClose();
     };
 
     return (

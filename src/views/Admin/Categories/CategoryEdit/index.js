@@ -1,9 +1,8 @@
-import { Col, Form, Input, InputNumber, message, Modal, Row, Select } from 'antd';
-import constants from '@/utils/constants';
+import { Col, Form, Input,  Modal, Row } from 'antd';
 import PropTypes from 'prop-types';
 import * as Redux from 'react-redux';
 import actionsCategory from '@/redux/actions/category';
-import React, { useState } from 'react';
+import React from 'react';
 import GlobalLoading from '@/components/Loading/Global';
 
 export default function CategoryEditModal(props) {
@@ -39,7 +38,7 @@ export default function CategoryEditModal(props) {
             centered
         >
             {loading ? (
-                <GlobalLoading content="Đang tải danh sách sản phẩm ..." />
+                <GlobalLoading content="Đang tải chi tiết hể loại ..." />
             ) : (
                 <Form initialValues={initValues} name="editForm" onFinish={(value) => onEdit(value)}>
                     <Row gutter={[16, 16]}>

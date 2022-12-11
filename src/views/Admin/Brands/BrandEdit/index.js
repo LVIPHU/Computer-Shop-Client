@@ -32,13 +32,13 @@ export default function BrandEditModal(props) {
             cancelText="Huỷ bỏ"
             onCancel={onClose}
             okButtonProps={{ form: 'editForm', htmlType: 'submit' }}
-            title="Chỉnh sửa thông tin thể loại"
+            title="Chỉnh sửa thông tin thương hiệu"
             confirmLoading={brandUpdate.loading}
             width={1000}
             centered
         >
             {loading ? (
-                <GlobalLoading content="Đang tải danh sách sản phẩm ..." />
+                <GlobalLoading content="Đang tải chi tiết thương hiệu ..." />
             ) : (
                 <Form initialValues={initValues} name="editForm" onFinish={(value) => onEdit(value)}>
                     <Row gutter={[16, 16]}>

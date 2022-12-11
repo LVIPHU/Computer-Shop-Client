@@ -1,36 +1,37 @@
 import { DeleteOutlined, EditOutlined, EyeOutlined, WarningOutlined } from '@ant-design/icons';
-import { message, Pagination, Spin, Table, Tooltip } from 'antd';
+import { Table, Tooltip } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
-// import adminApi from 'apis/adminApi';
-// import productApi from 'apis/productApi';
-import actionsProduct from '@/redux/actions/product';
-import actionsCategory from '@/redux/actions/category';
 import helpers from '@/utils/helpers';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import EditProductModal from './ProductEditModal';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
 
-function generateFilterCategory(categories) {
+function generateFilter(list) {
     let result = [];
-    categories.map((category) => result.push({ value: category.id, text: category.name }));
+    list.map((item) => result.push({ value: item.id, text: item.name }));
     return result;
 }
 
 function SeeProduct() {
-    const dispatch = Redux.useDispatch();
     const [editModal, setEditModal] = useState({ visible: false, product: null });
     const [modalDel, setModalDel] = useState({ visible: false, _id: '' });
     const [list, setList] = useState([]);
 
+    // event: Lấy toàn bộ danh sách sản phẩm
     const productAll = Redux.useSelector((state) => state.productAll);
     const { loading, products } = productAll;
 
+    // event: Lấy toàn bộ danh sách thể loại
     const categoryAll = Redux.useSelector((state) => state.categoryAll);
     const { categories } = categoryAll;
 
+    // event: Lấy toàn bộ danh sách thương hiệu
+    const brandAll = Redux.useSelector((state) => state.brandAll);
+    const { brands } = brandAll;
+
     // event: xoá sản phẩm
-    const onDelete = async (_id) => {
+    const onDelete = async (id) => {
         // try {
         //   const response = await adminApi.removeProduct(_id);
         //   if (response && response.status === 200) {
@@ -51,34 +52,6 @@ function SeeProduct() {
         setEditModal({ visible: false });
     };
 
-    // event: Lấy toàn bộ danh sách sản phẩm
-    useEffect(() => {
-        dispatch(actionsProduct.getAllProducts());
-        dispatch(actionsCategory.getAllCategory());
-        // let isSubscribe = true;
-        // setIsLoading(true);
-        // async function getProductList() {
-        //   try {
-        //     const response = await productApi.getAllProducts(-1);
-        //     if (response && isSubscribe) {
-        //       const { data } = response.data;
-        //       const list = data.map((item, index) => {
-        //         return { ...item, key: index };
-        //       });
-        //       setList(list);
-        //       setIsLoading(false);
-        //     }
-        //   } catch (error) {
-        //     if (isSubscribe) setIsLoading(false);
-        //     message.error('Lấy danh sách sản phẩm thất bại.');
-        //   }
-        // }
-        // getProductList();
-        // return () => {
-        //   isSubscribe = false;
-        // };
-    }, []);
-
     // Cột của bảng
     const columns = [
         {
@@ -95,7 +68,7 @@ function SeeProduct() {
             title: 'Tên',
             key: 'name',
             dataIndex: 'name',
-            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 160)}</Tooltip>,
+            render: (name) => <Tooltip title={name}>{helpers.reduceProductName(name, 100)}</Tooltip>,
         },
         {
             title: 'Giá',
@@ -111,11 +84,19 @@ function SeeProduct() {
             title: 'Loại',
             key: 'categoryName',
             dataIndex: 'categoryName',
-            filters: generateFilterCategory(categories),
+            filters: generateFilter(categories),
             onFilter: (value, record) => record.categoryId === value,
             render: (categoryName) => (
                 <Tooltip title={categoryName}>{helpers.reduceProductName(categoryName, 40)}</Tooltip>
             ),
+        },
+        {
+            title: 'Thương hiệu',
+            key: 'brandName',
+            dataIndex: 'brandName',
+            filters: generateFilter(brands),
+            onFilter: (value, record) => record.brandId === value,
+            render: (brandName) => <Tooltip title={brandName}>{helpers.reduceProductName(brandName, 40)}</Tooltip>,
         },
         {
             title: 'Tồn kho',
@@ -123,19 +104,8 @@ function SeeProduct() {
             dataIndex: 'quantity',
             defaultSortOrder: 'ascend',
             sorter: (a, b) => a.quantity - b.quantity,
-            render: (quantity) => <div className="flex justify-center items-center">{quantity}</div>,
         },
-        // {
-        //     title: 'Thương hiệu',
-        //     key: 'brand',
-        //     dataIndex: 'brand',
-        //     sorter: (a, b) => {
-        //         if (a.brand < b.brand) return -1;
-        //         if (a.brand > b.brand) return 1;
-        //         return 0;
-        //     },
-        //     render: (brand) => <Tooltip title={brand}>{helpers.reduceProductName(brand, 40)}</Tooltip>,
-        // },
+
         // {
         //     title: 'Mức giảm giá',
         //     key: 'discount',

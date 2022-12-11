@@ -53,12 +53,12 @@ export default function CategoryList() {
             key: 'actions',
             fixed: 'right',
             width: 120,
-            render: (text) => (
+            render: (category) => (
                 <div className="flex justify-between items-center">
                     <Tooltip title="Chỉnh sửa" placement="left">
                         <EditOutlined
                             onClick={() => {
-                                onOpenEditModal(text.id);
+                                onOpenEditModal(category.id);
                             }}
                             className="m-r-8 action-btn-product text-blue-500"
                         />
@@ -69,7 +69,7 @@ export default function CategoryList() {
                             title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
                             placement="topRight"
                             onConfirm={() => {
-                                dispatch(actionsCategory.deleteCategory(text.id));
+                                dispatch(actionsCategory.deleteCategory(category.id));
                             }}
                             okText="xác nhận"
                             cancelText="hủy"
