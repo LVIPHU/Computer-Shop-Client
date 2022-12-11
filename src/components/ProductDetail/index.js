@@ -43,8 +43,9 @@ function ProductDetail(props) {
 
                 {/* Mô tả chi tiết sản phẩm */}
                 <Col span={24}>
-                    <Description specification={{ categoryName }} desc={null} />
+                    <Description specification={{ categoryName }} desc={product.description} />
                 </Col>
+                {console.log(product.description)}
 
                 {/* Nhận xét của khách hàng */}
                 <Col span={24} id="evaluation">

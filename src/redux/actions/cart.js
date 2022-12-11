@@ -53,14 +53,14 @@ const actions = {
         localStorage.removeItem('cartItems');
     },
 
-    saveShippingInfo: (data) => async (dispatch) => {
+    saveShippingInfo: (data) => async (dispatch, getState) => {
         dispatch({
             type: constants.CART_SAVE_SHIPPING_INFO,
             payload: data,
         });
-
-        localStorage.setItem('shippingInfo', JSON.stringify(data));
-        helpers.openNotificationSucces('Thêm th6ng tin cá nhân thành công');
+        console.log(data);
+        localStorage.setItem('shippingInfo', JSON.stringify(getState().cart.shippingInfo));
+        helpers.openNotificationSucces('Thêm thông tin cá nhân thành công');
     },
 };
 

@@ -25,7 +25,7 @@ function AddressAddForm(props) {
 
     const [streetList, setStreetList] = useState([]);
     const formRef = useRef(null);
-    
+
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
 
@@ -97,14 +97,20 @@ function AddressAddForm(props) {
     // event: thêm địa chỉ
     const onAddAddress = async (newAddress) => {
         const { name, phone, email, details, ...rest } = newAddress;
-        const sentData = {
+        const data = {
             name,
             phone,
             email,
+            provinceId,
+            districtId,
+            wardId,
+            details,
             address: `${details} ${ward} ${district} ${province}`,
         };
-        const userId = userInfo.id;
-        dispatch(actionsCart.saveShippingInfo({ userId, sentData }));
+        console.log('====================================');
+        console.log(data);
+        console.log('====================================');
+        dispatch(actionsCart.saveShippingInfo(data));
         setIsVisible(false);
         onCloseForm(1);
     };

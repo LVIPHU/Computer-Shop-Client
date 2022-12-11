@@ -140,7 +140,7 @@ function UserEditModal(props) {
                         {/* Địa chỉ người dùng */}
                         <Col span={24}>
                             <Form.Item
-                                name="phoneNumber"
+                                name="address"
                                 rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}
                             >
                                 <TextArea rows={2} placeholder="Địa chỉ người dùng *" />

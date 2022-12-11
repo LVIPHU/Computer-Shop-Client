@@ -1,10 +1,10 @@
 import { CompassOutlined, NotificationOutlined, ReconciliationOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Col, Result, Row } from 'antd';
-import userLogo from 'assets/icon/user_32px.png';
+import userLogo from '@/assets/icon/user_32px.png';
 import constants from '@/utils/constants';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './index.scss';
 import OrderList from './OrderList';
 import UpdateAccountForm from './UpdateForm';

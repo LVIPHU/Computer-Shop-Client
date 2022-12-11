@@ -101,7 +101,7 @@ function AdminUser() {
             },
         },
         {
-            title: 'Thành động',
+            title: 'Thao tác',
             key: 'actions',
             render: (user) => (
                 <Button

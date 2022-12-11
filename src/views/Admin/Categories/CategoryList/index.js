@@ -50,7 +50,7 @@ export default function CategoryList() {
         },
         {
             title: 'Hành động',
-            key: 'actions',
+            key: 'Thao tác',
             fixed: 'right',
             width: 120,
             render: (category) => (

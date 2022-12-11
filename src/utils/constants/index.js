@@ -34,6 +34,7 @@ const ROUTES = {
     LOGIN: '/login',
     ACCOUNT: '/account',
     REGISTER: '/register',
+    PROFILE: '/profile',
     FORGOT_PASSWORD: '/login/forgot-pw',
 
     HOME: '/',

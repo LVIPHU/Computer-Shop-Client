@@ -25,6 +25,7 @@ const pages = {
     Filter: React.lazy(() => import('./SearchFilter/Filter')),
     Cart: React.lazy(() => import('@/components/Cart')),
     Payment: React.lazy(() => import('./Payment')),
+    Profile: React.lazy(() => import('./Profile')),
 
     Admin: React.lazy(() => import('./Admin')),
     Users: React.lazy(() => import('./Admin/Users/UserList')),

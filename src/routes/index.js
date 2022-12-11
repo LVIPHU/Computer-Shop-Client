@@ -8,6 +8,7 @@ export const publicRoutes = [
     { path: constans.ROUTES.FILTER, component: pages.Home },
     { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: constans.ROUTES.CART, component: pages.Cart },
+    { path: constans.ROUTES.CART, component: pages.Cart },
     { path: '*', component: pages.Login },
 ];
 

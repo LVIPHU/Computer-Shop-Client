@@ -1,6 +1,6 @@
 import { Col, Modal, Row, Spin, Table, Tooltip } from 'antd';
-import orderApi from 'apis/orderApi';
-import helpers from 'helpers';
+// import orderApi from 'apis/orderApi';
+import helpers from '@/utils/helpers';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -12,27 +12,27 @@ function OrderDetail(props) {
   const [order, setOrder] = useState(null);
 
   // event: lấy chi tiết đơn hàng
-  useEffect(() => {
-    let isSubscribe = true;
-    async function getOrderDetails() {
-      try {
-        const response = await orderApi.getOrderDetails(orderId);
-        if (isSubscribe && response) {
-          setOrder(response.data.order);
-          setIsLoading(false);
-        }
-      } catch (error) {
-        if (isSubscribe) {
-          setIsLoading(false);
-          setOrder(null);
-        }
-      }
-    }
-    getOrderDetails();
-    return () => {
-      isSubscribe = false;
-    };
-  }, [orderId]);
+  // useEffect(() => {
+  //   let isSubscribe = true;
+  //   async function getOrderDetails() {
+  //     try {
+  //       const response = await orderApi.getOrderDetails(orderId);
+  //       if (isSubscribe && response) {
+  //         setOrder(response.data.order);
+  //         setIsLoading(false);
+  //       }
+  //     } catch (error) {
+  //       if (isSubscribe) {
+  //         setIsLoading(false);
+  //         setOrder(null);
+  //       }
+  //     }
+  //   }
+  //   getOrderDetails();
+  //   return () => {
+  //     isSubscribe = false;
+  //   };
+  // }, [orderId]);
 
   // cột cho bảng chi tiết sản phẩm
   const columns = [

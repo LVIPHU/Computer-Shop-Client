@@ -49,7 +49,7 @@ export default function BrandList() {
             render: (name) => <Tooltip title={name}>{name}</Tooltip>,
         },
         {
-            title: 'Hành động',
+            title: 'Thao tác',
             key: 'actions',
             fixed: 'right',
             width: 120,

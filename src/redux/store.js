@@ -10,7 +10,7 @@ const cartItemsFromStorage = localStorage.getItem('cartItems') ? JSON.parse(loca
 
 const shippingInfoFromStorage = localStorage.getItem('shippingInfo')
     ? JSON.parse(localStorage.getItem('shippingInfo'))
-    : {};
+    : [];
 
 const initialState = {
     authLogin: {

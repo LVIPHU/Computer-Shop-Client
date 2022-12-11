@@ -1,14 +1,14 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Button, Col, message, Row, Tooltip } from 'antd';
-import userApi from 'apis/userApi';
-import DatePickerField from 'components/Custom/Field/DatePickerField';
-import InputField from 'components/Custom/Field/InputField';
-import SelectField from 'components/Custom/Field/SelectField';
+// import userApi from 'apis/userApi';
+import DatePickerField from '@/components/Custom/Field/DatePickerField';
+import InputField from '@/components/Custom/Field/InputField';
+import SelectField from '@/components/Custom/Field/SelectField';
 import constants from '@/utils/constants';
 import { FastField, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import userReducers from 'reducers/user';
+// import userReducers from 'reducers/user';
 
 import * as Yup from 'yup';
 function UpdateAccountForm() {
@@ -47,24 +47,24 @@ function UpdateAccountForm() {
 
     // fn: update account
     const handleUpdate = async (value) => {
-        try {
-            setIsSubmitting(true);
-            if (JSON.stringify(initialValue) === JSON.stringify(value)) {
-                setIsSubmitting(false);
-                return;
-            }
-            const response = await userApi.putUpdateUser(_id, value);
-            if (response) {
-                message.success('Cập nhật thành công.');
-                setIsSubmitting(false);
-                setTimeout(() => {
-                    dispatch(userReducers.getUserRequest());
-                }, 500);
-            }
-        } catch (error) {
-            message.error('Cập nhật thất bại. Thử lại', 2);
-            setIsSubmitting(false);
-        }
+        // try {
+        //     setIsSubmitting(true);
+        //     if (JSON.stringify(initialValue) === JSON.stringify(value)) {
+        //         setIsSubmitting(false);
+        //         return;
+        //     }
+        //     const response = await userApi.putUpdateUser(_id, value);
+        //     if (response) {
+        //         message.success('Cập nhật thành công.');
+        //         setIsSubmitting(false);
+        //         setTimeout(() => {
+        //             dispatch(userReducers.getUserRequest());
+        //         }, 500);
+        //     }
+        // } catch (error) {
+        //     message.error('Cập nhật thất bại. Thử lại', 2);
+        //     setIsSubmitting(false);
+        // }
     };
 
     //rendering...

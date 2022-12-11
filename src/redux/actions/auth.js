@@ -13,13 +13,13 @@ const actions = {
             });
 
             const { data } = await fetch.login(account);
-
+          
             dispatch({
                 type: constantsAuth.AUTH_LOGIN_SUCCESS,
                 payload: data,
             });
             localStorage.setItem('userInfo', JSON.stringify(data));
-            localStorage.setItem('accessToken', JSON.stringify(data.token));
+            await localStorage.setItem('accessToken', JSON.stringify(data.token));
             helpers.openNotificationSucces('Đăng nhập thành công', 'Chào mừng bạn dến với TTB Store');
         } catch (error) {
             dispatch({

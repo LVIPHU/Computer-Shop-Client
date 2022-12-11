@@ -1,6 +1,6 @@
 import constants from '../constants/cart';
 
-export const CartReducer = (state = { cartItems: [], shippingInfo: {} }, action) => {
+export const CartReducer = (state = { cartItems: [], shippingInfo: [] }, action) => {
     switch (action.type) {
         case constants.CART_ADD_ITEM:
             const item = action.payload;
@@ -59,7 +59,7 @@ export const CartReducer = (state = { cartItems: [], shippingInfo: {} }, action)
         case constants.CART_SAVE_SHIPPING_INFO:
             return {
                 ...state,
-                shippingInfo: action.payload,
+                shippingInfo: [...state.shippingInfo, action.payload],
             };
 
         case constants.CART_SAVE_PAYMENT_METHOD:
