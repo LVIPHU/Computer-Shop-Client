@@ -4,7 +4,7 @@ import helpers from '@/utils/helpers';
 import React, { useEffect, useState } from 'react';
 import * as Redux from 'react-redux';
 import { Link } from 'react-router-dom';
-import { DeleteOutlined, EditOutlined, EyeOutlined } from '@ant-design/icons';
+import { EyeOutlined, SwapOutlined } from '@ant-design/icons';
 
 function generateFilterOrder() {
     let result = [];
@@ -115,18 +115,12 @@ function OrderList() {
             render: (status) => <div className="flex justify-center items-center">{status}</div>,
         },
         {
-            title: 'Hành động',
+            title: 'Thao tác',
             key: 'actions',
             render: (_v, records) => (
-                // <Button
-                //     type="dashed"
-                //     onClick={() => UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)}
-                // >
-                //     Cập nhật
-                // </Button>
                 <div className="flex justify-center items-center space-x-4">
-                    <Tooltip title="Chỉnh sửa" placement="left">
-                        <EditOutlined
+                    <Tooltip title="Đổi trạng thái" placement="left" size={24}>
+                        <SwapOutlined
                             onClick={() =>
                                 UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)
                             }
@@ -143,44 +137,6 @@ function OrderList() {
             ),
         },
     ];
-
-    useEffect(() => {
-        // let isSubscribe = true;
-        // async function getOrderList() {
-        //   try {
-        //     setIsLoading(true);
-        //     // const response = await adminApi.getOrderList();
-        //     if (isSubscribe && response) {
-        //       const { list } = response.data;
-        //       const newList = list.map((item, index) => {
-        //         return {
-        //           key: index,
-        //           owner: item.owner,
-        //           orderCode: item.orderCode,
-        //           orderDate: helpers.formatOrderDate(item.orderDate),
-        //           prodName: item.orderProd.name,
-        //           totalMoney:
-        //             item.numOfProd *
-        //             (item.orderProd.price -
-        //               (item.orderProd.price * item.orderProd.discount) / 100),
-        //           paymentMethod: item.paymentMethod,
-        //           orderStatus: item.orderStatus,
-        //           idProduct: item.orderProd.id,
-        //           orderId: item._id,
-        //         };
-        //       });
-        //       setData([...newList]);
-        //       setIsLoading(false);
-        //     }
-        //   } catch (error) {
-        //     if (isSubscribe) setIsLoading(false);
-        //   }
-        // }
-        // getOrderList();
-        // return () => {
-        //   isSubscribe = false;
-        // };
-    }, []);
 
     return (
         <>

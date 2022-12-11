@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 function UpdateAccountForm() {
     const user = useSelector((state) => state.user);
-    const { _id, fullName, email, address, birthday, gender } = user;
+    const { id, fullName, email, address, birthday, gender } = user;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
 

@@ -35,7 +35,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <Row className="container">
+            <Row className="container max-w-7xl m-auto">
                 {/* Danh sách sản phẩm khuyến mãi */}
                 <Col className="m-tb-32" span={24}>
                     <DiscountList />

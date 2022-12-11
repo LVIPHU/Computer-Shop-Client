@@ -65,7 +65,6 @@ function PaymentPage() {
     }
 
     const order = {
-        status: 'pending',
         total_price: tempPrice + transportFee,
         id_user: userInfo.id,
         address: shippingInfo?.sentData?.address,

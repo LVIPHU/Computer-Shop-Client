@@ -13,8 +13,8 @@ function Footer() {
     return (
         <div className="container-fluid bg-white footer p-lr-0" id="footer">
             {/* Liên hệ */}
-            <div className="footer-contact p-tb-16">
-                <div className="container d-flex justify-content-between align-i-center">
+            <div className="footer-contact p-tb-16 ">
+                <div className="container d-flex justify-content-between align-i-center max-w-7xl m-auto">
                     <PhoneOutlined className="phone-icon" />
                     <div className="d-flex flex-direction-column">
                         <h2 className="footer-contact-item">Tư vấn mua hàng</h2>

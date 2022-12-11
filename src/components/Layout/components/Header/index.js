@@ -104,7 +104,7 @@ function Header() {
                     )}
                     <Menu.Item>
                         <Button size="large" className="w-100 btn-secondary" type="default">
-                            <Link to={constants.ROUTES.ACCOUNT + '/'}>Quản lý Tài khoản</Link>
+                            <Link to={constants.ROUTES.PROFILE + '/'}>Quản lý Tài khoản</Link>
                         </Button>
                     </Menu.Item>
                     <Menu.Item>
@@ -125,7 +125,10 @@ function Header() {
 
     // rendering...
     return (
-        <div className="wrap-header container-fluid bg-white w-100vw" style={{ height: isSmDevice ? 76 : 104 }}>
+        <div
+            className="wrap-header container-fluid bg-white max-w-7xl m-auto "
+            style={{ height: isSmDevice ? 76 : 104 }}
+        >
             <div className="header container h-100 d-flex justify-content-between align-i-center">
                 {/* Logo */}
                 <Link to="/">
@@ -174,7 +177,7 @@ function Header() {
                                         <Link
                                             to={
                                                 userInfo != null
-                                                    ? `${constants.ROUTES.ACCOUNT}/`
+                                                    ? `${constants.ROUTES.PROFILE}/`
                                                     : constants.ROUTES.LOGIN
                                             }
                                         >
@@ -197,7 +200,7 @@ function Header() {
                                 <li className="m-b-18">
                                     <Link
                                         className="d-flex navbar-tool-item p-l-0"
-                                        to={constants.ROUTES.ACCOUNT + '/orders'}
+                                        to={constants.ROUTES.PROFILE + '/orders'}
                                     >
                                         <ReconciliationOutlined className="icon m-r-12" />
                                         <span className="title">Đơn hàng</span>
@@ -230,7 +233,7 @@ function Header() {
                         <li>
                             <Link
                                 className="d-flex flex-direction-column navbar-tool-item p-l-0"
-                                to={constants.ROUTES.ACCOUNT + '/orders'}
+                                to={constants.ROUTES.PROFILE + '/orders'}
                             >
                                 <ReconciliationOutlined className="icon" />
                                 <span className="title">Đơn hàng</span>
@@ -238,7 +241,7 @@ function Header() {
                         </li>
                         <li>
                             <Dropdown overlay={userActionMenu} placement="bottomCenter">
-                                <Link to={userInfo != null ? `${constants.ROUTES.ACCOUNT}/` : constants.ROUTES.LOGIN}>
+                                <Link to={userInfo != null ? `${constants.ROUTES.PROFILE}/` : constants.ROUTES.LOGIN}>
                                     {userInfo == null ? (
                                         <div className="d-flex flex-direction-column navbar-tool-item">
                                             <UserOutlined className="icon" />

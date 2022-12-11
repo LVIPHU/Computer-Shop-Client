@@ -12,9 +12,9 @@ import AddressUserList from './UserAddressList';
 
 function AccountPage() {
     const { pathname } = useLocation();
-    const user = useSelector((state) => state.user);
-    const isAuth = useSelector((state) => state.authenticate.isAuth);
-    const [activeKey, setActiveKey] = useState(() => pathname.replace(`${constants.ROUTES.ACCOUNT}/`, ''));
+    const authLogin = useSelector((state) => state.authLogin);
+    const { userInfo } = authLogin;
+    const [activeKey, setActiveKey] = useState(() => pathname.replace(`${constants.ROUTES.PROFILE}/`, ''));
     // menu list
     const menu = [
         {
@@ -86,7 +86,7 @@ function AccountPage() {
     // rendering ...
     return (
         <>
-            {!isAuth ? (
+            {!userInfo ? (
                 <div style={{ minHeight: '82vh' }}>
                     <Result
                         title="Đăng nhập để xem thông tin"
@@ -105,11 +105,11 @@ function AccountPage() {
                     <Col className="p-r-16" span={24} md={6}>
                         {/* giới thiệu */}
                         <div className="d-flex p-b-4 m-b-12 intro">
-                            <img src={userLogo} width={32} height={32} className="m-r-12" />
+                            <img src={userLogo} width={32} height={32} className="m-r-12" alt="avatar" />
                             <div>
                                 <span className="m-b-0 font-size-16px">Tài khoản của</span>
                                 <h3>
-                                    <b className="name">{user.fullName}</b>
+                                    <b className="name">{userInfo.email}</b>
                                 </h3>
                             </div>
                         </div>
