@@ -1,68 +1,62 @@
-import { Button, message, Modal, Radio, Spin, Table, Tooltip } from 'antd';
+import { Avatar, Card, Popconfirm, Popover, Spin, Table, Tag, Tooltip } from 'antd';
 // import adminApi from 'apis/adminApi';
 import helpers from '@/utils/helpers';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import * as Redux from 'react-redux';
-import { Link } from 'react-router-dom';
-import { EyeOutlined, SwapOutlined } from '@ant-design/icons';
-
-function generateFilterOrder() {
-    let result = [];
-    for (let i = 0; i < 7; ++i) {
-        result.push({ value: i, text: helpers.convertOrderStatus(i) });
-    }
-    return result;
-}
+import {
+    CheckCircleOutlined,
+    ClockCircleOutlined,
+    CloseCircleOutlined,
+    CreditCardOutlined,
+    DollarCircleOutlined,
+    ExclamationCircleOutlined,
+    EyeOutlined,
+    InfoCircleOutlined,
+    StopOutlined,
+    VerticalAlignTopOutlined,
+} from '@ant-design/icons';
+import actionsOrder from '@/redux/actions/order';
 
 function OrderList() {
+    const dispatch = Redux.useDispatch();
     const orderLists = Redux.useSelector((state) => state.orderLists);
     const { loading, orders } = orderLists;
-
-    // event: Cập nhật trạng thái đơn hàng
-    const updateOrderStatus = async (id, orderStatus) => {
-        try {
-            // const response = await adminApi.postUpdateOrderStatus(id, orderStatus);
-            // if (response) {
-            //   message.success('Cập nhật thành công');
-            //   setData(
-            //     data.map((item) =>
-            //       item.orderId === id ? { ...item, orderStatus } : { ...item },
-            //     ),
-            //   );
-            // }
-        } catch (error) {
-            message.success('Cập nhật thất bại');
-        }
+    const text = <span>Chi tiết đơn hàng</span>;
+    const content = (orderDetail) => {
+        return (
+            <div>
+                {orderDetail &&
+                    orderDetail.map((item) => (
+                        <Card key={item.detail_id}>
+                            <Card.Meta
+                                avatar={
+                                    <Tooltip title={item.detail_id}>
+                                        <Avatar size={48} shape="square" src={item.image} alt="Photo" />
+                                    </Tooltip>
+                                }
+                                title={<Tooltip title={item.name}>{helpers.reduceProductName(item.name, 40)}</Tooltip>}
+                                description={
+                                    <>
+                                        <span>{`Số lượng: ${item.detailQty}`}</span>
+                                        <p className="font-size-16px font-weight-700">
+                                            {helpers.formatProductPrice(item.detailPrice)}
+                                        </p>
+                                    </>
+                                }
+                            />
+                        </Card>
+                    ))}
+            </div>
+        );
     };
 
-    // modal cập nhật trạng thái đơn hàng
-    function UpdateOrderStatusModal(defaultVal = 0, orderCode, orderId) {
-        let valueCurr = defaultVal;
-        const modal = Modal.info({
-            width: 768,
-            title: `Cập nhật trạng thái đơn hàng #${orderCode}`,
-            content: (
-                <Radio.Group
-                    defaultValue={defaultVal}
-                    onChange={(v) => (valueCurr = v.target.value)}
-                    className="m-t-12"
-                >
-                    {generateFilterOrder().map((item, index) => (
-                        <Radio className="m-b-8" key={index} value={item.value}>
-                            {item.text}
-                        </Radio>
-                    ))}
-                </Radio.Group>
-            ),
-            centered: true,
-            icon: null,
-            okText: 'Cập nhật',
-            onOk: () => {
-                updateOrderStatus(orderId, valueCurr);
-                modal.destroy();
-            },
-        });
-    }
+    const orderStatus = Redux.useSelector((state) => state.orderStatus);
+
+    const orderCancel = Redux.useSelector((state) => state.orderCancel);
+
+    React.useEffect(() => {
+        dispatch(actionsOrder.getAllOrder());
+    }, [dispatch, orderStatus.success, orderCancel.success]);
 
     const columns = [
         {
@@ -70,6 +64,7 @@ function OrderList() {
             key: 'id_user',
             dataIndex: 'id_user',
         },
+        Table.EXPAND_COLUMN,
         {
             title: 'Mã đơn hàng',
             key: 'id',
@@ -87,10 +82,34 @@ function OrderList() {
             },
         },
         {
-            title: 'Địa chỉ',
-            key: 'address',
-            dataIndex: 'address',
-            render: (address, record) => <Tooltip title={address}>{helpers.reduceProductName(address, 60)}</Tooltip>,
+            title: 'Phương thức',
+            key: 'payment',
+            dataIndex: 'payment',
+            filters: [
+                {
+                    text: 'COD',
+                    value: 'COD',
+                },
+                {
+                    text: 'paypal',
+                    value: 'paypal',
+                },
+            ],
+            onFilter: (value, record) => record.payment.indexOf(value) === 0,
+            render: (payment, record) => (
+                <Tooltip
+                    title={payment === 'COD' ? 'Thanh toán tiền mặt' : 'thanh toán bằng paypal'}
+                    className={'flex items-center gap-2'}
+                >
+                    {payment === 'COD' ? <DollarCircleOutlined /> : <CreditCardOutlined />} {payment}
+                </Tooltip>
+            ),
+        },
+        {
+            title: 'Số điện thoại',
+            key: 'phone',
+            dataIndex: 'phone',
+            render: (phone, record) => <Tooltip title={phone}>{phone}</Tooltip>,
         },
         {
             title: 'Tổng tiền',
@@ -99,40 +118,101 @@ function OrderList() {
             render: (value) => <b style={{ color: '#333' }}>{helpers.formatProductPrice(value)}</b>,
             sorter: (a, b) => a.total_price - b.total_price,
         },
-        // {
-        //     title: 'HT thanh toán',
-        //     key: 'paymentMethod',
-        //     dataIndex: 'paymentMethod',
-        //     render: (value) => (value === 0 ? 'Tiền mặt' : 'VNPay'),
-        // },
         {
             title: 'Trạng thái đơn hàng',
             key: 'status',
             dataIndex: 'status',
-            // filters: generateFilterOrder(),
-            // onFilter: (value, record) => record.status === value,
-            // render: (value) => helpers.convertOrderStatus(value),
-            render: (status) => <div className="flex justify-center items-center">{status}</div>,
+            align: 'center',
+            filters: [
+                {
+                    text: 'Pending',
+                    value: 'Pending',
+                },
+                {
+                    text: 'Shipping',
+                    value: 'Shipping',
+                },
+                {
+                    text: 'Delivered',
+                    value: 'Delivered',
+                },
+                {
+                    text: 'Canceled',
+                    value: 'Canceled',
+                },
+            ],
+            onFilter: (value, record) => record.status.indexOf(value) === 0,
+            render: (status) => {
+                return status === 'Pending' ? (
+                    <Tag icon={<ExclamationCircleOutlined />} color="warning" className="px-4 py-2">
+                        {status}
+                    </Tag>
+                ) : status === 'Shipping' ? (
+                    <Tag icon={<ClockCircleOutlined />} color="processing" className="px-4 py-2">
+                        {status}
+                    </Tag>
+                ) : status === 'Delivered' ? (
+                    <Tag icon={<CheckCircleOutlined />} color="success" className="px-4 py-2">
+                        {status}
+                    </Tag>
+                ) : status === 'Canceled' ? (
+                    <Tag icon={<CloseCircleOutlined />} color="error" className="px-4 py-2">
+                        {status}
+                    </Tag>
+                ) : (
+                    <Tag icon={<InfoCircleOutlined />} color="default" className="px-4 py-2">
+                        Có gì đó sai sai
+                    </Tag>
+                );
+            },
         },
         {
             title: 'Thao tác',
             key: 'actions',
-            render: (_v, records) => (
-                <div className="flex justify-center items-center space-x-4">
-                    <Tooltip title="Đổi trạng thái" placement="left" size={24}>
-                        <SwapOutlined
-                            onClick={() =>
-                                UpdateOrderStatusModal(records.orderStatus, records.orderCode, records.orderId)
-                            }
-                            className="m-r-8 action-btn-product text-blue-500 text-xl"
-                        />
-                    </Tooltip>
+            align: 'center',
+            render: (order) => (
+                <div className="flex justify-around items-center">
+                    {order.status === 'Delivered' || order.status === 'Canceled' ? (
+                        <Tooltip title="Đổi trạng thái" placement="left">
+                            <Popconfirm
+                                title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
+                                placement="topRight"
+                                onConfirm={() => {
+                                    dispatch(actionsOrder.updateStatusOrder(order.id));
+                                }}
+                                okText="xác nhận"
+                                cancelText="hủy"
+                            >
+                                <VerticalAlignTopOutlined className="action-btn-product text-blue-500 text-base" />
+                            </Popconfirm>
+                        </Tooltip>
+                    ) : (
+                        <div></div>
+                    )}
 
                     <Tooltip title="Xem chi tiết" placement="left">
-                        <a target="blank" href={`/product/`}>
-                            <EyeOutlined className="action-btn-product text-green-500" />
-                        </a>
+                        <Popover placement="left" title={text} content={content(order.order_details)} trigger="click">
+                            <EyeOutlined className="action-btn-product text-green-500 text-base" />
+                        </Popover>
                     </Tooltip>
+
+                    {order.status !== 'Pending' ? (
+                        <Tooltip title="Hủy đơn hàng" placement="left">
+                            <Popconfirm
+                                title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
+                                placement="topRight"
+                                onConfirm={() => {
+                                    dispatch(actionsOrder.cancelOrder(order.id));
+                                }}
+                                okText="xác nhận"
+                                cancelText="hủy"
+                            >
+                                <StopOutlined className="action-btn-product text-red-500 text-base" />
+                            </Popconfirm>
+                        </Tooltip>
+                    ) : (
+                        <div></div>
+                    )}
                 </div>
             ),
         },
@@ -147,6 +227,17 @@ function OrderList() {
                     className="p-32"
                     columns={columns}
                     dataSource={orders}
+                    expandable={{
+                        expandedRowRender: (order) => (
+                            <p
+                                style={{
+                                    margin: 0,
+                                }}
+                            >
+                                Địa chỉ: {order.address}
+                            </p>
+                        ),
+                    }}
                     pagination={{ showLessItems: true, position: ['bottomCenter'] }}
                 />
             )}

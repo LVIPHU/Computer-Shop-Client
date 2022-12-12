@@ -127,46 +127,23 @@ export const OrderListsReducer = (state = { orders: [] }, action) => {
     }
 };
 
-export const OrderDeliverReducer = (state = { orders: [] }, action) => {
+export const OrderStatusReducer = (state = { orders: [] }, action) => {
     switch (action.type) {
-        case constants.ORDER_UPDATE_DELIVER_REQUEST:
+        case constants.ORDER_UPDATE_STATUS_REQUEST:
             return {
                 loading: true,
             };
-        case constants.ORDER_UPDATE_DELIVER_SUCCESS:
+        case constants.ORDER_UPDATE_STATUS_SUCCESS:
             return {
                 loading: false,
                 success: true,
             };
-        case constants.ORDER_UPDATE_DELIVER_FAIL:
+        case constants.ORDER_UPDATE_STATUS_FAIL:
             return {
                 loading: false,
                 error: action.payload,
             };
-        case constants.ORDER_UPDATE_DELIVER_RESET:
-            return { success: false };
-        default:
-            return state;
-    }
-};
-
-export const OrderDeliveringReducer = (state = { orders: [] }, action) => {
-    switch (action.type) {
-        case constants.ORDER_UPDATE_DELIVERING_REQUEST:
-            return {
-                loading: true,
-            };
-        case constants.ORDER_UPDATE_DELIVERING_SUCCESS:
-            return {
-                loading: false,
-                success: true,
-            };
-        case constants.ORDER_UPDATE_DELIVERING_FAIL:
-            return {
-                loading: false,
-                error: action.payload,
-            };
-        case constants.ORDER_UPDATE_DELIVERING_RESET:
+        case constants.ORDER_UPDATE_STATUS_RESET:
             return { success: false };
         default:
             return state;

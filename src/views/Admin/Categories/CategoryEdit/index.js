@@ -1,4 +1,4 @@
-import { Col, Form, Input,  Modal, Row } from 'antd';
+import { Col, Form, Input, Modal, Row } from 'antd';
 import PropTypes from 'prop-types';
 import * as Redux from 'react-redux';
 import actionsCategory from '@/redux/actions/category';

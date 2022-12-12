@@ -1,4 +1,4 @@
-import { Button } from 'antd';
+import { Button, Spin } from 'antd';
 import constants from '@/utils/constants';
 import helpers from '@/utils/helpers';
 import PropTypes from 'prop-types';
@@ -6,7 +6,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 function CartPayment(props) {
-    const { cartItems, isCheckout, transportFee, onCheckout, isLoading } = props;
+    const { cartItems, isCheckout, transportFee, onCheckout, isLoading, method } = props;
     // giá tạm tính
     const tempPrice = cartItems.reduce(
         // (a, b) => a + (b.price + (b.price * b.discount) / 100) * b.amount,
@@ -20,6 +20,13 @@ function CartPayment(props) {
     // );
 
     const totalDiscount = 0;
+
+    // const paypalOptions = {
+    //     "client-id": ,
+    //     currency: "VND",
+    //     intent: "capture",
+    //     "data-client-token": "abc123xyz==",
+    // };
 
     // rendering ...
     return (
@@ -55,7 +62,7 @@ function CartPayment(props) {
                 <span style={{ color: '#aaa', fontSize: 16 }}>{`(Đã bao gồm VAT)`}</span>
             </div>
 
-            {isCheckout ? (
+            {isCheckout && method === 'COD' ? (
                 <Button
                     onClick={onCheckout}
                     className="m-t-16 d-block m-lr-auto w-100"
@@ -66,7 +73,7 @@ function CartPayment(props) {
                 >
                     ĐẶT HÀNG NGAY
                 </Button>
-            ) : (
+            ) : !isCheckout ? (
                 <Link to={constants.ROUTES.PAYMENT}>
                     <Button
                         className="m-t-16 d-block m-lr-auto w-100"
@@ -77,6 +84,8 @@ function CartPayment(props) {
                         THANH TOÁN
                     </Button>
                 </Link>
+            ) : (
+                <></>
             )}
         </div>
     );

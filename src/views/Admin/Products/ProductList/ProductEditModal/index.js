@@ -1,13 +1,36 @@
-import { Col, Form, Input, InputNumber, message, Modal, Row, Select } from 'antd';
+import { Col, Form, Input, InputNumber, message, Modal, Row, Select, Tooltip } from 'antd';
 // import adminApi from 'apis/adminApi';
-import constants from '@/utils/constants';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import MyCKEditor from '@/components/MyCKEditor';
+import UploadAvatar from '@/components/UploadAvatar';
+import * as Redux from 'react-redux';
+import { InfoCircleOutlined } from '@ant-design/icons';
+import actionsProduct from '@/redux/actions/product';
+import GlobalLoading from '@/components/Loading/Global';
+
+const suffixColor = '#aaa';
 
 function EditProductModal(props) {
-    const { visible, onClose, product } = props;
-    const { _id, code, name, brand, discount, price, stock, type } = product ? product : {};
-    const initValues = { _id, code, name, brand, discount, price, stock, type };
+    const dispatch = Redux.useDispatch();
+    const { visible, onClose } = props;
+
+    const productDetail = Redux.useSelector((state) => state.productDetail);
+    const { loading, product } = productDetail;
+    console.log(product);
+    const categoryAll = Redux.useSelector((state) => state.categoryAll);
+    const { categories } = categoryAll;
+
+    const brandAll = Redux.useSelector((state) => state.brandAll);
+    const { brands } = brandAll;
+
+    const { id, name, brandId, categoryId, description, price, image } = product ? product : {};
+
+    const [avatar, setAvatar] = useState(image ? image : '');
+    const [productDesc, setProductDesc] = useState(description ? description : '');
+
+    const initValues = { id, name, brandId, categoryId, description, price, image };
+
     const [isUpdating, setIsUpdating] = useState(false);
 
     // event: Sửa chữa sản phẩm
@@ -40,92 +63,102 @@ function EditProductModal(props) {
             width={1000}
             centered
         >
-            <Form initialValues={initValues} name="editForm" onFinish={(value) => onEdit(value)}>
-                <Row gutter={[16, 16]}>
-                    {/* Id */}
-                    <Col span={12}>
-                        <Form.Item name="_id">
-                            <Input disabled size="large" placeholder="ID" />
-                        </Form.Item>
-                    </Col>
+            {loading ? (
+                <GlobalLoading content="Đang tải chi tiết sản phẩm ..." />
+            ) : (
+                <Form initialValues={initValues} name="editForm" onFinish={(value) => onEdit(value)}>
+                    <Row gutter={[16, 16]}>
+                        {/* avatar */}
+                        <Col span={24} md={8} xl={6} xxl={12}>
+                            <Form.Item
+                                name="image"
+                                initialValue={image}
+                                className="flex justify-center items-center h-full"
+                            >
+                                <UploadAvatar avatar={image} setAvatar={setAvatar} />
+                            </Form.Item>
+                        </Col>
+                        {/* tên sản phẩm */}
+                        <Col span={24} md={8} xl={6} xxl={12}>
+                            <Row gutter={[24, 24]}>
+                                <Col span={24} md={8} xl={6} xxl={24}>
+                                    <Form.Item
+                                        name="name"
+                                        rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}
+                                    >
+                                        <Input
+                                            size="large"
+                                            placeholder="Tên sản phẩm *"
+                                            defaultValue={name}
+                                            suffix={
+                                                <Tooltip title="Laptop Apple MacBook Air 13 2019 MVFM2SA/A (Core i5/8GB/128GB SSD/UHD 617/macOS/1.3 kg)">
+                                                    <InfoCircleOutlined style={{ color: suffixColor }} />
+                                                </Tooltip>
+                                            }
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                {/* giá sản phẩm */}
+                                <Col span={24} md={8} xl={6} xxl={24}>
+                                    <Form.Item name="price">
+                                        <InputNumber
+                                            defaultValue={price}
+                                            style={{ width: '100%' }}
+                                            step={10000}
+                                            size="large"
+                                            placeholder="Giá *"
+                                            min={0}
+                                            max={1000000000}
+                                        />
+                                    </Form.Item>
+                                </Col>
 
-                    {/* Mã sản phẩm */}
-                    <Col span={12}>
-                        <Form.Item name="code" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                            <Input size="large" placeholder="Mã sản phẩm *" />
-                        </Form.Item>
-                    </Col>
+                                {/* chọn loại sản phẩm */}
+                                <Col span={24} md={8} xl={6} xxl={24}>
+                                    <Form.Item name="categoryId">
+                                        <Select
+                                            size="large"
+                                            placeholder="Chọn loại sản phẩm *"
+                                            defaultValue={categoryId}
+                                        >
+                                            {categories &&
+                                                categories.map((item) => (
+                                                    <Select.Option value={item.id} key={item.id}>
+                                                        {item.name}
+                                                    </Select.Option>
+                                                ))}
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
 
-                    {/* Tên sản phẩm */}
-                    <Col span={12}>
-                        <Form.Item name="name" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                            <Input size="large" placeholder="Tên sản phẩm *" />
-                        </Form.Item>
-                    </Col>
+                                {/* thương hiệu */}
+                                <Col span={24} md={8} xl={6} xxl={24}>
+                                    <Form.Item name="brandId">
+                                        <Select
+                                            size="large"
+                                            placeholder="Chọn thương hiệu sản phẩm *"
+                                            defaultValue={brandId}
+                                        >
+                                            {brands &&
+                                                brands.map((item) => (
+                                                    <Select.Option value={item.id} key={item.id}>
+                                                        {item.name}
+                                                    </Select.Option>
+                                                ))}
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                        </Col>
 
-                    {/* Giá sản phẩm */}
-                    <Col span={12}>
-                        <Form.Item name="price" rules={[{ required: true, message: 'Bắt buộc' }]}>
-                            <InputNumber
-                                min={0}
-                                max={9000000000}
-                                step={100000}
-                                className="w-100"
-                                size="large"
-                                placeholder="Giá sản phẩm *"
-                            />
-                        </Form.Item>
-                    </Col>
-
-                    {/* Loại sản phẩm */}
-                    <Col span={12}>
-                        <Form.Item name="type" rules={[{ required: true, message: 'Bắt buộc' }]}>
-                            <Select size="large" placeholder="Loại sản phẩm *">
-                                {constants.PRODUCT_TYPES.map((item, index) => (
-                                    <Select.Option value={item.type} key={index}>
-                                        {item.label}
-                                    </Select.Option>
-                                ))}
-                            </Select>
-                        </Form.Item>
-                    </Col>
-
-                    {/* Thương hiệu */}
-                    <Col span={12}>
-                        <Form.Item name="brand" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                            <Input size="large" placeholder="Thương hiệu *" />
-                        </Form.Item>
-                    </Col>
-
-                    {/* Tồn kho */}
-                    <Col span={12}>
-                        <Form.Item name="stock" rules={[{ required: true, message: 'Bắt buộc' }]}>
-                            <InputNumber
-                                style={{ width: '100%' }}
-                                step={1}
-                                size="large"
-                                min={0}
-                                max={100000}
-                                placeholder="Tồn kho *"
-                            />
-                        </Form.Item>
-                    </Col>
-
-                    {/* Mức giảm giá */}
-                    <Col span={12}>
-                        <Form.Item name="discount" rules={[{ required: true, message: 'Bắt buộc' }]}>
-                            <InputNumber
-                                style={{ width: '100%' }}
-                                step={1}
-                                size="large"
-                                min={0}
-                                max={100}
-                                placeholder="Mức giảm giá *"
-                            />
-                        </Form.Item>
-                    </Col>
-                </Row>
-            </Form>
+                        <Col span={24}>
+                            <Form.Item name="description" initialValue={description}>
+                                <MyCKEditor onChange={setProductDesc} data={description} />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
+            )}
         </Modal>
     );
 }

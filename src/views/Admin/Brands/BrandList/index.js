@@ -54,13 +54,13 @@ export default function BrandList() {
             fixed: 'right',
             width: 120,
             render: (brand) => (
-                <div className="flex justify-between items-center">
+                <div className="flex justify-around items-center">
                     <Tooltip title="Chỉnh sửa" placement="left">
                         <EditOutlined
                             onClick={() => {
                                 onOpenEditModal(brand.id);
                             }}
-                            className="m-r-8 action-btn-product text-blue-500"
+                            className="action-btn-product text-blue-500 text-base"
                         />
                     </Tooltip>
 
@@ -74,7 +74,7 @@ export default function BrandList() {
                             okText="xác nhận"
                             cancelText="hủy"
                         >
-                            <DeleteOutlined className="m-r-8 action-btn-product text-red-500" />
+                            <DeleteOutlined className="action-btn-product text-red-500 text-base" />
                         </Popconfirm>
                     </Tooltip>
                 </div>

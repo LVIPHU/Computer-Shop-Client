@@ -26,7 +26,6 @@ const actions = {
             dispatch({ type: constantsCart.CART_RESET });
             localStorage.removeItem('cartItems');
             helpers.openNotificationSucces('Đặt hàng thành công', 'Vui lòng check mail để xem đơn hàng');
-            window.location.href = constants.ROUTES.HOME;
         } catch (error) {
             dispatch({
                 type: constantsOrder.ORDER_CREATE_FAIL,
@@ -80,6 +79,54 @@ const actions = {
             error.response && error.response.data.message
                 ? helpers.openNotificationError('Lấy thông tin đơn hàng thất bại', error.response.data.message)
                 : helpers.openNotificationError('Lấy thông tin đơn hàng thất bại', error.message);
+        }
+    },
+
+    updateStatusOrder: (id) => async (dispatch) => {
+        try {
+            dispatch({
+                type: constantsOrder.ORDER_UPDATE_STATUS_REQUEST,
+            });
+
+            const { data } = await fetch.updateStatusOrder(id);
+
+            dispatch({
+                type: constantsOrder.ORDER_UPDATE_STATUS_SUCCESS,
+                payload: data,
+            });
+            helpers.openNotificationSucces('Cập nhật đơn hành', 'Cập nhật đơn hành thành công');
+        } catch (error) {
+            dispatch({
+                type: constantsOrder.ORDER_UPDATE_STATUS_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Cập nhật thông tin đơn hàng thất bại', error.response.data.message)
+                : helpers.openNotificationError('Cập nhật thông tin đơn hàng thất bại', error.message);
+        }
+    },
+
+    cancelOrder: (id) => async (dispatch) => {
+        try {
+            dispatch({
+                type: constantsOrder.ORDER_CANCEL_REQUEST,
+            });
+
+            const { data } = await fetch.CancelOrder(id);
+
+            dispatch({
+                type: constantsOrder.ORDER_CANCEL_SUCCESS,
+                payload: data,
+            });
+            helpers.openNotificationSucces('Cập nhật đơn hành', 'Hủy đơn hành thành công');
+        } catch (error) {
+            dispatch({
+                type: constantsOrder.ORDER_CANCEL_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Hủy đơn hàng thất bại', error.response.data.message)
+                : helpers.openNotificationError('Hủy đơn hàng thất bại', error.message);
         }
     },
 };

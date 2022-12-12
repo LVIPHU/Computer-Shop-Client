@@ -8,7 +8,7 @@ const mediaAPI = axios.create({
 mediaAPI.interceptors.request.use(
     (config) => {
         if (helpers.isAuthenticated()) {
-            config.headers['authorization'] = 'Bearer ' + helpers.isAuthenticated();
+            config.headers['Authorization'] = 'Bearer ' + helpers.isAuthenticated();
             config.headers['x-access-token'] = helpers.isAuthenticated();
         }
         config.headers['Content-Type'] = 'multipart/form-data';

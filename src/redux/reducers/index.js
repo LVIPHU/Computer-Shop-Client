@@ -19,7 +19,7 @@ import {
     OrderCancelReducer,
     OrderCreateReducer,
     OrderDeliverReducer,
-    OrderDeliveringReducer,
+    OrderStatusReducer,
     OrderDetailsReducer,
     OrderListsReducer,
     OrderMyListReducer,
@@ -59,8 +59,7 @@ export default combineReducers({
 
     orderCancel: OrderCancelReducer,
     orderCreate: OrderCreateReducer,
-    orderDeliver: OrderDeliverReducer,
-    orderDelivering: OrderDeliveringReducer,
+    orderStatus: OrderStatusReducer,
     orderDetails: OrderDetailsReducer,
     orderLists: OrderListsReducer,
     orderMyList: OrderMyListReducer,

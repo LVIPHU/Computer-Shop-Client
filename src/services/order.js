@@ -9,10 +9,6 @@ const fetch = {
         let response = await api.get(`detailorder/order/${orderId}`);
         return response;
     },
-    // getPersonalOrder: async (userId) => {
-    //     let response = await api.get(`orders/user/${userId}`);
-    //     return response;
-    // },
     createOrder: async (order) => {
         let response = await api.post(`orders/add`, order);
         return response;
@@ -21,18 +17,14 @@ const fetch = {
         let response = await api.post(`/detailorder/add`, orderItem);
         return response;
     },
-    // updateOrder: async (orderId) => {
-    //     let response = await api.put(`orders/${orderId}`);
-    //     return response;
-    // },
-    // updateStatusOrder: async (orderId) => {
-    //     let response = await api.put(`orders/status/${orderId}`);
-    //     return response;
-    // },
-    // deleteOrder: async (orderID) => {
-    //     let response = await api.delete(`orders/order/${orderID}`);
-    //     return response;
-    // },
+    updateStatusOrder: async (orderId) => {
+        let response = await api.put(`orders/updateStatusStep/${orderId}`);
+        return response;
+    },
+    CancelOrder: async (orderId) => {
+        let response = await api.put(`orders/statusCancel/${orderId}`);
+        return response;
+    },
 };
 
 export default fetch;

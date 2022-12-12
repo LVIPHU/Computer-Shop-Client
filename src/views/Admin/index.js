@@ -148,6 +148,8 @@ function AdminPage() {
                 dispatch(actionsBrand.getAllBrand());
                 return <pages.Products />;
             case 'p1':
+                dispatch(actionsCategory.getAllCategory());
+                dispatch(actionsBrand.getAllBrand());
                 return <pages.AddProduct />;
             case 'u':
                 dispatch(actionsUser.getAllUser());

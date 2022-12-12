@@ -7,7 +7,7 @@ import Header from '../components/Header';
 
 const DefaultLayout = ({ children }) => {
     return (
-        <div className="App" id="app">
+        <div className="App bg-white" id="app">
             <Header />
             <ScrollTo />
             <ContactIcon />

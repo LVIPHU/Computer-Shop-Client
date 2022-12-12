@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import EditProductModal from './ProductEditModal';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
+import actionsProduct from '@/redux/actions/product';
 
 function generateFilter(list) {
     let result = [];
@@ -14,9 +15,9 @@ function generateFilter(list) {
 }
 
 function SeeProduct() {
-    const [editModal, setEditModal] = useState({ visible: false, product: null });
+    const dispatch = Redux.useDispatch();
+    const [editModal, setEditModal] = React.useState(false);
     const [modalDel, setModalDel] = useState({ visible: false, _id: '' });
-    const [list, setList] = useState([]);
 
     // event: Lấy toàn bộ danh sách sản phẩm
     const productAll = Redux.useSelector((state) => state.productAll);
@@ -47,9 +48,8 @@ function SeeProduct() {
 
     // event: cập nhật sản phẩm
     const onCloseEditModal = (newProduct) => {
-        const newList = list.map((item) => (item._id !== newProduct._id ? item : { ...item, ...newProduct }));
-        setList(newList);
-        setEditModal({ visible: false });
+        setEditModal(false);
+        dispatch(actionsProduct.getAllProducts());
     };
 
     // Cột của bảng
@@ -125,27 +125,28 @@ function SeeProduct() {
             key: 'actions',
             fixed: 'right',
             width: 120,
-            render: (text) => (
-                <div className="flex justify-between items-center">
+            render: (product) => (
+                <div className="flex justify-around items-center">
                     <Tooltip title="Chỉnh sửa" placement="left">
                         <EditOutlined
                             onClick={() => {
-                                setEditModal({ visible: true, product: { ...text } });
+                                setEditModal(true);
+                                dispatch(actionsProduct.getDetailProduct(product.id));
                             }}
-                            className="m-r-8 action-btn-product text-blue-500"
+                            className="action-btn-product text-blue-500 text-base"
                         />
                     </Tooltip>
 
                     <Tooltip title="Xem chi tiết" placement="left">
-                        <a target="blank" href={`/product/${text.id}`}>
-                            <EyeOutlined className="action-btn-product text-green-500" />
+                        <a target="blank" href={`/product/${product.id}`}>
+                            <EyeOutlined className="action-btn-product text-green-500 text-base" />
                         </a>
                     </Tooltip>
 
                     <Tooltip title="Xóa" placement="left">
                         <DeleteOutlined
-                            onClick={() => setModalDel({ visible: true, id: text.id })}
-                            className="m-r-8 action-btn-product text-red-500"
+                            onClick={() => setModalDel({ visible: true, id: product.id })}
+                            className="action-btn-product text-red-500 text-base"
                         />
                     </Tooltip>
                 </div>
@@ -189,11 +190,7 @@ function SeeProduct() {
                         dataSource={products}
                     />
                     {/* edit product modal */}
-                    <EditProductModal
-                        visible={editModal.visible}
-                        onClose={(value) => onCloseEditModal(value)}
-                        product={editModal.product}
-                    />
+                    <EditProductModal onClose={onCloseEditModal} visible={editModal} />
                 </div>
             )}
         </>
