@@ -20,7 +20,7 @@ export const AuthRegisterReducer = (state = {}, action) => {
         case constants.AUTH_REGISTER_REQUEST:
             return { loading: true };
         case constants.AUTH_REGISTER_SUCCESS:
-            return { loading: false, userInfo: action.payload };
+            return { loading: false, success: true };
         case constants.AUTH_REGISTER_FAIL:
             return { loading: false, error: action.payload };
         default:

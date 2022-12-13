@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ProductView from '@/components/Card';
 import { Col, Pagination, Row, Spin } from 'antd';
 import actions from '@/redux/actions/product';
+import actionsRating from '@/redux/actions/rating';
 
 const AllProduct = () => {
     const dispatch = Redux.useDispatch();
@@ -25,6 +26,7 @@ const AllProduct = () => {
                     to={`/product/${product.id}`}
                     onClick={() => {
                         dispatch(actions.getDetailProduct(product.id));
+                        dispatch(actionsRating.getAllRating(product.id));
                     }}
                 >
                     <ProductView

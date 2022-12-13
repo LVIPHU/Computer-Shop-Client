@@ -10,19 +10,19 @@ function Dashboard() {
             {/* doanh thu theo tháng */}
             <Col span={24} xl={12}>
                 <div className="bg-white p-12 bor-rad-8 box-sha-home">
-                    <MonthlyRevenue />
+                    {/* <MonthlyRevenue /> */}
                 </div>
             </Col>
             {/* Doanh thu theo năm */}
             <Col span={24} xl={12}>
                 <div className="bg-white p-12 bor-rad-8 box-sha-home">
-                    <AnnualRevenue />
+                    {/* <AnnualRevenue /> */}
                 </div>
             </Col>
             {/* Đơn hàng ở tỉnh nào nhiều nhất */}
             <Col span={24} xl={12}>
                 <div className="bg-white p-12 bor-rad-8 box-sha-home">
-                    <TopOrders />
+                    {/* <TopOrders /> */}
                 </div>
             </Col>
         </Row>

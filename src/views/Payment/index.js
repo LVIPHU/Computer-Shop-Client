@@ -76,8 +76,8 @@ function PaymentPage() {
             payment: method,
             total_price: tempPrice + transportFee,
             id_user: userInfo.id,
-            address: shippingInfo?.sentData?.address,
-            phone: shippingInfo?.sentData?.phone,
+            address: shippingInfo[0].address,
+            phone: shippingInfo[0].phone,
         };
         dispatch(actionsOrder.createOrder(order, cartItems));
     };

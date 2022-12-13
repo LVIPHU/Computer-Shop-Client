@@ -17,6 +17,7 @@ import constants from '@/utils/constants';
 import helpers from '@/utils/helpers';
 import Cart from '../Cart';
 import './index.scss';
+import actionsOrder from '@/redux/actions/order';
 
 function totalItemCarts(cartItems) {
     if (cartItems) {
@@ -104,7 +105,7 @@ function Header() {
                     )}
                     <Menu.Item>
                         <Button size="large" className="w-100 btn-secondary" type="default">
-                            <Link to={constants.ROUTES.PROFILE + '/'}>Quản lý Tài khoản</Link>
+                            <Link to={constants.ROUTES.PROFILE}>Quản lý Tài khoản</Link>
                         </Button>
                     </Menu.Item>
                     <Menu.Item>
@@ -177,7 +178,7 @@ function Header() {
                                         <Link
                                             to={
                                                 userInfo != null
-                                                    ? `${constants.ROUTES.PROFILE}/`
+                                                    ? `${constants.ROUTES.PROFILE}`
                                                     : constants.ROUTES.LOGIN
                                             }
                                         >
@@ -197,7 +198,12 @@ function Header() {
                                         </Link>
                                     </Dropdown>
                                 </li>
-                                <li className="m-b-18">
+                                <li
+                                    className="m-b-18"
+                                    onClick={() => {
+                                        dispatch(actionsOrder.getMyOrder(userInfo.id));
+                                    }}
+                                >
                                     <Link
                                         className="d-flex navbar-tool-item p-l-0"
                                         to={constants.ROUTES.PROFILE + '/orders'}
@@ -230,7 +236,11 @@ function Header() {
                     </>
                 ) : (
                     <ul className="d-flex m-0">
-                        <li>
+                        <li
+                            onClick={() => {
+                                dispatch(actionsOrder.getMyOrder(userInfo.id));
+                            }}
+                        >
                             <Link
                                 className="d-flex flex-direction-column navbar-tool-item p-l-0"
                                 to={constants.ROUTES.PROFILE + '/orders'}
@@ -241,7 +251,7 @@ function Header() {
                         </li>
                         <li>
                             <Dropdown overlay={userActionMenu} placement="bottomCenter">
-                                <Link to={userInfo != null ? `${constants.ROUTES.PROFILE}/` : constants.ROUTES.LOGIN}>
+                                <Link to={userInfo != null ? `${constants.ROUTES.PROFILE}` : constants.ROUTES.LOGIN}>
                                     {userInfo == null ? (
                                         <div className="d-flex flex-direction-column navbar-tool-item">
                                             <UserOutlined className="icon" />

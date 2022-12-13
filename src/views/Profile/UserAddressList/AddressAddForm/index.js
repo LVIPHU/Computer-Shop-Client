@@ -107,9 +107,6 @@ function AddressAddForm(props) {
             details,
             address: `${details} ${ward} ${district} ${province}`,
         };
-        console.log('====================================');
-        console.log(data);
-        console.log('====================================');
         dispatch(actionsCart.saveShippingInfo(data));
         setIsVisible(false);
         onCloseForm(1);

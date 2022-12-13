@@ -11,15 +11,16 @@ import UserComment from './UserComment';
 const { TextArea } = Input;
 
 function EvaluationView(props) {
-    const { rates, cmtList, productId } = props;
-    const [cmtListState, setCmtListState] = useState(cmtList);
-    const { isAuth } = useSelector((state) => state.authenticate);
-    const user = useSelector((state) => state.user);
+    const { rates, productId } = props;
+    const [cmtListState, setCmtListState] = useState(rates);
+    const authLogin = useSelector((state) => state.authLogin);
+    const { userInfo } = authLogin;
+    // const user = useSelector((state) => state.user);
 
     const [cmt, setCmt] = useState('');
-    const star = useRef(0);
-    const starAvg = helpers.calStar(rates).toFixed(1);
-    const rateTotals = rates.reduce((a, b) => a + b, 0);
+    // const star = useRef(0);
+    // const starAvg = helpers.calStar(rates).toFixed(1);
+    // const rateTotals = rates.reduce((a, b) => a + b, 0);
 
     // phân trang
     const [page, setPage] = useState(1);
@@ -28,9 +29,9 @@ function EvaluationView(props) {
     const cmtListSliced = cmtListState.slice(start, start + constants.COMMENT_PER_PAGE);
 
     useEffect(() => {
-        setCmtListState(cmtList);
+        setCmtListState(rates);
         return () => {};
-    }, [cmtList]);
+    }, [rates]);
 
     // event: comment
     const onComment = async () => {
@@ -69,17 +70,17 @@ function EvaluationView(props) {
             </Col>
 
             {/* đánh giá tổng quan */}
-            <Col span={24} className="p-16">
+            {/* <Col span={24} className="p-16">
                 <span className="font-size-28px">Đánh giá</span>
-                <div className="overview d-flex p-tb-16">
-                    {/* tổng kết */}
-                    <div className="d-flex flex-direction-column align-i-center overview--total">
+                <div className="overview d-flex p-tb-16"> */}
+            {/* tổng kết */}
+            {/* <div className="d-flex flex-direction-column align-i-center overview--total">
                         <h2 className="font-size-32px">{starAvg}</h2>
                         <Rate disabled defaultValue={starAvg} allowHalf style={{ fontSize: 12 }} />
                         <p className="t-color-gray font-weight-500">{rateTotals} nhận xét</p>
-                    </div>
-                    {/* chi tiết */}
-                    <div className="overview--detail d-flex flex-grow-1 flex-direction-column p-lr-16">
+                    </div> */}
+            {/* chi tiết */}
+            {/* <div className="overview--detail d-flex flex-grow-1 flex-direction-column p-lr-16">
                         {rates.map((item, index) => (
                             <div key={index} className="d-flex justify-content-between">
                                 <Rate disabled defaultValue={index + 1} style={{ fontSize: 14, flexBasis: 100 }} />
@@ -94,7 +95,7 @@ function EvaluationView(props) {
                         ))}
                     </div>
                 </div>
-            </Col>
+            </Col> */}
 
             {/* Xem bình luận, nhận xét */}
             <Col span={24}>
@@ -114,7 +115,7 @@ function EvaluationView(props) {
 
             {/* bình luận */}
             <Col span={24} className="d-flex">
-                {isAuth ? (
+                {userInfo ? (
                     <>
                         <TextArea
                             maxLength={constants.MAX_LEN_COMMENT}
@@ -128,7 +129,7 @@ function EvaluationView(props) {
                             className="flex-grow-1 m-r-16"
                             onChange={(e) => setCmt(e.target.value)}
                         />
-                        <Rate allowClear className="m-r-16" onChange={(e) => (star.current = e)} />
+                        {/* <Rate allowClear className="m-r-16" onChange={(e) => (star.current = e)} /> */}
                         <Button type="primary" size="large" style={{ flexBasis: 122 }} onClick={onComment}>
                             Gửi nhận xét
                         </Button>

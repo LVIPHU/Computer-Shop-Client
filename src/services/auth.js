@@ -5,8 +5,8 @@ const fetch = {
         let response = await api.post(`auth/signin`, account);
         return response;
     },
-    register: async (email, password, role) => {
-        let response = await api.post(`auth/signup`, { email, password, role });
+    register: async (email, password, roles) => {
+        let response = await api.post(`auth/signup`, { email, password, roles });
         return response;
     },
 };

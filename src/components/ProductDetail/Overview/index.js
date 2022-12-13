@@ -24,7 +24,7 @@ function countItemInCart(productCode, carts) {
 function ProductOverview(props) {
     const dispatch = useDispatch();
     const { product } = props;
-    const { id, image, name, price, quantity, categoryName } = product;
+    const { id, image, name, price, quantity, categoryName, avgRating } = product;
 
     // const { catalogs, ...productRest } = product.productDetail;
     // const imgList = [avt, ...catalogs];
@@ -94,16 +94,16 @@ function ProductOverview(props) {
 
                 {/* Đánh giá sản phẩm */}
                 <div className="p-tb-8">
-                    <Rate disabled defaultValue={4} allowHalf />
+                    <Rate disabled defaultValue={avgRating} allowHalf />
                     <a href="#evaluation" className="m-l-8">
-                        (Có {4} đánh giá)
+                        {/* (Có {4} đánh giá) */}
                     </a>
                 </div>
 
                 {/* Mã, thương hiệu */}
                 <div className="font-size-16px font-weight-400" style={{ color: '#aaa' }}>
                     Thương hiệu:
-                    <span className="product-brand font-weight-500">&nbsp;{product.categoryName}</span>
+                    <span className="product-brand font-weight-500">&nbsp;{product.brandName}</span>
                     {/* &nbsp; | &nbsp;<span>{code}</span> */}
                 </div>
 

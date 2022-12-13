@@ -3,18 +3,20 @@ import { Button, Col, Result, Row } from 'antd';
 import userLogo from '@/assets/icon/user_32px.png';
 import constants from '@/utils/constants';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import './index.scss';
 import OrderList from './OrderList';
 import UpdateAccountForm from './UpdateForm';
 import AddressUserList from './UserAddressList';
+import actionsOrder from '@/redux/actions/order';
 
 function AccountPage() {
+    const dispatch = useDispatch()
     const { pathname } = useLocation();
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
-    const [activeKey, setActiveKey] = useState(() => pathname.replace(`${constants.ROUTES.PROFILE}/`, ''));
+    const [activeKey, setActiveKey] = useState(() => pathname.replace(`${constants.ROUTES.PROFILE}`, ''));
     // menu list
     const menu = [
         {
@@ -25,17 +27,17 @@ function AccountPage() {
         {
             Icon: <ReconciliationOutlined className="icon m-r-12 font-size-24px" />,
             title: 'Quản lý đơn hàng',
-            key: 'orders',
+            key: '/orders',
         },
         {
             Icon: <CompassOutlined className="icon m-r-12 font-size-24px" />,
             title: 'Địa chỉ giao hàng',
-            key: 'addresses',
+            key: '/addresses',
         },
         {
             Icon: <NotificationOutlined className="icon m-r-12 font-size-24px" />,
             title: 'Thông báo',
-            key: 'notifications',
+            key: '/notifications',
         },
     ];
 
@@ -49,21 +51,22 @@ function AccountPage() {
                         <UpdateAccountForm />
                     </>
                 );
-            case 'orders':
+            case '/orders':
                 return (
                     <>
                         <h2 className="m-b-16">Các đơn hàng của bạn</h2>
                         <OrderList />
                     </>
                 );
-            case 'addresses':
+            case '/addresses':
                 return (
                     <>
                         <h2 className="m-b-16">Danh sách địa chỉ giao hàng của bạn</h2>
-                        <AddressUserList />
+                        {/* <AddressUserList /> */}
                     </>
                 );
-            case 'notifications':
+            case '/notifications':
+                    dispatch(actionsOrder.getMyOrder(userInfo.id))
                 return (
                     <>
                         <h2 className="m-b-16">Thông báo</h2>
@@ -73,14 +76,14 @@ function AccountPage() {
             default:
                 <>
                     <h2 className="m-b-16">Thông tin tài khoản</h2>
-                    <UpdateAccountForm />
+                    {/* <UpdateAccountForm /> */}
                 </>;
         }
     }
 
     // event: lấy lại key khi bấm vào đơn hàng menu
     useEffect(() => {
-        if (pathname === `${constants.ROUTES.ACCOUNT}/orders`) setActiveKey('orders');
+        if (pathname === `${constants.ROUTES.PROFILE}/orders`) setActiveKey('orders');
     }, [pathname]);
 
     // rendering ...
@@ -117,7 +120,7 @@ function AccountPage() {
                         {/* menu */}
                         <ul className="account-page-menu m-t-12">
                             {menu.map((item, index) => (
-                                <Link key={index} to={constants.ROUTES.ACCOUNT + '/' + item.key}>
+                                <Link key={index} to={constants.ROUTES.PROFILE + item.key}>
                                     <li
                                         className={`account-page-menu-item p-b-20 ${
                                             item.key === activeKey ? 'active' : ''

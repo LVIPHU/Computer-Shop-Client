@@ -8,20 +8,24 @@ import constants from '@/utils/constants';
 import { FastField, Form, Formik } from 'formik';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import userReducers from 'reducers/user';
+import actionsUser from '@/redux/actions/user';
 
 import * as Yup from 'yup';
 function UpdateAccountForm() {
-    const user = useSelector((state) => state.user);
-    const { id, fullName, email, address, birthday, gender } = user;
+    const authLogin = useSelector((state) => state.authLogin);
+    const userUpdate = useSelector((state) => state.userUpdate);
+    const { userInfo } = authLogin;
+    const { id, firstName, lastName, email, address, birthday, phoneNumber, gender, roles } = userInfo;
     const [isSubmitting, setIsSubmitting] = useState(false);
     const dispatch = useDispatch();
 
     // giá trọ khởi tạo cho formik
     const initialValue = {
         email,
-        fullName,
+        firstName,
+        lastName,
         address,
+        phoneNumber,
         gender,
         birthday,
     };
@@ -29,11 +33,17 @@ function UpdateAccountForm() {
     // validate form trước submit với yup
     const validationSchema = Yup.object().shape({
         email: Yup.string().trim().required('* Email bạn là gì ?').email('* Email không hợp lệ !'),
-        fullName: Yup.string()
+        lastName: Yup.string()
             .trim()
             .required('* Tên bạn là gì ?')
             .matches(/[^~!@#%\^&\*()_\+-=\|\\,\.\/\[\]{}'"`]/, '* Không được chứa ký tự đặc biệt')
             .max(70, '* Tối đa 70 ký tự'),
+        firstName: Yup.string()
+            .trim()
+            .required('* Tên bạn là gì ?')
+            .matches(/[^~!@#%\^&\*()_\+-=\|\\,\.\/\[\]{}'"`]/, '* Không được chứa ký tự đặc biệt')
+            .max(70, '* Tối đa 70 ký tự'),
+        phoneNumber: Yup.string().trim().required('* số điện thoại bạn là gì ?').max(10, '* Tối đa 10 ký tự'),
         birthday: Yup.date()
             .notRequired()
             .min(new Date(1900, 1, 1), '* Năm sinh từ 1900')
@@ -41,30 +51,14 @@ function UpdateAccountForm() {
                 new Date(new Date().getFullYear() - parseInt(constants.MIN_AGE), 1, 1),
                 `* Tuổi tối thiểu là ${constants.MIN_AGE}`,
             ),
-        gender: Yup.boolean().required('* Giới tính của bạn'),
         address: Yup.string().trim().max(100, '* Tối đa 100 ký tự'),
     });
 
     // fn: update account
     const handleUpdate = async (value) => {
-        // try {
-        //     setIsSubmitting(true);
-        //     if (JSON.stringify(initialValue) === JSON.stringify(value)) {
-        //         setIsSubmitting(false);
-        //         return;
-        //     }
-        //     const response = await userApi.putUpdateUser(_id, value);
-        //     if (response) {
-        //         message.success('Cập nhật thành công.');
-        //         setIsSubmitting(false);
-        //         setTimeout(() => {
-        //             dispatch(userReducers.getUserRequest());
-        //         }, 500);
-        //     }
-        // } catch (error) {
-        //     message.error('Cập nhật thất bại. Thử lại', 2);
-        //     setIsSubmitting(false);
-        // }
+        const { email, firstName, lastName, address, phoneNumber, gender, birthday } = value;
+        const user = { id, email, firstName, lastName, address, phoneNumber, gender, birthday, roles };
+        dispatch(actionsUser.updateUser(user));
     };
 
     //rendering...
@@ -81,6 +75,36 @@ function UpdateAccountForm() {
                         return (
                             <Form className="box-sha-home bg-white bor-rad-8">
                                 <Row className=" p-16" gutter={[32, 32]} style={{ margin: 0 }}>
+                                    <Col className="p-b-0" span={24} md={12}>
+                                        {/* full name filed */}
+                                        <FastField
+                                            name="firstName"
+                                            component={InputField}
+                                            className="input-form-common"
+                                            placeholder="Họ và tên *"
+                                            size="large"
+                                            suffix={
+                                                <Tooltip title="Họ và tên của bạn">
+                                                    <InfoCircleOutlined style={{ color: suffixColor }} />
+                                                </Tooltip>
+                                            }
+                                        />
+                                    </Col>
+                                    <Col className="p-b-0" span={24} md={12}>
+                                        {/* full name filed */}
+                                        <FastField
+                                            name="lastName"
+                                            component={InputField}
+                                            className="input-form-common"
+                                            placeholder="Họ và tên *"
+                                            size="large"
+                                            suffix={
+                                                <Tooltip title="Họ và tên của bạn">
+                                                    <InfoCircleOutlined style={{ color: suffixColor }} />
+                                                </Tooltip>
+                                            }
+                                        />
+                                    </Col>
                                     <Col className="p-b-0" span={24} md={12}>
                                         {/* email field */}
                                         <FastField
@@ -102,18 +126,14 @@ function UpdateAccountForm() {
                                         />
                                     </Col>
                                     <Col className="p-b-0" span={24} md={12}>
-                                        {/* full name filed */}
+                                        {/* birthday field */}
                                         <FastField
-                                            name="fullName"
+                                            type="number"
                                             component={InputField}
-                                            className="input-form-common"
-                                            placeholder="Họ và tên *"
+                                            className="input-form-common px-3 py-2"
+                                            name="phoneNumber"
+                                            placeholder={phoneNumber}
                                             size="large"
-                                            suffix={
-                                                <Tooltip title="Họ và tên của bạn">
-                                                    <InfoCircleOutlined style={{ color: suffixColor }} />
-                                                </Tooltip>
-                                            }
                                         />
                                     </Col>
                                     <Col className="p-b-0" span={24} md={12}>
@@ -152,6 +172,7 @@ function UpdateAccountForm() {
                                             }
                                         />
                                     </Col>
+
                                     {/* Button submit */}
                                     <Col className="p-tb-16 t-left" span={24}>
                                         <Button

@@ -1,7 +1,7 @@
 // gender options
 const GENDER_OPTIONS = [
-    { value: true, label: 'Nam' },
-    { value: false, label: 'Nữ' },
+    { value: 'FEMALE', label: 'Nữ' },
+    { value: 'MALE', label: 'Nam' },
 ];
 
 // hình thức giao hàng
@@ -35,6 +35,7 @@ const ROUTES = {
     ACCOUNT: '/account',
     REGISTER: '/register',
     PROFILE: '/profile',
+    PROFILE_ORDER: 'profile/orders',
     FORGOT_PASSWORD: '/login/forgot-pw',
 
     HOME: '/',

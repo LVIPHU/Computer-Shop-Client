@@ -112,7 +112,7 @@ function Login() {
                                     <LoginGoogle title={windowWidth > 375 ? 'Đăng nhập với Gmail' : 'Gmail'} />
                                     <div className="m-t-20 m-b-20 font-weight-500">
                                         Bạn chưa đã có tài khoản ?
-                                        <Link to={constants.ROUTES.SIGNUP}>&nbsp;Đăng ký</Link>
+                                        <Link to={constants.ROUTES.REGISTER}>&nbsp;Đăng ký</Link>
                                     </div>
                                 </Col>
                             </Row>

@@ -9,6 +9,10 @@ const fetch = {
         let response = await api.get(`detailorder/order/${orderId}`);
         return response;
     },
+    getMyOrder: async (userId) => {
+        let response = await api.get(`orders/user/${userId}`);
+        return response;
+    },
     createOrder: async (order) => {
         let response = await api.post(`orders/add`, order);
         return response;

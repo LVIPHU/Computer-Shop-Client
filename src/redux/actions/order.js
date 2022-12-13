@@ -59,6 +59,28 @@ const actions = {
         }
     },
 
+    getMyOrder: (userId) => async (dispatch) => {
+        try {
+            dispatch({
+                type: constantsOrder.ORDER_MY_LIST_REQUEST,
+            });
+
+            const { data } = await fetch.getMyOrder(userId);
+            dispatch({
+                type: constantsOrder.ORDER_MY_LIST_SUCCESS,
+                payload: data.data,
+            });
+        } catch (error) {
+            dispatch({
+                type: constantsOrder.ORDER_MY_LIST_FAIL,
+                payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+            });
+            error.response && error.response.data.message
+                ? helpers.openNotificationError('Lấy thông tin đơn hàng thất bại', error.response.data.message)
+                : helpers.openNotificationError('Lấy thông tin đơn hàng thất bại', error.message);
+        }
+    },
+
     getDetailOrder: (id) => async (dispatch) => {
         try {
             dispatch({

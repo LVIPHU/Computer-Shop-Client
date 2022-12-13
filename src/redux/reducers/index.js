@@ -37,6 +37,7 @@ import {
 } from './product';
 import { importAllReducer, importCreateReducer, importDetailReducer } from './import';
 import { UserDeleteReducer, UserDetailReducer, UserListReducer, UserUpdateReducer, UserCreateReducer } from './user';
+import { ratingAllReducer, ratingCreateReducer } from './rating';
 
 export default combineReducers({
     authLogin: AuthLoginReducer,
@@ -84,4 +85,7 @@ export default combineReducers({
     userList: UserListReducer,
     userUpdate: UserUpdateReducer,
     userCreate: UserCreateReducer,
+
+    ratingAll: ratingAllReducer,
+    ratingCreate: ratingCreateReducer,
 });

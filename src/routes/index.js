@@ -8,7 +8,7 @@ export const publicRoutes = [
     { path: constans.ROUTES.FILTER, component: pages.Home },
     { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: constans.ROUTES.CART, component: pages.Cart },
-    { path: constans.ROUTES.PROFILE + '/', component: pages.Profile },
+    { path: constans.ROUTES.PROFILE, component: pages.Profile },
     { path: '*', component: pages.Login },
 ];
 
@@ -18,7 +18,8 @@ export const privateRoutes = [
     { path: constans.ROUTES.PRODUCT, component: pages.Product },
     { path: constans.ROUTES.CART, component: pages.Cart },
     { path: constans.ROUTES.PAYMENT, component: pages.Payment },
-    { path: constans.ROUTES.PROFILE + '/', component: pages.Profile },
+    { path: constans.ROUTES.PROFILE, component: pages.Profile },
+    { path: constans.ROUTES.PROFILE_ORDER, component: pages.MyOrder },
     { path: '*', component: pages.Result_404 },
 ];
 

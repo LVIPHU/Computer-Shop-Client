@@ -45,7 +45,7 @@ function Specification(props) {
                 <span className="font-size-16px" style={{ flexBasis: 150 }}>
                     Thương hiệu
                 </span>
-                <span className="font-size-16px flex-grow-1">{data.categoryName}</span>
+                <span className="font-size-16px flex-grow-1">{data.brandName}</span>
             </div>
             {/* {showSpecification(list)} */}
             <div className="Specification-item d-flex p-12">

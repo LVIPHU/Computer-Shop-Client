@@ -12,10 +12,10 @@ import ProductOverview from './Overview';
 import ProductPolicy from './Policy';
 
 function ProductDetail(props) {
-    const { product } = props;
+    const { product, rates } = props;
     // const { productDetail, productDesc } = products;
     // let { catalogs, ...restDetail } = productDetail;
-    const { name, id, categoryName } = product;
+    const { name, id, categoryName, brandName } = product;
     // restDetail = helpers.convertProductValue(type, restDetail);
 
     // rendering...
@@ -43,12 +43,12 @@ function ProductDetail(props) {
 
                 {/* Mô tả chi tiết sản phẩm */}
                 <Col span={24}>
-                    <Description specification={{ categoryName }} desc={product.description} />
+                    <Description specification={{ brandName }} desc={product.description} />
                 </Col>
 
                 {/* Nhận xét của khách hàng */}
                 <Col span={24} id="evaluation">
-                    {/* <Evaluation rates={rate} productId={id} /> */}
+                    <Evaluation rates={rates} productId={product.id} />
                 </Col>
 
                 {/* danh sách sản phẩm tương tự */}

@@ -17,25 +17,25 @@ function Description(props) {
     };
 
     // ev: lấy kích thước bài viết mô tả sau khi render
-    useEffect(() => {
-        const height = document.getElementById('descId').clientHeight;
-        // Nếu chiều cao bài viết > 200px thì ẩn bớt
-        if (height >= 200) {
-            setIsShowSeeMore(true);
-        }
-    }, []);
+    // useEffect(() => {
+    // const height = document.getElementById('descId').clientHeight;
+    // // Nếu chiều cao bài viết > 200px thì ẩn bớt
+    // if (height >= 200) {
+    //     setIsShowSeeMore(true);
+    // }
+    // }, []);
 
     return (
         <Row className="Product-Desc bg-white p-8" id="descId">
             {/* Bài viết chi tiết */}
-            <Col span={24} md={16} className={`p-8 ${!isHideDesc ? 'hide-desc' : ''}`}>
+            <Col span={24} md={16} className={`p-8 ${isHideDesc ? 'hide-desc' : ''}`}>
                 <h2 className="font-weight-700">Mô tả sản phẩm</h2>
                 <div className="underline-title"></div>
                 <Posts>{desc}</Posts>
             </Col>
 
             {/* Thông số kỹ thuật */}
-            <Col span={24} md={8} className={`p-8 ${!isHideDesc ? 'hide-desc' : ''}`}>
+            <Col span={24} md={8} className={`p-8 ${isHideDesc ? 'hide-desc' : ''}`}>
                 <h2 className="font-weight-700">Thông số kỹ thuật</h2>
                 <div className="underline-title"></div>
                 <Specification data={specification} />

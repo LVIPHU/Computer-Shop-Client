@@ -26,6 +26,7 @@ const pages = {
     Cart: React.lazy(() => import('@/components/Cart')),
     Payment: React.lazy(() => import('./Payment')),
     Profile: React.lazy(() => import('./Profile')),
+    MyOrder: React.lazy(() => import('./Profile/OrderList')),
 
     Admin: React.lazy(() => import('./Admin')),
     Users: React.lazy(() => import('./Admin/Users/UserList')),
