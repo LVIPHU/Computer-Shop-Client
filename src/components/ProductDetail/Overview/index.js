@@ -81,11 +81,7 @@ function ProductOverview(props) {
             <Col span={24} md={8}>
                 <div style={{ height: 268 }} className="d-flex align-i-center justify-content-center ">
                     {/* <Image style={{ maxHeight: '100%' }} fallback={ImgLoadFailed} src={imgList[avtIndex]} /> */}
-                    <Image
-                        style={{ maxHeight: '100%' }}
-                        fallback={ImgLoadFailed}
-                        src={`data:image/jpeg;base64,${image}`}
-                    />
+                    <Image style={{ maxHeight: '100%' }} fallback={ImgLoadFailed} src={image} />
                 </div>
                 {/* <div className="d-flex w-100 bg-white p-b-16 p-t-8">{showCatalogs(imgList)}</div> */}
                 {/* <div className="p-l-16 p-t-16 product-info">{showOverviewInfo(productRest)}</div> */}

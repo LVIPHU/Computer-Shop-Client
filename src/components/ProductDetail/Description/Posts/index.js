@@ -2,38 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Posts(props) {
-    const { content } = props;
+    const { children } = props;
 
     return (
         <>
-            {content == null ? (
+            {children == null ? (
                 <h3 className="m-t-16">Thông tin đang được cập nhật</h3>
             ) : (
-                <>
-                    {content}
-                    {/* <h2 className="m-t-16 m-b-8 font-weight-700">{content.title}</h2>
-          {content.desc &&
-            content.desc.map((item, index) => (
-              <div key={index}>
-                <p className="t-justify font-size-15px font-weight-500 desc-detail">
-                  {item.content}
-                </p>
-                <img
-                  className="trans-margin"
-                  style={{ maxHeight: 350, maxWidth: '100%' }}
-                  src={item.photo}
-                  alt="..."
-                />
-              </div>
-            ))} */}
-                </>
+                <article className={`mt-8`} dangerouslySetInnerHTML={{ __html: children }}></article>
             )}
         </>
     );
 }
 
 Posts.propTypes = {
-    content: PropTypes.object,
+    children: PropTypes.string,
 };
 
 export default Posts;

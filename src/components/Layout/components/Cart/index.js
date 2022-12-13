@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, List } from 'antd';
+import { Avatar, Button, Card, Image, List } from 'antd';
 import constants from '@/utils/constants';
 import { Link } from 'react-router-dom';
 import helpers from '@/utils/helpers';
@@ -28,13 +28,7 @@ function Cart(props) {
                     renderItem={(item) => (
                         <Card style={{ width: 300 }}>
                             <Meta
-                                avatar={
-                                    <Avatar
-                                        shape="square"
-                                        style={{ width: 80, height: 50 }}
-                                        src={`data:image/jpeg;base64,${item.image}`}
-                                    />
-                                }
+                                avatar={<Image width={80} height={50} src={item.image} />}
                                 title={item.name}
                                 description={`Số lượng: ${item.qty}`}
                             />

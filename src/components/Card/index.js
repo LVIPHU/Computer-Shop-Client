@@ -20,7 +20,7 @@ function ProductView(props) {
             id="card-item"
             style={{ height, maxWidth }}
             loading={false}
-            cover={<img className="max-w-100 max-h-100" src={`data:image/jpeg;base64,${avtUrl}`} alt="Product_Photo" />}
+            cover={<img className="max-w-100 max-h-100" src={avtUrl} alt="Product_Photo" />}
             hoverable
         >
             {/* Tên sản phẩm */}

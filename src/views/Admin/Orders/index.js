@@ -22,6 +22,7 @@ function OrderList() {
     const orderLists = Redux.useSelector((state) => state.orderLists);
     const { loading, orders } = orderLists;
     const text = <span>Chi tiết đơn hàng</span>;
+    console.log(orders);
     const content = (orderDetail) => {
         return (
             <div>
@@ -172,7 +173,7 @@ function OrderList() {
             align: 'center',
             render: (order) => (
                 <div className="flex justify-around items-center">
-                    {order.status === 'Delivered' || order.status === 'Canceled' ? (
+                    {order.status !== 'Delivered' || order.status === 'Canceled' ? (
                         <Tooltip title="Đổi trạng thái" placement="left">
                             <Popconfirm
                                 title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
@@ -196,7 +197,7 @@ function OrderList() {
                         </Popover>
                     </Tooltip>
 
-                    {order.status !== 'Pending' ? (
+                    {order.status === 'Pending' ? (
                         <Tooltip title="Hủy đơn hàng" placement="left">
                             <Popconfirm
                                 title="Không thể khôi phục được, bạn có chắc muốn xoá ?"

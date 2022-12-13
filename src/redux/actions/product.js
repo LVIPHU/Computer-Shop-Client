@@ -123,7 +123,7 @@ const actions = {
                 type: constants.PRODUCT_UPDATE_REQUEST,
             });
 
-            const { data } = await fetch.updateProduct(product.id, product);
+            const { data } = await fetch.updateProduct( product);
 
             dispatch({
                 type: constants.PRODUCT_UPDATE_SUCCESS,

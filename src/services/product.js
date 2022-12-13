@@ -21,8 +21,8 @@ const fetch = {
         let response = await api.post(`product`, product);
         return response;
     },
-    updateProduct: async (id, product) => {
-        let response = await api.put(`product/${id}`, product);
+    updateProduct: async (product) => {
+        let response = await api.put(`product`, product);
         return response;
     },
     deleteProduct: async (id) => {

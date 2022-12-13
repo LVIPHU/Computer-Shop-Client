@@ -35,6 +35,7 @@ import {
     ProductFilterReducer,
     ProductUpdateReducer,
 } from './product';
+import { importAllReducer, importCreateReducer, importDetailReducer } from './import';
 import { UserDeleteReducer, UserDetailReducer, UserListReducer, UserUpdateReducer, UserCreateReducer } from './user';
 
 export default combineReducers({
@@ -73,6 +74,10 @@ export default combineReducers({
     productList: ProductListReducer,
     productFilter: ProductFilterReducer,
     productUpdate: ProductUpdateReducer,
+
+    importAll: importAllReducer,
+    importCreate: importCreateReducer,
+    importDetail: importDetailReducer,
 
     userDelete: UserDeleteReducer,
     userDetail: UserDetailReducer,

@@ -15,37 +15,40 @@ function EditProductModal(props) {
     const dispatch = Redux.useDispatch();
     const { visible, onClose } = props;
 
+    const productUpdate = Redux.useSelector((state) => state.productUpdate);
+
     const productDetail = Redux.useSelector((state) => state.productDetail);
     const { loading, product } = productDetail;
-    console.log(product);
+
     const categoryAll = Redux.useSelector((state) => state.categoryAll);
     const { categories } = categoryAll;
 
     const brandAll = Redux.useSelector((state) => state.brandAll);
     const { brands } = brandAll;
 
-    const { id, name, brandId, categoryId, description, price, image } = product ? product : {};
+    const { id, name, brandId, categoryId, description, price, image, quantity } = product ? product : {};
 
     const [avatar, setAvatar] = useState(image ? image : '');
     const [productDesc, setProductDesc] = useState(description ? description : '');
 
     const initValues = { id, name, brandId, categoryId, description, price, image };
 
-    const [isUpdating, setIsUpdating] = useState(false);
 
     // event: Sửa chữa sản phẩm
     const onEdit = async (value) => {
-        // try {
-        //     setIsUpdating(true);
-        //     const response = await adminApi.updateProduct(value);
-        //     if (response && response.status === 200) {
-        //         message.success('Cập nhật thành công');
-        //         onClose(value);
-        //     }
-        // } catch (error) {
-        //     message.error('Cập nhật thất bại');
-        // }
-        // setIsUpdating(false);
+        const { name, price, description, brandId, categoryId, image, ...rest } = value;
+        // các thuộc tính chung của sản phẩm
+        const product = {
+            id: id,
+            name,
+            price,
+            brandId,
+            categoryId,
+            description,
+            quantity: quantity,
+            image: avatar,
+        };
+        dispatch(actionsProduct.updateProduct(product));
     };
 
     return (
@@ -59,7 +62,7 @@ function EditProductModal(props) {
             onCancel={onClose}
             okButtonProps={{ form: 'editForm', htmlType: 'submit' }}
             title="Chỉnh sửa thông tin sản phẩm"
-            confirmLoading={isUpdating}
+            confirmLoading={productUpdate.loading}
             width={1000}
             centered
         >
@@ -67,9 +70,9 @@ function EditProductModal(props) {
                 <GlobalLoading content="Đang tải chi tiết sản phẩm ..." />
             ) : (
                 <Form initialValues={initValues} name="editForm" onFinish={(value) => onEdit(value)}>
-                    <Row gutter={[16, 16]}>
+                    <Row gutter={[24, 24]}>
                         {/* avatar */}
-                        <Col span={24} md={8} xl={6} xxl={12}>
+                        <Col span={24} md={8} xl={12} xxl={12}>
                             <Form.Item
                                 name="image"
                                 initialValue={image}
@@ -79,9 +82,9 @@ function EditProductModal(props) {
                             </Form.Item>
                         </Col>
                         {/* tên sản phẩm */}
-                        <Col span={24} md={8} xl={6} xxl={12}>
+                        <Col span={24} md={8} xl={12} xxl={12}>
                             <Row gutter={[24, 24]}>
-                                <Col span={24} md={8} xl={6} xxl={24}>
+                                <Col span={24} md={8} xl={24} xxl={24}>
                                     <Form.Item
                                         name="name"
                                         rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}
@@ -99,7 +102,7 @@ function EditProductModal(props) {
                                     </Form.Item>
                                 </Col>
                                 {/* giá sản phẩm */}
-                                <Col span={24} md={8} xl={6} xxl={24}>
+                                <Col span={24} md={8} xl={24} xxl={24}>
                                     <Form.Item name="price">
                                         <InputNumber
                                             defaultValue={price}
@@ -114,7 +117,7 @@ function EditProductModal(props) {
                                 </Col>
 
                                 {/* chọn loại sản phẩm */}
-                                <Col span={24} md={8} xl={6} xxl={24}>
+                                <Col span={24} md={8} xl={24} xxl={24}>
                                     <Form.Item name="categoryId">
                                         <Select
                                             size="large"
@@ -132,7 +135,7 @@ function EditProductModal(props) {
                                 </Col>
 
                                 {/* thương hiệu */}
-                                <Col span={24} md={8} xl={6} xxl={24}>
+                                <Col span={24} md={8} xl={24} xxl={24}>
                                     <Form.Item name="brandId">
                                         <Select
                                             size="large"

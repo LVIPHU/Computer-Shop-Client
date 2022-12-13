@@ -11,7 +11,7 @@ function CartItem(props) {
         <div className="d-flex bg-white p-12 bor-rad-4 justify-content-between">
             {/* sản phẩm */}
             <div className="d-flex flex-grow-1">
-                <Avatar src={`data:image/jpeg;base64,${image}`} alt="Photo" shape="square" size={64} />
+                <Avatar src={image} alt="Photo" shape="square" size={64} />
                 <div className="d-flex flex-direction-column p-10 ">
                     <Link to={`/product/${id}`} className="font-size-16px">
                         <Tooltip title={name}>{helpers.reduceProductName(name, 20)}</Tooltip>

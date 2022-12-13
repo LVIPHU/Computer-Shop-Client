@@ -45,7 +45,6 @@ function ProductDetail(props) {
                 <Col span={24}>
                     <Description specification={{ categoryName }} desc={product.description} />
                 </Col>
-                {console.log(product.description)}
 
                 {/* Nhận xét của khách hàng */}
                 <Col span={24} id="evaluation">

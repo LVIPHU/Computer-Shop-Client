@@ -1,5 +1,5 @@
-import { DeleteOutlined, EditOutlined, EyeOutlined, WarningOutlined } from '@ant-design/icons';
-import { Table, Tooltip } from 'antd';
+import { DeleteOutlined, EditOutlined, EyeOutlined, ImportOutlined, WarningOutlined } from '@ant-design/icons';
+import { Table, Tooltip, Popconfirm } from 'antd';
 import Modal from 'antd/lib/modal/Modal';
 import helpers from '@/utils/helpers';
 import React, { useState } from 'react';
@@ -7,6 +7,7 @@ import EditProductModal from './ProductEditModal';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
 import actionsProduct from '@/redux/actions/product';
+import ImportCreateModal from '../../Import/ImportCreate';
 
 function generateFilter(list) {
     let result = [];
@@ -17,8 +18,7 @@ function generateFilter(list) {
 function SeeProduct() {
     const dispatch = Redux.useDispatch();
     const [editModal, setEditModal] = React.useState(false);
-    const [modalDel, setModalDel] = useState({ visible: false, _id: '' });
-
+    const [importModal, setImportModal] = React.useState(false);
     // event: Lấy toàn bộ danh sách sản phẩm
     const productAll = Redux.useSelector((state) => state.productAll);
     const { loading, products } = productAll;
@@ -47,8 +47,13 @@ function SeeProduct() {
     };
 
     // event: cập nhật sản phẩm
-    const onCloseEditModal = (newProduct) => {
+    const onCloseEditModal = () => {
         setEditModal(false);
+        dispatch(actionsProduct.getAllProducts());
+    };
+
+    const onCloseImportModal = () => {
+        setImportModal(false);
         dispatch(actionsProduct.getAllProducts());
     };
 
@@ -143,11 +148,28 @@ function SeeProduct() {
                         </a>
                     </Tooltip>
 
-                    <Tooltip title="Xóa" placement="left">
-                        <DeleteOutlined
-                            onClick={() => setModalDel({ visible: true, id: product.id })}
-                            className="action-btn-product text-red-500 text-base"
+                    <Tooltip title="Nhập hàng" placement="left">
+                        <ImportOutlined
+                            onClick={() => {
+                                setImportModal(true);
+                                dispatch(actionsProduct.getDetailProduct(product.id));
+                            }}
+                            className="action-btn-product text-yellow-500 text-base"
                         />
+                    </Tooltip>
+
+                    <Tooltip title="Xóa" placement="left">
+                        <Popconfirm
+                            title="Không thể khôi phục được, bạn có chắc muốn xoá ?"
+                            placement="topRight"
+                            onConfirm={() => {
+                                dispatch(actionsProduct.deleteProduct(product.id));
+                            }}
+                            okText="xác nhận"
+                            cancelText="hủy"
+                        >
+                            <DeleteOutlined className="action-btn-product text-red-500 text-base" />
+                        </Popconfirm>
                     </Tooltip>
                 </div>
             ),
@@ -161,23 +183,6 @@ function SeeProduct() {
                 <GlobalLoading content="Đang tải danh sách sản phẩm ..." />
             ) : (
                 <div className="p-32 max-w-100">
-                    {' '}
-                    {/* modal confirm delete product */}
-                    <Modal
-                        title="Xác nhận xoá sản phẩm"
-                        visible={modalDel.visible}
-                        onOk={() => {
-                            onDelete(modalDel._id);
-                            setModalDel({ visible: false, _id: false });
-                        }}
-                        onCancel={() => setModalDel({ visible: false, _id: false })}
-                        okButtonProps={{ danger: true }}
-                        okText="Xoá"
-                        cancelText="Huỷ bỏ"
-                    >
-                        <WarningOutlined style={{ fontSize: 28, color: '#F7B217' }} />
-                        <b> Không thể khôi phục được, bạn có chắc muốn xoá ?</b>
-                    </Modal>
                     {/* table show product list */}
                     <Table
                         pagination={{
@@ -191,6 +196,8 @@ function SeeProduct() {
                     />
                     {/* edit product modal */}
                     <EditProductModal onClose={onCloseEditModal} visible={editModal} />
+
+                    <ImportCreateModal onClose={onCloseImportModal} visible={importModal} />
                 </div>
             )}
         </>
