@@ -22,7 +22,6 @@ function OrderList() {
     const orderLists = Redux.useSelector((state) => state.orderLists);
     const { loading, orders } = orderLists;
     const text = <span>Chi tiết đơn hàng</span>;
-    console.log(orders);
     const content = (orderDetail) => {
         return (
             <div>

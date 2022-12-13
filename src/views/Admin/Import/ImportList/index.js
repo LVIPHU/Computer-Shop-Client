@@ -1,9 +1,10 @@
 import React from 'react';
 import { CheckCircleOutlined, DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import { Button, Table, Tooltip, Typography, Popconfirm, Tag } from 'antd';
+import { Button, Table, Tooltip, Typography, Popconfirm, Tag, Card, Avatar } from 'antd';
 import actionsBrand from '@/redux/actions/brand';
 import * as Redux from 'react-redux';
 import GlobalLoading from '@/components/Loading/Global';
+import helpers from '@/utils/helpers';
 
 const { Title } = Typography;
 
@@ -14,12 +15,34 @@ export default function ImportList() {
     const importAll = Redux.useSelector((state) => state.importAll);
     const { loading, imports } = importAll;
 
-    // event: cập nhật sản phẩm
-    const onCloseEditModal = () => {};
-
-    const onOpenEditModal = (id) => {};
-
-    const onCloseCreateModal = () => {};
+    const text = <span>Chi tiết đơn hàng</span>;
+    const content = (importDetail) => {
+        return (
+            <div>
+                {importDetail &&
+                    importDetail.map((item) => (
+                        <Card key={item.id}>
+                            <Card.Meta
+                                avatar={
+                                    <Tooltip title={item.id}>
+                                        <Avatar size={48} shape="square" src={item.image} alt="Photo" />
+                                    </Tooltip>
+                                }
+                                title={<Tooltip title={item.name}>{helpers.reduceProductName(item.name, 40)}</Tooltip>}
+                                description={
+                                    <>
+                                        <span>{`Số lượng: ${item.quantity}`}</span>
+                                        <p className="font-size-16px font-weight-700">
+                                            {helpers.formatProductPrice(item.price)}
+                                        </p>
+                                    </>
+                                }
+                            />
+                        </Card>
+                    ))}
+            </div>
+        );
+    };
 
     // Cột của bảng
     const columns = [
