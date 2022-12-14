@@ -38,7 +38,7 @@ import {
 import { importAllReducer, importCreateReducer, importDetailReducer } from './import';
 import { UserDeleteReducer, UserDetailReducer, UserListReducer, UserUpdateReducer, UserCreateReducer } from './user';
 import { ratingAllReducer, ratingCreateReducer } from './rating';
-
+import { revenueReducer, topProductReducer } from './chart';
 export default combineReducers({
     authLogin: AuthLoginReducer,
     authRegister: AuthRegisterReducer,
@@ -88,4 +88,7 @@ export default combineReducers({
 
     ratingAll: ratingAllReducer,
     ratingCreate: ratingCreateReducer,
+
+    revenue: revenueReducer,
+    topProduct: topProductReducer,
 });

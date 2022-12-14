@@ -27,6 +27,7 @@ import actionsCategory from '@/redux/actions/category';
 import actionsOrder from '@/redux/actions/order';
 import actionsBrand from '@/redux/actions/brand';
 import actionsImport from '@/redux/actions/import';
+import actionsChart from '@/redux/actions/chart';
 const { Sider } = Layout;
 
 const mainColor = '#F78B2D';
@@ -136,6 +137,8 @@ function AdminPage() {
     const renderMenuComponent = (key) => {
         switch (key) {
             case 'd':
+                dispatch(actionsChart.getTopProduct());
+                dispatch(actionsChart.getRevenue('2022-12-07', '2022-12-14'));
                 return <pages.Dashboard />;
             case 'c':
                 dispatch(actionsCategory.getAllCategory());

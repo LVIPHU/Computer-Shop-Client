@@ -19,9 +19,7 @@ function UserEditModal(props) {
 
     const dateFormat = 'YYYY-MM-DD';
 
-    const { id, firstName, lastName, address, email, phoneNumber, birthday, gender, roles } = user.data
-        ? user.data
-        : {};
+    const { id, firstName, lastName, address, email, phoneNumber, birthday } = user.data ? user.data : {};
 
     const initValues = {
         id,
@@ -31,30 +29,25 @@ function UserEditModal(props) {
         email,
         phoneNumber,
         birthday: moment(birthday, dateFormat),
-        gender,
-        roles,
     };
-
-    // const role =
-    //     user.data.roles[0] && user.data.roles[0] === 'ROLE_ADMIN'
-    //         ? 'admin'
-    //         : user.data.roles[0] && user.data.roles[0] === 'ROLE_USER'
-    //         ? 'user'
-    //         : '';
-
-    const [value, setValue] = useState('admin');
-
-    // const [value, setValue] = useState('admin');
 
     // event: Sửa chữa người dùng
     const onEdit = async (value) => {
-        // value.roles = [value.roles];
+        console.log('====================================');
         console.log(value);
-        // dispatch(actionsUser.updateUser(value));
-    };
-
-    const onChange = (e) => {
-        setValue(e.target.value);
+        console.log('====================================');
+        const { id, firstName, lastName, address, email, phoneNumber, birthday, roles } = value;
+        const data = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            address: address,
+            email: email,
+            phoneNumber: phoneNumber,
+            birthday: birthday,
+            roles: [roles],
+        };
+        dispatch(actionsUser.updateUser(data));
     };
 
     return (
@@ -80,15 +73,15 @@ function UserEditModal(props) {
                         {/* Id */}
                         <Col span={12}>
                             <Form.Item name="id">
-                                <Input disabled size="large" placeholder="ID" />
+                                <Input defaultValue={id} disabled size="large" placeholder="ID" />
                             </Form.Item>
                         </Col>
 
                         <Col span={12}>
-                            <Form.Item name="role" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                                <Radio.Group value={value} onChange={onChange}>
-                                    <Radio value={'admin'}>Quản lý</Radio>
-                                    <Radio value={'user'}>Khách</Radio>
+                            <Form.Item name="roles">
+                                <Radio.Group>
+                                    <Radio value={'ROLE_ADMIN'}>Quản lý</Radio>
+                                    <Radio value={'ROLE_USER'}>Khách</Radio>
                                 </Radio.Group>
                             </Form.Item>
                         </Col>
@@ -116,7 +109,12 @@ function UserEditModal(props) {
                         {/* Ngày sinh người dùng */}
                         <Col span={12}>
                             <Form.Item name="birthday">
-                                <DatePicker format={dateFormat} size="large" style={{ width: '100%' }} />
+                                <DatePicker
+                                    defaultValue={birthday}
+                                    format={dateFormat}
+                                    size="large"
+                                    style={{ width: '100%' }}
+                                />
                             </Form.Item>
                         </Col>
 

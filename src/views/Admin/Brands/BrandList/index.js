@@ -90,14 +90,14 @@ export default function BrandList() {
             ) : (
                 <div className="p-32 max-w-100">
                     <div className="mb-8 flex justify-between items-center">
-                        <Title level={3}>THỂ LOẠI</Title>
+                        <Title level={3}>NHÃN HIỆU</Title>
                         <Button
                             icon={<PlusCircleOutlined />}
                             onClick={() => {
                                 setCreateModal(true);
                             }}
                         >
-                            Thêm thể loại
+                            Thêm nhãn hiệu
                         </Button>
                     </div>
                     {/* table show brand list */}

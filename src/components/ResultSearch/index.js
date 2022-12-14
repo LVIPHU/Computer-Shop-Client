@@ -22,8 +22,8 @@ function ResultSearch(props) {
         { key: 1, title: 'Giá giảm dần' },
         { key: 2, title: 'Giá tăng dần' },
         { key: 3, title: 'Bán chạy nhất' },
-        { key: 4, title: 'Đánh giá tốt nhất' },
-        { key: 5, title: 'Khuyến mãi tốt nhất' },
+        // { key: 4, title: 'Đánh giá tốt nhất' },
+        // { key: 5, title: 'Khuyến mãi tốt nhất' },
     ];
 
     // event: sắp xếp danh sách theo các tiêu chí, type = 0 -> break
@@ -52,16 +52,16 @@ function ResultSearch(props) {
                     break;
                 // bán chạy nhất
                 case 3:
-                    newList = list.sort((a, b) => sumRate(b.rate) - sumRate(a.rate));
+                    newList = list.sort((a, b) => sumRate(b.avgRating) - sumRate(a.avgRating));
                     break;
                 // đánh giá tốt nhất
-                case 4:
-                    newList = list.sort((a, b) => helpers.calStar(b.rate) - helpers.calStar(a.rate));
-                    break;
+                // case 4:
+                //     newList = list.sort((a, b) => helpers.calStar(b.rate) - helpers.calStar(a.rate));
+                //     break;
                 // Khuyến mãi tốt nhất
-                case 5:
-                    newList = list.sort((a, b) => b.discount - a.discount);
-                    break;
+                // case 5:
+                //     newList = list.sort((a, b) => b.discount - a.discount);
+                //     break;
                 default:
                     setIsLoading(false);
                     break;
@@ -91,15 +91,15 @@ function ResultSearch(props) {
     const showProducts = (list) => {
         list = list ? list : [];
         return list.map((product, index) => {
-            const { avt, name, price, discount, stock, _id } = product;
+            const { image, name, price, discount, quantity, id } = product;
             return (
                 <Col key={index} span={24} sm={12} lg={8} xl={6} xxl={4}>
-                    <Link to={`/product/${_id}`}>
+                    <Link to={`/product/${id}`}>
                         <ProductView
                             name={name}
                             price={price}
-                            stock={stock}
-                            avtUrl={avt}
+                            stock={quantity}
+                            avtUrl={image}
                             discount={discount}
                             height={400}
                         />

@@ -59,7 +59,7 @@ export const CartReducer = (state = { cartItems: [], shippingInfo: [] }, action)
         case constants.CART_SAVE_SHIPPING_INFO:
             return {
                 ...state,
-                shippingInfo: [...state.shippingInfo, action.payload],
+                shippingInfo: [action.payload],
             };
 
         case constants.CART_SAVE_PAYMENT_METHOD:
@@ -71,7 +71,6 @@ export const CartReducer = (state = { cartItems: [], shippingInfo: [] }, action)
         case constants.CART_RESET:
             return {
                 cartItems: [],
-                shippingInfo: {},
             };
 
         default:

@@ -68,7 +68,6 @@ function CartPayment(props) {
                     className="m-t-16 d-block m-lr-auto w-100"
                     type="primary"
                     size="large"
-                    loading={isLoading}
                     style={{ backgroundColor: '#3555c5', color: '#fff' }}
                 >
                     ĐẶT HÀNG NGAY

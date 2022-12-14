@@ -29,6 +29,13 @@ function AddressAddForm(props) {
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
 
+    const { lastName, firstName, phoneNumber, emailUser } = userInfo ? userInfo : {};
+    const initialValues1 = { name: `${firstName} ${lastName}`, phone: phoneNumber, email: emailUser };
+
+    const cart = useSelector((state) => state.cart);
+    const { shippingInfo } = cart;
+    const { name, phone, email } = shippingInfo[0] ? shippingInfo[0] : {};
+    const initialValues2 = { name, phone, email };
     // fn: lấy danh sách tỉnh thành
     useEffect(() => {
         // dùng để cleanup effect
@@ -140,7 +147,14 @@ function AddressAddForm(props) {
                 </Button>,
             ]}
         >
-            <Form onFinish={onAddAddress} ref={formRef} name="form">
+            <Form
+                initialValues={() => {
+                    return shippingInfo.length > 0 ? initialValues2 : initialValues1;
+                }}
+                onFinish={onAddAddress}
+                ref={formRef}
+                name="form"
+            >
                 <Row gutter={[32, 0]}>
                     <Col span={12}>
                         <h3>Thông tin người nhận hàng</h3>

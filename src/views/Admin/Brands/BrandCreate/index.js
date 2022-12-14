@@ -26,17 +26,17 @@ export default function BrandCreateModal(props) {
             cancelText="Huỷ bỏ"
             onCancel={onClose}
             okButtonProps={{ form: 'createForm', htmlType: 'submit' }}
-            title="Chỉnh sửa thông tin thể loại"
+            title="Chỉnh sửa thông tin nhãn hiệu"
             confirmLoading={loading}
             width={1000}
             centered
         >
             <Form name="createForm" onFinish={(value) => onCreate(value)}>
                 <Row gutter={[16, 16]}>
-                    {/* Tên thể loại */}
+                    {/* Tên nhãn hiệu */}
                     <Col span={12}>
                         <Form.Item name="name" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                            <Input size="large" name="name" placeholder="Tên thể loại *" />
+                            <Input size="large" name="name" placeholder="Tên nhãn hiệu *" />
                         </Form.Item>
                     </Col>
                 </Row>

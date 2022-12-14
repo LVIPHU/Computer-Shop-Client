@@ -48,7 +48,7 @@ function ProductDetail(props) {
 
                 {/* Nhận xét của khách hàng */}
                 <Col span={24} id="evaluation">
-                    <Evaluation rates={rates} productId={product.id} />
+                    <Evaluation rates={rates} avgRate={product.avgRating} productId={product.id} />
                 </Col>
 
                 {/* danh sách sản phẩm tương tự */}

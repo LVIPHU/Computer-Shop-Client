@@ -25,13 +25,13 @@ const actions = {
         }
     },
 
-    createRating: (productId) => async (dispatch, getState) => {
+    createRating: (productId, rating) => async (dispatch, getState) => {
         try {
             dispatch({
                 type: constantsRating.RATING_CREATE_REQUEST,
             });
 
-            const { data } = await fetch.createRating(productId);
+            const { data } = await fetch.createRating(productId, rating);
 
             dispatch({
                 type: constantsRating.RATING_CREATE_SUCCESS,

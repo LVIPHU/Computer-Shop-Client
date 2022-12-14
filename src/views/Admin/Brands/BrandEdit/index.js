@@ -49,10 +49,10 @@ export default function BrandEditModal(props) {
                             </Form.Item>
                         </Col>
 
-                        {/* Tên thể loại */}
+                        {/* Tên nhãn hiệu */}
                         <Col span={12}>
                             <Form.Item name="name" rules={[{ required: true, message: 'Bắt buộc', whitespace: true }]}>
-                                <Input size="large" placeholder="Tên thể loại *" />
+                                <Input size="large" placeholder="Tên nhãn hiệu *" />
                             </Form.Item>
                         </Col>
                     </Row>

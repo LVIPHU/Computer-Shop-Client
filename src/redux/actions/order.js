@@ -26,6 +26,7 @@ const actions = {
             dispatch({ type: constantsCart.CART_RESET });
             localStorage.removeItem('cartItems');
             helpers.openNotificationSucces('Đặt hàng thành công', 'Vui lòng check mail để xem đơn hàng');
+            window.location.href = constants.ROUTES.CART;
         } catch (error) {
             dispatch({
                 type: constantsOrder.ORDER_CREATE_FAIL,

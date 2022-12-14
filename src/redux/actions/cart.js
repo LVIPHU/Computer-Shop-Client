@@ -58,7 +58,6 @@ const actions = {
             type: constants.CART_SAVE_SHIPPING_INFO,
             payload: data,
         });
-        console.log(data);
         localStorage.setItem('shippingInfo', JSON.stringify(getState().cart.shippingInfo));
         helpers.openNotificationSucces('Thêm thông tin cá nhân thành công');
     },

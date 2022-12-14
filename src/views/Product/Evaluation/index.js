@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 function Evaluation(props) {
-    const { productId, rates } = props;
+    const { productId, rates, avgRate } = props;
     // rendering...
-    return <EvaluationView productId={productId} rates={rates}/>;
+    return <EvaluationView productId={productId} avgRate={avgRate} rates={rates} />;
 }
 
 Evaluation.defaultProps = {};

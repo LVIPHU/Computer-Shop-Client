@@ -37,6 +37,7 @@ const ROUTES = {
     PROFILE: '/profile',
     PROFILE_ORDER: 'profile/orders',
     FORGOT_PASSWORD: '/login/forgot-pw',
+    SEARCH: '/search',
 
     HOME: '/',
     CART: '/cart',

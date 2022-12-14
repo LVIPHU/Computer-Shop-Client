@@ -139,7 +139,7 @@ function AddressUserList(props) {
             ) : ( */}
             <div className="User-Address-List">
                 {/* thêm địa chỉ, chỉ cho tối đa 5 địa chỉ */}
-                {shippingInfo.length < 5 && (
+                {/* {shippingInfo.length < 5 && (
                     <Button
                         type="dashed"
                         size="large"
@@ -150,10 +150,12 @@ function AddressUserList(props) {
                         <PlusOutlined />
                         Thêm địa chỉ
                     </Button>
-                )}
+                )} */}
                 {/* hiện danh sách địa chỉ */}
                 {shippingInfo.length > 0 ? (
-                    <div className="m-t-16">{showAddressList(shippingInfo)}</div>
+                    <div className="m-t-16" onClick={() => setIsVisibleForm(true)}>
+                        {showAddressList(shippingInfo)}
+                    </div>
                 ) : (
                     <div>
                         <h3 className="m-tb-16 t-center" style={{ color: '#888' }}>

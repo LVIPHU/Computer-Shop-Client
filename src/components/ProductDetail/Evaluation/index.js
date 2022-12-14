@@ -4,18 +4,22 @@ import constants from '@/utils/constants';
 import helpers from '@/utils/helpers';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './index.scss';
 import UserComment from './UserComment';
+import actionsRating from '@/redux/actions/rating';
 const { TextArea } = Input;
 
 function EvaluationView(props) {
-    const { rates, productId } = props;
+    const dispatch = useDispatch();
+
+    const { rates, productId, avgRate } = props;
     const [cmtListState, setCmtListState] = useState(rates);
     const authLogin = useSelector((state) => state.authLogin);
     const { userInfo } = authLogin;
-    // const user = useSelector((state) => state.user);
+    const star = useRef(0);
+    const ratingCreate = useSelector((state) => state.ratingCreate);
 
     const [cmt, setCmt] = useState('');
     // const star = useRef(0);
@@ -30,34 +34,25 @@ function EvaluationView(props) {
 
     useEffect(() => {
         setCmtListState(rates);
-        return () => {};
-    }, [rates]);
+        if (ratingCreate.success) {
+            setCmt('');
+            star.current = 0;
+        }
+    }, [rates, ratingCreate.success]);
 
     // event: comment
     const onComment = async () => {
-        // try {
-        //   const { avt, fullName } = user;
-        //   const content = cmt.trim();
-        //   if (content === '' && star.current === 0) {
-        //     message.warning('Hãy nhập nhận xét của bạn');
-        //     return;
-        //   }
-        //   let data = {
-        //     author: { name: fullName, avt },
-        //     productId,
-        //     time: new Date().getTime(),
-        //     content,
-        //     rate: star.current - 1,
-        //   };
-        //   const response = await commentApi.postComment(data);
-        //   if (response) {
-        //     setCmtListState([...cmtListState, data]);
-        //     setCmt('');
-        //     star.current = 0;
-        //   }
-        // } catch (error) {
-        //   message.error('Nhận xét thất bại. Thử lại', 3);
-        // }
+        const content = cmt.trim();
+        if (content === '' && star.current === 0) {
+            message.warning('Hãy nhập nhận xét của bạn');
+            return;
+        }
+        let rating = {
+            user_id: userInfo.id,
+            comment: content,
+            scores: star.current - 1,
+        };
+        dispatch(actionsRating.createRating(productId, rating));
     };
 
     // rendering ...
@@ -70,22 +65,20 @@ function EvaluationView(props) {
             </Col>
 
             {/* đánh giá tổng quan */}
-            {/* <Col span={24} className="p-16">
+            <Col span={24} className="p-16">
                 <span className="font-size-28px">Đánh giá</span>
-                <div className="overview d-flex p-tb-16"> */}
-            {/* tổng kết */}
-            {/* <div className="d-flex flex-direction-column align-i-center overview--total">
-                        <h2 className="font-size-32px">{starAvg}</h2>
-                        <Rate disabled defaultValue={starAvg} allowHalf style={{ fontSize: 12 }} />
-                        <p className="t-color-gray font-weight-500">{rateTotals} nhận xét</p>
-                    </div> */}
-            {/* chi tiết */}
-            {/* <div className="overview--detail d-flex flex-grow-1 flex-direction-column p-lr-16">
+                <div className="overview d-flex p-tb-16">
+                    <div className="d-flex flex-direction-column align-i-center overview--total">
+                        <h2 className="font-size-32px">{avgRate}</h2>
+                        <Rate disabled defaultValue={avgRate} allowHalf style={{ fontSize: 12 }} />
+                        {/* <p className="t-color-gray font-weight-500">{rateTotals} nhận xét</p> */}
+                    </div>
+                    {/* <div className="overview--detail d-flex flex-grow-1 flex-direction-column p-lr-16">
                         {rates.map((item, index) => (
                             <div key={index} className="d-flex justify-content-between">
                                 <Rate disabled defaultValue={index + 1} style={{ fontSize: 14, flexBasis: 100 }} />
                                 <Progress
-                                    percent={(item / rateTotals) * 100}
+                                    percent={(item / cmtListState.length - 1) * 100}
                                     type="line"
                                     showInfo={false}
                                     style={{ width: 172 }}
@@ -93,9 +86,9 @@ function EvaluationView(props) {
                                 <span className="p-l-8 t-color-gray">{item}</span>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
-            </Col> */}
+            </Col>
 
             {/* Xem bình luận, nhận xét */}
             <Col span={24}>
@@ -129,7 +122,7 @@ function EvaluationView(props) {
                             className="flex-grow-1 m-r-16"
                             onChange={(e) => setCmt(e.target.value)}
                         />
-                        {/* <Rate allowClear className="m-r-16" onChange={(e) => (star.current = e)} /> */}
+                        <Rate allowClear className="m-r-16" onChange={(e) => (star.current = e)} />
                         <Button type="primary" size="large" style={{ flexBasis: 122 }} onClick={onComment}>
                             Gửi nhận xét
                         </Button>

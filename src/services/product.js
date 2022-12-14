@@ -29,6 +29,10 @@ const fetch = {
         let response = await api.delete(`product/${id}`);
         return response;
     },
+    searchProduct: async (keyWord) => {
+        let response = await api.get(`product/search?keyword=${keyWord}`);
+        return response;
+    },
 };
 
 export default fetch;
