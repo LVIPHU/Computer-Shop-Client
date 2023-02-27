@@ -89,11 +89,6 @@ function OrderList() {
 
     // các cột cho bảng danh sách đơn hàng
     const columns = [
-        {
-            title: 'khách hàng',
-            key: 'id_user',
-            dataIndex: 'id_user',
-        },
         Table.EXPAND_COLUMN,
         {
             title: 'Mã đơn hàng',
